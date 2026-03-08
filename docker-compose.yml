@@ -11,6 +11,9 @@ services:
     env_file:
       - .env.docker
       - .env.docker.private
+    environment:
+      DB_PATH: /app/data/claw-empire.sqlite
+      LOGS_DIR: /app/data/logs
     ports:
       - "8790:8790"
     volumes:
