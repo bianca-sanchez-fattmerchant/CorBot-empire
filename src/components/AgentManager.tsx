@@ -8,6 +8,7 @@ import AgentFormModal from "./agent-manager/AgentFormModal";
 import AgentsTab from "./agent-manager/AgentsTab";
 import { BLANK, ICON_SPRITE_POOL } from "./agent-manager/constants";
 import DepartmentFormModal from "./agent-manager/DepartmentFormModal";
+import DepartmentInstructionsModal from "./agent-manager/DepartmentInstructionsModal";
 import DepartmentsTab from "./agent-manager/DepartmentsTab";
 import { StackedSpriteIcon } from "./agent-manager/EmojiPicker";
 import type { AgentManagerProps, FormData } from "./agent-manager/types";
@@ -39,6 +40,7 @@ export default function AgentManager({
 
   const [showDeptModal, setShowDeptModal] = useState(false);
   const [editDept, setEditDept] = useState<Department | null>(null);
+  const [instructionDept, setInstructionDept] = useState<Department | null>(null);
   const [deptOrder, setDeptOrder] = useState<Department[]>([]);
   const [deptOrderDirty, setDeptOrderDirty] = useState(false);
   const [reorderSaving, setReorderSaving] = useState(false);
@@ -280,6 +282,10 @@ export default function AgentManager({
   const openEditDept = useCallback((department: Department) => {
     setEditDept(department);
     setShowDeptModal(true);
+  }, []);
+
+  const openDeptInstructions = useCallback((department: Department) => {
+    setInstructionDept(department);
   }, []);
 
   const closeDeptModal = useCallback(() => {
@@ -561,10 +567,12 @@ export default function AgentManager({
           draggingDeptId={draggingDeptId}
           dragOverDeptId={dragOverDeptId}
           dragOverPosition={dragOverPosition}
+          allowInstructionEdit={!isIsolatedPack || useDbBackedPack}
           onSaveOrder={saveDeptOrder}
           onCancelOrder={resetDeptOrder}
           onMoveDept={moveDept}
           onEditDept={openEditDept}
+          onEditInstructions={openDeptInstructions}
           onDragStart={handleDeptDragStart}
           onDragOver={handleDeptDragOver}
           onDrop={handleDeptDrop}
@@ -600,6 +608,15 @@ export default function AgentManager({
           onSaveDepartment={isIsolatedPack && !useDbBackedPack ? handleIsolatedDepartmentSave : undefined}
           onDeleteDepartment={isIsolatedPack && !useDbBackedPack ? handleIsolatedDepartmentDelete : undefined}
           onClose={closeDeptModal}
+        />
+      )}
+
+      {instructionDept && (!isIsolatedPack || useDbBackedPack) && (
+        <DepartmentInstructionsModal
+          department={instructionDept}
+          workflowPackKey={isIsolatedPack ? officePackKey : undefined}
+          tr={tr}
+          onClose={() => setInstructionDept(null)}
         />
       )}
     </div>

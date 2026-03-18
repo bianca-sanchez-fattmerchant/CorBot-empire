@@ -185,6 +185,23 @@ export function registerAgentSpawnRoute(ctx: RuntimeContext): void {
       : "";
     const departmentPrompt = normalizeTextField(agent.department_prompt);
     const departmentPromptBlock = departmentPrompt ? `[Department Shared Prompt]\n${departmentPrompt}` : "";
+    const departmentInstructionRow = agent.department_id
+      ? (db
+          .prepare(
+            "SELECT content FROM department_instructions WHERE workflow_pack_key = ? AND department_id = ? LIMIT 1",
+          )
+          .get(task.workflow_pack_key ?? "development", agent.department_id) as { content?: unknown } | undefined)
+      : undefined;
+    const departmentInstructionContent =
+      typeof departmentInstructionRow?.content === "string" ? departmentInstructionRow.content.trim() : "";
+    const departmentInstructionBlock = departmentInstructionContent
+      ? `[Department Instructions]\n${departmentInstructionContent}`
+      : "";
+    const agentInstructionRow = db
+      .prepare("SELECT content FROM agent_instructions WHERE agent_id = ? LIMIT 1")
+      .get(agent.id) as { content?: unknown } | undefined;
+    const agentInstructionContent = typeof agentInstructionRow?.content === "string" ? agentInstructionRow.content.trim() : "";
+    const agentInstructionBlock = agentInstructionContent ? `[Agent Instructions]\n${agentInstructionContent}` : "";
     const videoArtifactSpec =
       task.workflow_pack_key === "video_preprod"
         ? resolveVideoArtifactSpecForTask(db as any, {
@@ -211,6 +228,8 @@ export function registerAgentSpawnRoute(ctx: RuntimeContext): void {
         agent.personality ? `Personality: ${agent.personality}` : "",
         deptConstraint,
         departmentPromptBlock,
+        departmentInstructionBlock,
+        agentInstructionBlock,
         pickL(
           l(
             ["위 작업을 충분히 완수하세요."],

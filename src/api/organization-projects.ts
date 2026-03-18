@@ -2,7 +2,9 @@ import { bootstrapSession, del, patch, post, request } from "./core";
 
 import type {
   Agent,
+  AgentInstructionDocument,
   Department,
+  DepartmentInstructionDocument,
   MeetingPresence,
   Project,
   SubTask,
@@ -35,6 +37,41 @@ export async function getDepartment(
   if (options?.includeSeed) params.set("include_seed", "1");
   const query = params.toString();
   return request(`/api/departments/${id}${query ? `?${query}` : ""}`);
+}
+
+export async function getDepartmentInstructions(
+  id: string,
+  options?: { workflowPackKey?: WorkflowPackKey },
+): Promise<DepartmentInstructionDocument> {
+  const params = new URLSearchParams();
+  if (options?.workflowPackKey) params.set("workflow_pack_key", options.workflowPackKey);
+  const query = params.toString();
+  return request(`/api/departments/${id}/instructions${query ? `?${query}` : ""}`);
+}
+
+export async function updateDepartmentInstructions(
+  id: string,
+  content: string,
+  options?: { workflowPackKey?: WorkflowPackKey },
+): Promise<DepartmentInstructionDocument> {
+  const params = new URLSearchParams();
+  if (options?.workflowPackKey) params.set("workflow_pack_key", options.workflowPackKey);
+  const query = params.toString();
+  return request(`/api/departments/${id}/instructions${query ? `?${query}` : ""}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content, ...(options?.workflowPackKey ? { workflow_pack_key: options.workflowPackKey } : {}) }),
+  });
+}
+
+export async function deleteDepartmentInstructions(
+  id: string,
+  options?: { workflowPackKey?: WorkflowPackKey },
+): Promise<void> {
+  const params = new URLSearchParams();
+  if (options?.workflowPackKey) params.set("workflow_pack_key", options.workflowPackKey);
+  const query = params.toString();
+  await del(`/api/departments/${id}/instructions${query ? `?${query}` : ""}`);
 }
 
 export async function createDepartment(data: {
@@ -109,6 +146,22 @@ export async function getAgent(id: string): Promise<Agent> {
 export async function getMeetingPresence(): Promise<MeetingPresence[]> {
   const j = await request<{ presence: MeetingPresence[] }>("/api/meeting-presence");
   return j.presence;
+}
+
+export async function getAgentInstructions(id: string): Promise<AgentInstructionDocument> {
+  return request(`/api/agents/${id}/instructions`);
+}
+
+export async function updateAgentInstructions(id: string, content: string): Promise<AgentInstructionDocument> {
+  return request(`/api/agents/${id}/instructions`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content }),
+  });
+}
+
+export async function deleteAgentInstructions(id: string): Promise<void> {
+  await del(`/api/agents/${id}/instructions`);
 }
 
 export async function updateAgent(

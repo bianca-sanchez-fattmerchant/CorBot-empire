@@ -13,6 +13,7 @@ import type {
   CliModelInfo,
   CliStatusMap,
   CompanySettings,
+  McpServerConfig,
   Department,
   MessengerChannelType,
   MessengerSessionConfig,
@@ -23,7 +24,7 @@ export type Locale = UiLanguage;
 export type TFunction = (messages: Record<Locale, string>) => string;
 
 export type LocalSettings = Omit<CompanySettings, "language"> & { language: Locale };
-export type SettingsTab = "general" | "cli" | "oauth" | "api" | "gateway";
+export type SettingsTab = "general" | "cli" | "oauth" | "api" | "gateway" | "mcp";
 
 export type SetLocalSettings = Dispatch<SetStateAction<LocalSettings>>;
 
@@ -146,6 +147,14 @@ export interface ChannelSettingsTabProps {
   persistSettings: (next: LocalSettings) => void;
 }
 
+export interface McpSettingsTabProps {
+  t: TFunction;
+  form: LocalSettings;
+  setForm: SetLocalSettings;
+  persistSettings: (next: LocalSettings) => void;
+  onSetupServer: (id: string) => Promise<{ ok: boolean; code: number; stdout: string; stderr: string; durationMs: number }>;
+}
+
 export type ChannelRuntimeSession = {
   sessionKey: string;
   channel: MessengerChannelType;
@@ -155,3 +164,10 @@ export type ChannelRuntimeSession = {
 };
 
 export type ChannelDraftSession = MessengerSessionConfig;
+export type McpServerDraft = Omit<McpServerConfig, "args" | "env" | "cwd" | "setupCommand" | "enabled"> & {
+  args: string;
+  env: string;
+  cwd: string;
+  setupCommand: string;
+  enabled: boolean;
+};

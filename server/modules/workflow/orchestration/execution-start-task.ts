@@ -177,10 +177,32 @@ export function createExecutionStartTaskTools(deps: CreateExecutionStartTaskTool
       intern: "Intern",
     };
     const roleLabel = roleLabels[execAgent.role] ?? execAgent.role;
-    const deptConstraint = deptId ? getDeptRoleConstraint(deptId, deptName) : "";
-    const deptPromptRaw = deptId ? getDepartmentPromptForPack(db as any, taskData.workflow_pack_key, deptId) : null;
+    const resolvedDepartmentId = deptId ?? taskData.department_id ?? null;
+    const deptConstraint = resolvedDepartmentId ? getDeptRoleConstraint(resolvedDepartmentId, deptName) : "";
+    const deptPromptRaw = resolvedDepartmentId
+      ? getDepartmentPromptForPack(db as any, taskData.workflow_pack_key, resolvedDepartmentId)
+      : null;
     const deptPrompt = typeof deptPromptRaw === "string" ? deptPromptRaw.trim() : "";
     const deptPromptBlock = deptPrompt ? `[Department Shared Prompt]\n${deptPrompt}` : "";
+    const departmentInstructionRow = resolvedDepartmentId
+      ? (db
+          .prepare(
+            "SELECT content FROM department_instructions WHERE workflow_pack_key = ? AND department_id = ? LIMIT 1",
+          )
+          .get(taskData.workflow_pack_key ?? "development", resolvedDepartmentId) as
+          | { content?: unknown }
+          | undefined)
+      : undefined;
+    const departmentInstructionContent =
+      typeof departmentInstructionRow?.content === "string" ? departmentInstructionRow.content.trim() : "";
+    const departmentInstructionBlock = departmentInstructionContent
+      ? `[Department Instructions]\n${departmentInstructionContent}`
+      : "";
+    const agentInstructionRow = db
+      .prepare("SELECT content FROM agent_instructions WHERE agent_id = ? LIMIT 1")
+      .get(execAgent.id) as { content?: unknown } | undefined;
+    const agentInstructionContent = typeof agentInstructionRow?.content === "string" ? agentInstructionRow.content.trim() : "";
+    const agentInstructionBlock = agentInstructionContent ? `[Agent Instructions]\n${agentInstructionContent}` : "";
     const conversationCtx = getRecentConversationContext(execAgent.id);
     const continuationCtx = getTaskContinuationContext(taskId);
     const recentChanges = getRecentChanges(projPath, taskId);
@@ -236,6 +258,8 @@ export function createExecutionStartTaskTools(deps: CreateExecutionStartTaskTool
         execAgent.personality ? `Personality: ${execAgent.personality}` : "",
         deptConstraint,
         deptPromptBlock,
+        departmentInstructionBlock,
+        agentInstructionBlock,
         `NOTE: You are working in an isolated Git worktree branch (climpire/${taskId.slice(0, 8)}). Commit your changes normally.`,
         interruptPromptBlock,
         continuationInstruction,

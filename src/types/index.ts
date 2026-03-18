@@ -51,6 +51,19 @@ export interface Agent {
   created_at: number;
 }
 
+export interface AgentInstructionDocument {
+  agent_id: string;
+  content: string;
+  updated_at: number | null;
+}
+
+export interface DepartmentInstructionDocument {
+  workflow_pack_key: WorkflowPackKey;
+  department_id: string;
+  content: string;
+  updated_at: number | null;
+}
+
 export interface MeetingPresence {
   agent_id: string;
   seat_index: number;
@@ -354,6 +367,17 @@ export interface MessengerChannelConfig {
 
 export type MessengerChannelsConfig = Record<MessengerChannelType, MessengerChannelConfig>;
 
+export interface McpServerConfig {
+  id: string;
+  name: string;
+  command: string;
+  args?: string[];
+  env?: Record<string, string>;
+  cwd?: string;
+  setupCommand?: string;
+  enabled?: boolean;
+}
+
 export interface OfficePackProfile {
   departments: Department[];
   agents: Agent[];
@@ -377,6 +401,7 @@ export interface CompanySettings {
   providerModelConfig?: Record<string, ProviderModelConfig>;
   roomThemes?: Record<string, RoomTheme>;
   messengerChannels?: MessengerChannelsConfig;
+  mcpServers?: McpServerConfig[];
   officePackProfiles?: OfficePackProfiles;
   officePackHydratedPacks?: string[];
 }
@@ -415,5 +440,6 @@ export const DEFAULT_SETTINGS: CompanySettings = {
     signal: { token: "", sessions: [], receiveEnabled: false },
     imessage: { token: "", sessions: [], receiveEnabled: false },
   },
+  mcpServers: [],
   officePackProfiles: {},
 };

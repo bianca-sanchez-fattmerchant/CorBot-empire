@@ -14,7 +14,6 @@ import type {
   SubAgent,
   CrossDeptDelivery,
   CeoOfficeCall,
-  OfficePackProfile,
   RoomTheme,
   WorkflowPackKey,
 } from "./types";
@@ -138,10 +137,7 @@ export default function App() {
     return label.en;
   };
 
-  const maybeBuildSeedProfileForPack = (
-    packKey: WorkflowPackKey,
-    sourceSettings: CompanySettings,
-  ): OfficePackProfile | null => {
+  const maybeBuildSeedProfileForPack = (packKey: WorkflowPackKey, sourceSettings: CompanySettings) => {
     if (packKey === "development") return null;
 
     const existingProfile = sourceSettings.officePackProfiles?.[packKey];

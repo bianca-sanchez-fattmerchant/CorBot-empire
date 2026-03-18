@@ -1,12 +1,16 @@
 import { useState } from "react";
-import type { Department, Agent, CompanySettings } from "../types";
+import type { Department, Agent, CompanySettings, WorkflowPackKey } from "../types";
 import { useI18n, localeName } from "../i18n";
+import { listOfficePackOptions, normalizeOfficeWorkflowPack } from "../app/office-workflow-pack";
 
 type View = "office" | "agents" | "dashboard" | "tasks" | "skills" | "settings";
 
 interface SidebarProps {
   currentView: View;
   onChangeView: (v: View) => void;
+  activeOfficeWorkflowPack?: WorkflowPackKey;
+  onChangeOfficeWorkflowPack?: (packKey: WorkflowPackKey) => void;
+  onOpenRoomManager?: () => void;
   departments: Department[];
   agents: Agent[];
   settings: CompanySettings;
@@ -22,11 +26,24 @@ const NAV_ITEMS: { view: View; icon: string; sprite?: string }[] = [
   { view: "settings", icon: "⚙️" },
 ];
 
-export default function Sidebar({ currentView, onChangeView, departments, agents, settings, connected }: SidebarProps) {
+export default function Sidebar({
+  currentView,
+  onChangeView,
+  activeOfficeWorkflowPack,
+  onChangeOfficeWorkflowPack,
+  onOpenRoomManager,
+  departments,
+  agents,
+  settings,
+  connected,
+}: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const { t, locale } = useI18n();
   const workingCount = agents.filter((a) => a.status === "working").length;
   const totalAgents = agents.length;
+  const uiLanguage = locale === "ko" || locale === "ja" || locale === "zh" ? locale : "en";
+  const officePackOptions = listOfficePackOptions(uiLanguage);
+  const officePackValue = normalizeOfficeWorkflowPack(activeOfficeWorkflowPack ?? "development");
 
   const tr = (ko: string, en: string, ja = en, zh = en) => t({ ko, en, ja, zh });
 
@@ -100,6 +117,49 @@ export default function Sidebar({ currentView, onChangeView, departments, agents
             {!collapsed && <span>{navLabels[item.view]}</span>}
           </button>
         ))}
+
+        {!collapsed && onChangeOfficeWorkflowPack && (
+          <div className="mt-2 rounded-md px-2 py-2" style={{ border: "1px solid var(--th-border)" }}>
+            <label
+              htmlFor="sidebar-office-pack-selector"
+              className="mb-1 block text-[10px] uppercase tracking-wider"
+              style={{ color: "var(--th-text-muted)" }}
+            >
+              {tr("오피스 팩 관리", "Manage Office Packs", "オフィスパック管理", "管理办公室包")}
+            </label>
+            <select
+              id="sidebar-office-pack-selector"
+              value={officePackValue}
+              onChange={(event) => onChangeOfficeWorkflowPack(event.target.value as WorkflowPackKey)}
+              className="w-full rounded-md px-2 py-1.5 text-xs focus:outline-none"
+              style={{
+                border: "1px solid var(--th-border)",
+                background: "var(--th-bg-surface)",
+                color: "var(--th-text-primary)",
+              }}
+            >
+              {officePackOptions.map((option) => (
+                <option key={option.key} value={option.key}>
+                  {option.slug} · {option.label}
+                </option>
+              ))}
+            </select>
+            <div className="mt-2 flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => onChangeView("agents")}
+                className="w-full rounded-md px-2 py-1.5 text-[11px] font-medium transition hover:opacity-90"
+                style={{
+                  border: "1px solid var(--th-border)",
+                  background: "var(--th-bg-surface)",
+                  color: "var(--th-text-primary)",
+                }}
+              >
+                {tr("팩 관리", "Manage", "管理", "管理")}
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Department quick stats */}
@@ -128,6 +188,24 @@ export default function Sidebar({ currentView, onChangeView, departments, agents
               </div>
             );
           })}
+        </div>
+      )}
+
+      {!collapsed && onOpenRoomManager && (
+        <div className="px-3 pb-2" style={{ borderTop: "1px solid var(--th-border)" }}>
+          <button
+            type="button"
+            onClick={onOpenRoomManager}
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-md px-2 py-1.5 text-xs font-medium transition hover:opacity-90"
+            style={{
+              border: "1px solid var(--th-border)",
+              background: "var(--th-bg-surface)",
+              color: "var(--th-text-primary)",
+            }}
+          >
+            <span aria-hidden="true">🏢</span>
+            <span>{tr("사무실 관리", "Manage Offices", "オフィス管理", "管理办公室")}</span>
+          </button>
         </div>
       )}
 

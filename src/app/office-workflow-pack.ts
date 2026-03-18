@@ -638,7 +638,8 @@ export function listOfficePackOptions(locale: UiLanguageLike): Array<{
   slug: string;
   accent: number;
 }> {
-  return (Object.keys(PACK_PRESETS) as WorkflowPackKey[]).map((key) => ({
+  const onlyDefaultPack: WorkflowPackKey[] = ["development"];
+  return onlyDefaultPack.map((key) => ({
     key,
     label: pickText(locale, PACK_PRESETS[key].label),
     summary: pickText(locale, PACK_PRESETS[key].summary),

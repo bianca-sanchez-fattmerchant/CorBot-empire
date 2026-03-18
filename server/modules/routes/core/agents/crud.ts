@@ -45,6 +45,14 @@ export function registerAgentCrudRoutes(ctx: RuntimeContext): void {
     return typeof value === "string" ? value.trim() : "";
   }
 
+  function normalizeInstructionContent(value: unknown): string | null {
+    if (typeof value !== "string") return null;
+    const normalized = value.replace(/\r\n/g, "\n").trim();
+    if (!normalized) return null;
+    if (normalized.length > 65535) return null;
+    return normalized;
+  }
+
   function parseWorkflowPackKey(value: unknown): WorkflowPackKey | null {
     return parseWorkflowPackKeyInput(value);
   }
@@ -288,6 +296,64 @@ export function registerAgentCrudRoutes(ctx: RuntimeContext): void {
       .all(id);
 
     res.json({ agent, recent_tasks: recentTasks });
+  });
+
+  app.get("/api/agents/:id/instructions", (req, res) => {
+    const agentId = String(req.params.id || "").trim();
+    const agent = db.prepare("SELECT id FROM agents WHERE id = ?").get(agentId) as { id?: unknown } | undefined;
+    if (!agent) return res.status(404).json({ error: "not_found" });
+
+    const row = db
+      .prepare(
+        "SELECT content, updated_at FROM agent_instructions WHERE agent_id = ? LIMIT 1",
+      )
+      .get(agentId) as { content?: unknown; updated_at?: unknown } | undefined;
+    res.json({
+      agent_id: agentId,
+      content: typeof row?.content === "string" ? row.content : "",
+      updated_at: typeof row?.updated_at === "number" ? row.updated_at : null,
+    });
+  });
+
+  app.put("/api/agents/:id/instructions", (req, res) => {
+    const agentId = String(req.params.id || "").trim();
+    const agent = db.prepare("SELECT id FROM agents WHERE id = ?").get(agentId) as { id?: unknown } | undefined;
+    if (!agent) return res.status(404).json({ error: "not_found" });
+
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const content = normalizeInstructionContent(body.content);
+    if (!content) return res.status(400).json({ error: "invalid_content" });
+
+    const now = nowMs();
+    db.prepare(
+      `
+        INSERT INTO agent_instructions (id, agent_id, content, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(agent_id) DO UPDATE SET
+          content = excluded.content,
+          updated_at = excluded.updated_at
+      `,
+    ).run(randomUUID(), agentId, content, now, now);
+
+    const row = db
+      .prepare(
+        "SELECT content, updated_at FROM agent_instructions WHERE agent_id = ? LIMIT 1",
+      )
+      .get(agentId) as { content?: unknown; updated_at?: unknown } | undefined;
+    res.json({
+      ok: true,
+      agent_id: agentId,
+      content: typeof row?.content === "string" ? row.content : content,
+      updated_at: typeof row?.updated_at === "number" ? row.updated_at : now,
+    });
+  });
+
+  app.delete("/api/agents/:id/instructions", (req, res) => {
+    const agentId = String(req.params.id || "").trim();
+    const agent = db.prepare("SELECT id FROM agents WHERE id = ?").get(agentId) as { id?: unknown } | undefined;
+    if (!agent) return res.status(404).json({ error: "not_found" });
+    db.prepare("DELETE FROM agent_instructions WHERE agent_id = ?").run(agentId);
+    res.json({ ok: true, agent_id: agentId });
   });
 
   app.post("/api/agents", (req, res) => {

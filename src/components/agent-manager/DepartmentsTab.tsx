@@ -18,6 +18,8 @@ interface DepartmentsTabProps {
   onCancelOrder: () => void;
   onMoveDept: (index: number, direction: -1 | 1) => void;
   onEditDept: (department: Department) => void;
+  onEditInstructions: (department: Department) => void;
+  allowInstructionEdit: boolean;
   onDragStart: (deptId: string, event: DragEvent<HTMLDivElement>) => void;
   onDragOver: (deptId: string, event: DragEvent<HTMLDivElement>) => void;
   onDrop: (deptId: string, event: DragEvent<HTMLDivElement>) => void;
@@ -39,6 +41,8 @@ export default function DepartmentsTab({
   onCancelOrder,
   onMoveDept,
   onEditDept,
+  onEditInstructions,
+  allowInstructionEdit,
   onDragStart,
   onDragOver,
   onDrop,
@@ -148,13 +152,23 @@ export default function DepartmentsTab({
                 {dept.id}
               </code>
 
-              <button
-                onClick={() => onEditDept(dept)}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all opacity-0 group-hover:opacity-100 hover:bg-white/10"
-                style={{ color: "var(--th-text-muted)" }}
-              >
-                {tr("편집", "Edit")}
-              </button>
+              <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                <button
+                  onClick={() => onEditDept(dept)}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:bg-white/10"
+                  style={{ color: "var(--th-text-muted)" }}
+                >
+                  {tr("편집", "Edit")}
+                </button>
+                <button
+                  onClick={() => onEditInstructions(dept)}
+                  disabled={!allowInstructionEdit}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:bg-blue-500/15 hover:text-blue-300 disabled:opacity-40"
+                  style={{ color: "var(--th-text-muted)" }}
+                >
+                  {tr("지시문", "Instructions")}
+                </button>
+              </div>
             </div>
           );
         })}

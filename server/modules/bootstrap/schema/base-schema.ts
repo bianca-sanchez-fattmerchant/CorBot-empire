@@ -317,6 +317,24 @@ CREATE TABLE IF NOT EXISTS review_round_decision_states (
   updated_at INTEGER DEFAULT (unixepoch()*1000)
 );
 
+CREATE TABLE IF NOT EXISTS agent_instructions (
+  id TEXT PRIMARY KEY,
+  agent_id TEXT NOT NULL UNIQUE REFERENCES agents(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  created_at INTEGER DEFAULT (unixepoch()*1000),
+  updated_at INTEGER DEFAULT (unixepoch()*1000)
+);
+
+CREATE TABLE IF NOT EXISTS department_instructions (
+  id TEXT PRIMARY KEY,
+  workflow_pack_key TEXT NOT NULL DEFAULT 'development',
+  department_id TEXT NOT NULL,
+  content TEXT NOT NULL,
+  created_at INTEGER DEFAULT (unixepoch()*1000),
+  updated_at INTEGER DEFAULT (unixepoch()*1000),
+  UNIQUE(workflow_pack_key, department_id)
+);
+
 CREATE TABLE IF NOT EXISTS skill_learning_history (
   id TEXT PRIMARY KEY,
   job_id TEXT NOT NULL,
@@ -342,6 +360,10 @@ CREATE INDEX IF NOT EXISTS idx_project_review_decision_events_project
   ON project_review_decision_events(project_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_review_round_decision_states_updated
   ON review_round_decision_states(updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_agent_instructions_agent
+  ON agent_instructions(agent_id, updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_department_instructions_department
+  ON department_instructions(workflow_pack_key, department_id, updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status, updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_tasks_agent ON tasks(assigned_agent_id);
 CREATE INDEX IF NOT EXISTS idx_tasks_dept ON tasks(department_id);

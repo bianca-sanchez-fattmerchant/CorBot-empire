@@ -388,3 +388,15 @@ export async function getCliModels(refresh = false): Promise<Record<string, CliM
   const j = await request<{ models: Record<string, CliModelInfo[]> }>(`/api/cli-models${qs}`);
   return j.models;
 }
+
+export interface McpSetupResult {
+  ok: boolean;
+  code: number;
+  stdout: string;
+  stderr: string;
+  durationMs: number;
+}
+
+export async function setupMcpServer(id: string): Promise<McpSetupResult> {
+  return post("/api/mcp/setup", { id }) as Promise<McpSetupResult>;
+}

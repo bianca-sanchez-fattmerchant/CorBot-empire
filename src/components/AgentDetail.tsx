@@ -56,7 +56,7 @@ export default function AgentDetail({
   onAgentUpdated,
 }: AgentDetailProps) {
   const { t, language } = useI18n();
-  const [tab, setTab] = useState<"info" | "tasks" | "alba">("info");
+  const [tab, setTab] = useState<"info" | "tasks" | "alba" | "instructions">("info");
   const [editingCli, setEditingCli] = useState(false);
   const [selectedCli, setSelectedCli] = useState(agent.cli_provider);
   const [selectedOAuthAccountId, setSelectedOAuthAccountId] = useState(agent.oauth_account_id ?? "");
@@ -72,6 +72,13 @@ export default function AgentDetail({
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
   const [savingPlanningLead, setSavingPlanningLead] = useState(false);
   const [actsAsPlanningLead, setActsAsPlanningLead] = useState(Number(agent.acts_as_planning_leader ?? 0) === 1);
+  const [instructionsLoading, setInstructionsLoading] = useState(false);
+  const [instructionsSaving, setInstructionsSaving] = useState(false);
+  const [instructionsDeleting, setInstructionsDeleting] = useState(false);
+  const [instructionsText, setInstructionsText] = useState("");
+  const [instructionsSavedText, setInstructionsSavedText] = useState("");
+  const [departmentInstructionsText, setDepartmentInstructionsText] = useState("");
+  const [instructionsError, setInstructionsError] = useState<string | null>(null);
 
   const agentTasks = tasks.filter((task) => task.assigned_agent_id === agent.id);
   const subtasksByTask = useMemo(() => {
@@ -162,6 +169,60 @@ export default function AgentDetail({
       .catch((err) => console.error("Failed to load OAuth status:", err))
       .finally(() => setOauthLoading(false));
   }, [editingCli, requiresOAuthAccount]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setInstructionsLoading(true);
+    setInstructionsError(null);
+
+    const requests: Promise<unknown>[] = [
+      api.getAgentInstructions(agent.id).then((doc) => {
+        if (cancelled) return;
+        const next = doc.content ?? "";
+        setInstructionsText(next);
+        setInstructionsSavedText(next);
+      }),
+    ];
+
+    if (department?.id) {
+      requests.push(
+        api
+          .getDepartmentInstructions(department.id, { workflowPackKey: activeOfficeWorkflowPack })
+          .then((doc) => {
+            if (cancelled) return;
+            setDepartmentInstructionsText(doc.content ?? "");
+          })
+          .catch((error) => {
+            if (cancelled) return;
+            console.error("Failed to load department instructions:", error);
+            setDepartmentInstructionsText("");
+          }),
+      );
+    } else {
+      setDepartmentInstructionsText("");
+    }
+
+    Promise.all(requests)
+      .catch((error) => {
+        if (cancelled) return;
+        console.error("Failed to load instructions:", error);
+        setInstructionsError(
+          t({
+            ko: "지시문을 불러오지 못했습니다",
+            en: "Failed to load instructions",
+            ja: "指示文を読み込めませんでした",
+            zh: "加载指令失败",
+          }),
+        );
+      })
+      .finally(() => {
+        if (!cancelled) setInstructionsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [agent.id, department?.id, activeOfficeWorkflowPack, t]);
 
   useEffect(() => {
     if (!editingCli || !supportsCliModelOverride || Object.keys(cliModels).length > 0) return;
@@ -258,6 +319,83 @@ export default function AgentDetail({
     agent.cli_model,
     agent.cli_reasoning_level,
   ]);
+
+  const handleSaveInstructions = useCallback(async () => {
+    const normalized = instructionsText.trim();
+    if (!normalized) {
+      setInstructionsError(
+        t({
+          ko: "지시문은 비워둘 수 없습니다",
+          en: "Instructions cannot be empty",
+          ja: "指示文は空にできません",
+          zh: "指令不能为空",
+        }),
+      );
+      return;
+    }
+    if (normalized.length > 65535) {
+      setInstructionsError(
+        t({
+          ko: "지시문이 너무 깁니다 (최대 65,535자)",
+          en: "Instructions are too long (max 65,535 chars)",
+          ja: "指示文が長すぎます（最大 65,535 文字）",
+          zh: "指令过长（最多 65,535 个字符）",
+        }),
+      );
+      return;
+    }
+    setInstructionsSaving(true);
+    setInstructionsError(null);
+    try {
+      const saved = await api.updateAgentInstructions(agent.id, normalized);
+      const content = saved.content ?? normalized;
+      setInstructionsText(content);
+      setInstructionsSavedText(content);
+      onAgentUpdated?.();
+    } catch (error) {
+      console.error("Failed to save agent instructions:", error);
+      setInstructionsError(
+        t({
+          ko: "지시문 저장에 실패했습니다",
+          en: "Failed to save instructions",
+          ja: "指示文の保存に失敗しました",
+          zh: "保存指令失败",
+        }),
+      );
+    } finally {
+      setInstructionsSaving(false);
+    }
+  }, [agent.id, instructionsText, onAgentUpdated, t]);
+
+  const handleResetInstructionsDraft = useCallback(() => {
+    setInstructionsText(instructionsSavedText);
+    setInstructionsError(null);
+  }, [instructionsSavedText]);
+
+  const handleClearInstructions = useCallback(async () => {
+    setInstructionsDeleting(true);
+    setInstructionsError(null);
+    try {
+      await api.deleteAgentInstructions(agent.id);
+      setInstructionsText("");
+      setInstructionsSavedText("");
+      onAgentUpdated?.();
+    } catch (error) {
+      console.error("Failed to clear agent instructions:", error);
+      setInstructionsError(
+        t({
+          ko: "지시문 삭제에 실패했습니다",
+          en: "Failed to clear instructions",
+          ja: "指示文の削除に失敗しました",
+          zh: "删除指令失败",
+        }),
+      );
+    } finally {
+      setInstructionsDeleting(false);
+    }
+  }, [agent.id, onAgentUpdated, t]);
+
+  const hasInstructionsDraftChanges = instructionsText !== instructionsSavedText;
 
   const resolvePackLabel = useCallback(
     (packKey: WorkflowPackKey) => {
@@ -726,6 +864,10 @@ export default function AgentDetail({
               key: "alba",
               label: `${t({ ko: "알바생", en: "Sub-agents", ja: "サブエージェント", zh: "子代理" })} (${agentSubAgents.length})`,
             },
+            {
+              key: "instructions",
+              label: t({ ko: "지시문", en: "Instructions", ja: "指示文", zh: "指令" }),
+            },
           ].map((tabItem) => (
             <button
               key={tabItem.key}
@@ -740,21 +882,97 @@ export default function AgentDetail({
         </div>
 
         <div className="p-4 overflow-y-auto max-h-[40vh]">
-          <AgentDetailTabContent
-            tab={tab}
-            t={t}
-            language={language}
-            agent={agent}
-            departments={departments}
-            agentTasks={agentTasks}
-            agentSubAgents={agentSubAgents}
-            subtasksByTask={subtasksByTask}
-            expandedTaskId={expandedTaskId}
-            setExpandedTaskId={setExpandedTaskId}
-            onChat={onChat}
-            onAssignTask={onAssignTask}
-            onOpenTerminal={onOpenTerminal}
-          />
+          {tab === "instructions" ? (
+            <div className="space-y-3">
+              <div className="text-xs text-slate-400">
+                {t({
+                  ko: "실행 시 적용 순서: Global AGENTS → Workflow Pack → Department Instructions → Agent Instructions",
+                  en: "Execution order: Global AGENTS → Workflow Pack → Department Instructions → Agent Instructions",
+                  ja: "実行順序: Global AGENTS → Workflow Pack → Department Instructions → Agent Instructions",
+                  zh: "执行顺序：Global AGENTS → Workflow Pack → Department Instructions → Agent Instructions",
+                })}
+              </div>
+              {department?.id && (
+                <div className="rounded-lg border border-slate-700 bg-slate-900/70 p-2">
+                  <div className="text-[11px] text-slate-400 mb-1">
+                    {t({
+                      ko: "Department Instructions 미리보기",
+                      en: "Department Instructions Preview",
+                      ja: "Department Instructions プレビュー",
+                      zh: "Department Instructions 预览",
+                    })}
+                  </div>
+                  <pre className="whitespace-pre-wrap wrap-break-word text-xs text-slate-300 max-h-[120px] overflow-auto">
+                    {departmentInstructionsText ||
+                      t({ ko: "(없음)", en: "(none)", ja: "(なし)", zh: "（无）" })}
+                  </pre>
+                </div>
+              )}
+              <textarea
+                value={instructionsText}
+                onChange={(event) => setInstructionsText(event.target.value)}
+                disabled={instructionsLoading || instructionsSaving || instructionsDeleting}
+                className="w-full min-h-[180px] resize-y rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-slate-200 outline-none focus:border-blue-500 disabled:opacity-60"
+                placeholder={t({
+                  ko: "예: 이 에이전트는 작은 단위로 구현하고, 각 변경 후 검증 로그를 남긴다.",
+                  en: "Example: This agent implements in small increments and leaves verification logs after each change.",
+                  ja: "例: このエージェントは小さな単位で実装し、各変更後に検証ログを残します。",
+                  zh: "示例：该代理以小步实现，并在每次变更后留下验证日志。",
+                })}
+              />
+              <div className="flex items-center justify-between gap-2">
+                <div className="text-xs text-slate-500">{instructionsText.length}/65535</div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleResetInstructionsDraft}
+                    disabled={!hasInstructionsDraftChanges || instructionsLoading || instructionsSaving || instructionsDeleting}
+                    className="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-xs text-slate-200 disabled:opacity-50"
+                  >
+                    {t({ ko: "초안 되돌리기", en: "Revert Draft", ja: "下書きを戻す", zh: "恢复草稿" })}
+                  </button>
+                  <button
+                    onClick={() => {
+                      void handleSaveInstructions();
+                    }}
+                    disabled={instructionsLoading || instructionsSaving || instructionsDeleting || !hasInstructionsDraftChanges}
+                    className="px-2 py-1 rounded bg-blue-600 hover:bg-blue-500 text-xs text-white disabled:opacity-50"
+                  >
+                    {instructionsSaving
+                      ? t({ ko: "저장중...", en: "Saving...", ja: "保存中...", zh: "保存中..." })
+                      : t({ ko: "저장", en: "Save", ja: "保存", zh: "保存" })}
+                  </button>
+                  <button
+                    onClick={() => {
+                      void handleClearInstructions();
+                    }}
+                    disabled={instructionsLoading || instructionsSaving || instructionsDeleting || !instructionsSavedText}
+                    className="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-xs text-slate-100 disabled:opacity-50"
+                  >
+                    {instructionsDeleting
+                      ? t({ ko: "삭제중...", en: "Clearing...", ja: "削除中...", zh: "删除中..." })
+                      : t({ ko: "지시문 삭제", en: "Clear", ja: "指示文を削除", zh: "清空" })}
+                  </button>
+                </div>
+              </div>
+              {instructionsError && <div className="text-xs text-red-300">{instructionsError}</div>}
+            </div>
+          ) : (
+            <AgentDetailTabContent
+              tab={tab}
+              t={t}
+              language={language}
+              agent={agent}
+              departments={departments}
+              agentTasks={agentTasks}
+              agentSubAgents={agentSubAgents}
+              subtasksByTask={subtasksByTask}
+              expandedTaskId={expandedTaskId}
+              setExpandedTaskId={setExpandedTaskId}
+              onChat={onChat}
+              onAssignTask={onAssignTask}
+              onOpenTerminal={onOpenTerminal}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -340,6 +340,9 @@ export default function AppMainLayout({
           <Sidebar
             currentView={view}
             onChangeView={setView}
+            activeOfficeWorkflowPack={officePackKey}
+            onChangeOfficeWorkflowPack={onChangeOfficeWorkflowPack}
+            onOpenRoomManager={onOpenRoomManager}
             departments={officePresentation.departments}
             agents={officePresentation.agents}
             settings={settings}
@@ -364,6 +367,12 @@ export default function AppMainLayout({
             onChangeView={(nextView) => {
               setView(nextView);
               setMobileNavOpen(false);
+            }}
+            activeOfficeWorkflowPack={officePackKey}
+            onChangeOfficeWorkflowPack={onChangeOfficeWorkflowPack}
+            onOpenRoomManager={() => {
+              setMobileNavOpen(false);
+              onOpenRoomManager();
             }}
             departments={officePresentation.departments}
             agents={officePresentation.agents}

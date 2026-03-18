@@ -55,6 +55,14 @@ export function registerDepartmentRoutes(deps: DepartmentRouteDeps): void {
     return { packKey: readActiveOfficeWorkflowPackKey(db as any), invalid: false };
   }
 
+  function normalizeInstructionContent(value: unknown): string | null {
+    if (typeof value !== "string") return null;
+    const normalized = value.replace(/\r\n/g, "\n").trim();
+    if (!normalized) return null;
+    if (normalized.length > 65535) return null;
+    return normalized;
+  }
+
   function listDevelopmentDepartments(includeSeed: boolean): unknown[] {
     const seedFilterClause = includeSeed ? "" : " AND a.id NOT LIKE '%-seed-%'";
     const agentPackExpr = hasAgentWorkflowPackColumn ? "COALESCE(a.workflow_pack_key, 'development')" : "'development'";
@@ -140,6 +148,78 @@ export function registerDepartmentRoutes(deps: DepartmentRouteDeps): void {
             )
             .all(...(hasAgentWorkflowPackColumn ? [id, resolved.packKey] : [id]));
     res.json({ department, agents });
+  });
+
+  app.get("/api/departments/:id/instructions", (req, res) => {
+    const resolved = resolveRequestedPackKey(req.query?.workflow_pack_key);
+    if (resolved.invalid) return res.status(400).json({ error: "invalid_workflow_pack_key" });
+    const departmentId = String(req.params.id || "").trim();
+    const department = getDepartmentForPack(db as any, resolved.packKey, departmentId);
+    if (!department) return res.status(404).json({ error: "not_found" });
+
+    const row = db
+      .prepare(
+        "SELECT content, updated_at FROM department_instructions WHERE workflow_pack_key = ? AND department_id = ? LIMIT 1",
+      )
+      .get(resolved.packKey, departmentId) as { content?: unknown; updated_at?: unknown } | undefined;
+
+    res.json({
+      workflow_pack_key: resolved.packKey,
+      department_id: departmentId,
+      content: typeof row?.content === "string" ? row.content : "",
+      updated_at: typeof row?.updated_at === "number" ? row.updated_at : null,
+    });
+  });
+
+  app.put("/api/departments/:id/instructions", (req, res) => {
+    const resolved = resolveRequestedPackKey(req.query?.workflow_pack_key, (req.body as any)?.workflow_pack_key);
+    if (resolved.invalid) return res.status(400).json({ error: "invalid_workflow_pack_key" });
+    const departmentId = String(req.params.id || "").trim();
+    const department = getDepartmentForPack(db as any, resolved.packKey, departmentId);
+    if (!department) return res.status(404).json({ error: "not_found" });
+
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const content = normalizeInstructionContent(body.content);
+    if (!content) return res.status(400).json({ error: "invalid_content" });
+
+    const now = Date.now();
+    db.prepare(
+      `
+        INSERT INTO department_instructions (id, workflow_pack_key, department_id, content, created_at, updated_at)
+        VALUES (lower(hex(randomblob(16))), ?, ?, ?, ?, ?)
+        ON CONFLICT(workflow_pack_key, department_id) DO UPDATE SET
+          content = excluded.content,
+          updated_at = excluded.updated_at
+      `,
+    ).run(resolved.packKey, departmentId, content, now, now);
+
+    const row = db
+      .prepare(
+        "SELECT content, updated_at FROM department_instructions WHERE workflow_pack_key = ? AND department_id = ? LIMIT 1",
+      )
+      .get(resolved.packKey, departmentId) as { content?: unknown; updated_at?: unknown } | undefined;
+
+    res.json({
+      ok: true,
+      workflow_pack_key: resolved.packKey,
+      department_id: departmentId,
+      content: typeof row?.content === "string" ? row.content : content,
+      updated_at: typeof row?.updated_at === "number" ? row.updated_at : now,
+    });
+  });
+
+  app.delete("/api/departments/:id/instructions", (req, res) => {
+    const resolved = resolveRequestedPackKey(req.query?.workflow_pack_key);
+    if (resolved.invalid) return res.status(400).json({ error: "invalid_workflow_pack_key" });
+    const departmentId = String(req.params.id || "").trim();
+    const department = getDepartmentForPack(db as any, resolved.packKey, departmentId);
+    if (!department) return res.status(404).json({ error: "not_found" });
+
+    db.prepare("DELETE FROM department_instructions WHERE workflow_pack_key = ? AND department_id = ?").run(
+      resolved.packKey,
+      departmentId,
+    );
+    res.json({ ok: true, workflow_pack_key: resolved.packKey, department_id: departmentId });
   });
 
   app.post("/api/departments", (req, res) => {
