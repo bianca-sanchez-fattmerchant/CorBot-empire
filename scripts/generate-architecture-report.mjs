@@ -310,7 +310,7 @@ function roleRank(role) {
 }
 
 function readOrgData() {
-  const dbPath = path.join(repoRoot, "claw-empire.sqlite");
+  const dbPath = path.join(repoRoot, "corbot-empire.sqlite");
   if (!fs.existsSync(dbPath)) return [];
 
   let db;
@@ -533,7 +533,7 @@ flowchart LR
   subgraph Backend
     B1["server/index.ts"] --> B2["Express REST API"]
     B1 --> B3["WebSocket Server"]
-    B1 --> B4["SQLite (claw-empire.sqlite)"]
+    B1 --> B4["SQLite (corbot-empire.sqlite)"]
     B1 --> B5["Git Worktree + CLI Process"]
   end
 

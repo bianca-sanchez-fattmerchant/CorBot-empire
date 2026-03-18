@@ -375,7 +375,7 @@ export function createHttpAgentTools(deps: CreateHttpAgentToolsDeps) {
           const msg = normalizeStreamChunk(`[${agent}] Error: ${err.message}\n`);
           safeWrite(msg);
           broadcast("cli_output", { task_id: taskId, stream: "stderr", data: msg });
-          console.error(`[Claw-Empire] HTTP agent error (${agent}, task ${taskId}): ${err.message}`);
+          console.error(`[CorBot-Empire] HTTP agent error (${agent}, task ${taskId}): ${err.message}`);
         } else {
           const msg = normalizeStreamChunk(`[${agent}] Aborted by user\n`);
           safeWrite(msg);

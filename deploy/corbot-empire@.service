@@ -1,0 +1,25 @@
+[Unit]
+Description=CorBot-Empire service
+Documentation=https://github.com/GreenSheep01201/claw-empire
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=%h/corbot-empire
+EnvironmentFile=-%h/corbot-empire/deploy/.env.production
+ExecStartPre=/usr/bin/env bash -lc 'mkdir -p %h/corbot-empire/logs'
+ExecStart=/usr/bin/env bash -lc 'cd %h/corbot-empire && pnpm run start'
+Restart=on-failure
+RestartSec=10
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+StandardOutput=append:%h/corbot-empire/logs/corbot-empire.log
+StandardError=append:%h/corbot-empire/logs/corbot-empire.err
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

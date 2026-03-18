@@ -6,7 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-const defaultDbPath = path.resolve(scriptDir, "..", "claw-empire.sqlite");
+const defaultDbPath = path.resolve(scriptDir, "..", "corbot-empire.sqlite");
 const dbPath = String(process.env.DB_PATH || defaultDbPath).trim();
 
 const args = new Set(process.argv.slice(2));

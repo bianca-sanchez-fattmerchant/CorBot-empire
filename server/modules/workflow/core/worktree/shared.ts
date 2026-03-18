@@ -261,7 +261,7 @@ export function autoCommitWorktreePendingChanges(
       "git",
       [
         "-c",
-        "user.name=Claw-Empire",
+        "user.name=CorBot-Empire",
         "-c",
         "user.email=claw-empire@local",
         "commit",

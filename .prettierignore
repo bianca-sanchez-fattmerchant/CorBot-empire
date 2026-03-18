@@ -4,9 +4,9 @@ coverage
 test-results
 playwright-report
 pnpm-lock.yaml
-claw-empire.sqlite
-claw-empire.sqlite-shm
-claw-empire.sqlite-wal
+corbot-empire.sqlite
+corbot-empire.sqlite-shm
+corbot-empire.sqlite-wal
 logs
 .climpire
 .climpire-worktrees

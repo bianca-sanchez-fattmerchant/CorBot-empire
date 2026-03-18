@@ -75,7 +75,7 @@ export function createWorktreeLifecycleTools(deps: CreateWorktreeLifecycleToolsD
         }
       };
       if (!readConfig("user.name")) {
-        execFileSync("git", ["config", "user.name", "Claw-Empire Bot"], {
+        execFileSync("git", ["config", "user.name", "CorBot-Empire Bot"], {
           cwd: projectPath,
           stdio: "pipe",
           timeout: 3000,
@@ -98,13 +98,13 @@ export function createWorktreeLifecycleTools(deps: CreateWorktreeLifecycleToolsD
         .toString()
         .trim();
       if (staged) {
-        execFileSync("git", ["commit", "-m", "chore: initialize project for Claw-Empire worktrees"], {
+        execFileSync("git", ["commit", "-m", "chore: initialize project for CorBot-Empire worktrees"], {
           cwd: projectPath,
           stdio: "pipe",
           timeout: 20000,
         });
       } else {
-        execFileSync("git", ["commit", "--allow-empty", "-m", "chore: initialize project for Claw-Empire worktrees"], {
+        execFileSync("git", ["commit", "--allow-empty", "-m", "chore: initialize project for CorBot-Empire worktrees"], {
           cwd: projectPath,
           stdio: "pipe",
           timeout: 10000,
@@ -112,12 +112,12 @@ export function createWorktreeLifecycleTools(deps: CreateWorktreeLifecycleToolsD
       }
 
       appendTaskLog(taskId, "system", "Git repository initialized automatically for worktree execution.");
-      console.log(`[Claw-Empire] Auto-initialized git repo for task ${shortId} at ${projectPath}`);
+      console.log(`[CorBot-Empire] Auto-initialized git repo for task ${shortId} at ${projectPath}`);
       return true;
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       appendTaskLog(taskId, "system", `Git bootstrap failed: ${msg}`);
-      console.error(`[Claw-Empire] Failed git bootstrap for task ${shortId}: ${msg}`);
+      console.error(`[CorBot-Empire] Failed git bootstrap for task ${shortId}: ${msg}`);
       return false;
     }
   }
@@ -221,12 +221,12 @@ export function createWorktreeLifecycleTools(deps: CreateWorktreeLifecycleToolsD
 
       taskWorktrees.set(taskId, { worktreePath: selectedWorktreePath, branchName: selectedBranch, projectPath });
       console.log(
-        `[Claw-Empire] Created worktree for task ${shortId}: ${selectedWorktreePath} (branch: ${selectedBranch}, agent: ${agentName})`,
+        `[CorBot-Empire] Created worktree for task ${shortId}: ${selectedWorktreePath} (branch: ${selectedBranch}, agent: ${agentName})`,
       );
       return selectedWorktreePath;
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      console.error(`[Claw-Empire] Failed to create worktree for task ${shortId}: ${msg}`);
+      console.error(`[CorBot-Empire] Failed to create worktree for task ${shortId}: ${msg}`);
       return null;
     }
   }
@@ -244,7 +244,7 @@ export function createWorktreeLifecycleTools(deps: CreateWorktreeLifecycleToolsD
         timeout: 10000,
       });
     } catch {
-      console.warn(`[Claw-Empire] git worktree remove failed for ${shortId}, falling back to manual cleanup`);
+      console.warn(`[CorBot-Empire] git worktree remove failed for ${shortId}, falling back to manual cleanup`);
       try {
         if (fs.existsSync(info.worktreePath)) {
           fs.rmSync(info.worktreePath, { recursive: true, force: true });
@@ -262,11 +262,11 @@ export function createWorktreeLifecycleTools(deps: CreateWorktreeLifecycleToolsD
         timeout: 5000,
       });
     } catch {
-      console.warn(`[Claw-Empire] Failed to delete branch ${info.branchName} — may need manual cleanup`);
+      console.warn(`[CorBot-Empire] Failed to delete branch ${info.branchName} — may need manual cleanup`);
     }
 
     taskWorktrees.delete(taskId);
-    console.log(`[Claw-Empire] Cleaned up worktree for task ${shortId}`);
+    console.log(`[CorBot-Empire] Cleaned up worktree for task ${shortId}`);
   }
 
   return {

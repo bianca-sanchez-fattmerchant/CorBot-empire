@@ -303,10 +303,10 @@ export function createProjectContextTools(deps: CreateProjectContextToolsDeps) {
         fs.mkdirSync(climpireDir, { recursive: true });
         fs.writeFileSync(contextPath, content, "utf8");
         fs.writeFileSync(metaPath, currentHead, "utf8");
-        console.log(`[Claw-Empire] Generated project context: ${contextPath}`);
+        console.log(`[CorBot-Empire] Generated project context: ${contextPath}`);
         return content;
       } catch (err) {
-        console.warn(`[Claw-Empire] Failed to generate project context: ${err}`);
+        console.warn(`[CorBot-Empire] Failed to generate project context: ${err}`);
       }
     }
 
@@ -468,13 +468,13 @@ export function createProjectContextTools(deps: CreateProjectContextToolsDeps) {
 
       fs.mkdirSync(climpireDir, { recursive: true });
       fs.writeFileSync(claudeMdSrc, content, "utf8");
-      console.log(`[Claw-Empire] Generated CLAUDE.md: ${claudeMdSrc}`);
+      console.log(`[CorBot-Empire] Generated CLAUDE.md: ${claudeMdSrc}`);
     }
 
     try {
       fs.copyFileSync(claudeMdSrc, claudeMdDst);
     } catch (err) {
-      console.warn(`[Claw-Empire] Failed to copy CLAUDE.md to worktree: ${err}`);
+      console.warn(`[CorBot-Empire] Failed to copy CLAUDE.md to worktree: ${err}`);
     }
   }
 

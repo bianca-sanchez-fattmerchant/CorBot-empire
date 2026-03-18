@@ -17,7 +17,7 @@ function initRepo(basePrefix: string): string {
     runGit(dir, ["init"]);
     runGit(dir, ["checkout", "-B", "main"]);
   }
-  runGit(dir, ["config", "user.name", "Claw-Empire Test"]);
+  runGit(dir, ["config", "user.name", "CorBot-Empire Test"]);
   runGit(dir, ["config", "user.email", "claw-empire-test@example.local"]);
   fs.writeFileSync(path.join(dir, "README.md"), "seed\n", "utf8");
   runGit(dir, ["add", "."]);

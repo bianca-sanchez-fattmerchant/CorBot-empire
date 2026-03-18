@@ -207,7 +207,7 @@ export function startLifecycle(ctx: RuntimeContext): void {
 
       broadcast("agent_status", db.prepare("SELECT * FROM agents WHERE id = ?").get(row.agent_id));
       console.warn(
-        `[Claw-Empire] Recovery (${reason}): cleared stale working agent ${row.agent_id} (${row.agent_name || "unknown"}) -> ${row.current_task_id} (${staleReason})`,
+        `[CorBot-Empire] Recovery (${reason}): cleared stale working agent ${row.agent_id} (${row.agent_name || "unknown"}) -> ${row.current_task_id} (${staleReason})`,
       );
     }
   }
@@ -354,7 +354,7 @@ export function startLifecycle(ctx: RuntimeContext): void {
     try {
       reconcileCrossDeptSubtasks();
     } catch (err) {
-      console.error("[Claw-Empire] startup reconciliation failed:", err);
+      console.error("[CorBot-Empire] startup reconciliation failed:", err);
     }
 
     recoverOrphanInProgressTasks("startup");
@@ -421,7 +421,7 @@ export function startLifecycle(ctx: RuntimeContext): void {
       .map(([name]) => name);
 
     if (authenticated.length === 0) {
-      console.log("[Claw-Empire] Auto-assign skipped: no authenticated CLI providers");
+      console.log("[CorBot-Empire] Auto-assign skipped: no authenticated CLI providers");
       return;
     }
 
@@ -445,10 +445,10 @@ export function startLifecycle(ctx: RuntimeContext): void {
 
       db.prepare("UPDATE agents SET cli_provider = ? WHERE id = ?").run(fallback, agent.id);
       broadcast("agent_status", db.prepare("SELECT * FROM agents WHERE id = ?").get(agent.id));
-      console.log(`[Claw-Empire] Auto-assigned ${agent.name}: ${prov || "none"} → ${fallback}`);
+      console.log(`[CorBot-Empire] Auto-assigned ${agent.name}: ${prov || "none"} → ${fallback}`);
       count++;
     }
-    if (count > 0) console.log(`[Claw-Empire] Auto-assigned ${count} agent(s)`);
+    if (count > 0) console.log(`[CorBot-Empire] Auto-assigned ${count} agent(s)`);
   }
 
   // Run rotation every 60 seconds, and once on startup after 5s
@@ -467,11 +467,11 @@ export function startLifecycle(ctx: RuntimeContext): void {
   // Start HTTP server + WebSocket
   // ---------------------------------------------------------------------------
   const server = app.listen(PORT, HOST, () => {
-    console.log(`[Claw-Empire] v${PKG_VERSION} listening on http://${HOST}:${PORT} (db: ${dbPath})`);
+    console.log(`[CorBot-Empire] v${PKG_VERSION} listening on http://${HOST}:${PORT} (db: ${dbPath})`);
     if (isProduction) {
-      console.log(`[Claw-Empire] mode: production (serving UI from ${distDir})`);
+      console.log(`[CorBot-Empire] mode: production (serving UI from ${distDir})`);
     } else {
-      console.log(`[Claw-Empire] mode: development (UI served by Vite on separate port)`);
+      console.log(`[CorBot-Empire] mode: development (UI served by Vite on separate port)`);
     }
   });
 
@@ -504,7 +504,7 @@ export function startLifecycle(ctx: RuntimeContext): void {
       return;
     }
     wsClients.add(ws);
-    console.log(`[Claw-Empire] WebSocket client connected (total: ${wsClients.size})`);
+    console.log(`[CorBot-Empire] WebSocket client connected (total: ${wsClients.size})`);
 
     // Send initial state to the newly connected client
     ws.send(
@@ -512,7 +512,7 @@ export function startLifecycle(ctx: RuntimeContext): void {
         type: "connected",
         payload: {
           version: PKG_VERSION,
-          app: "Claw-Empire",
+          app: "CorBot-Empire",
         },
         ts: nowMs(),
       }),
@@ -520,7 +520,7 @@ export function startLifecycle(ctx: RuntimeContext): void {
 
     ws.on("close", () => {
       wsClients.delete(ws);
-      console.log(`[Claw-Empire] WebSocket client disconnected (total: ${wsClients.size})`);
+      console.log(`[CorBot-Empire] WebSocket client disconnected (total: ${wsClients.size})`);
     });
 
     ws.on("error", () => {

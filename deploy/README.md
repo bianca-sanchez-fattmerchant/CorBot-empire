@@ -1,12 +1,12 @@
-# Claw-Empire Deployment Guide
+# CorBot-Empire Deployment Guide
 
 This directory contains production deployment examples for a single-host Linux setup.
 
 Included files:
 
 - `deploy/.env.production.template`: runtime environment template
-- `deploy/claw-empire@.service`: example user-level systemd service
-- `deploy/nginx/claw-empire.conf`: example nginx reverse proxy
+- `deploy/corbot-empire@.service`: example user-level systemd service
+- `deploy/nginx/corbot-empire.conf`: example nginx reverse proxy
 
 ## Assumptions
 
@@ -48,9 +48,9 @@ If you expose the Node server directly on a LAN or VPN, set `HOST=0.0.0.0` and r
 
 ```bash
 mkdir -p ~/.config/systemd/user
-cp deploy/claw-empire@.service ~/.config/systemd/user/claw-empire.service
+cp deploy/corbot-empire@.service ~/.config/systemd/user/corbot-empire.service
 systemctl --user daemon-reload
-systemctl --user enable --now claw-empire
+systemctl --user enable --now corbot-empire
 ```
 
 If you want the service to survive logout:
@@ -62,15 +62,15 @@ sudo loginctl enable-linger "$USER"
 Useful commands:
 
 ```bash
-systemctl --user status claw-empire
-journalctl --user -u claw-empire -f
+systemctl --user status corbot-empire
+journalctl --user -u corbot-empire -f
 ```
 
 ## 4. Optional nginx reverse proxy
 
 ```bash
-sudo cp deploy/nginx/claw-empire.conf /etc/nginx/sites-available/claw-empire
-sudo ln -s /etc/nginx/sites-available/claw-empire /etc/nginx/sites-enabled/claw-empire
+sudo cp deploy/nginx/corbot-empire.conf /etc/nginx/sites-available/corbot-empire
+sudo ln -s /etc/nginx/sites-available/corbot-empire /etc/nginx/sites-enabled/corbot-empire
 sudo nginx -t
 sudo systemctl reload nginx
 ```
@@ -88,7 +88,7 @@ curl http://127.0.0.1:8790/api/health
 Authenticated remote check:
 
 ```bash
-curl -H "Authorization: Bearer YOUR_API_AUTH_TOKEN" https://claw.example.com/api/health
+curl -H "Authorization: Bearer YOUR_API_AUTH_TOKEN" https://corbot.example.com/api/health
 ```
 
 ## 6. Updating
@@ -97,7 +97,7 @@ curl -H "Authorization: Bearer YOUR_API_AUTH_TOKEN" https://claw.example.com/api
 git pull
 pnpm install
 pnpm run build
-systemctl --user restart claw-empire
+systemctl --user restart corbot-empire
 ```
 
 ## Notes

@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="public/claw-empire.svg" width="80" alt="Claw-Empire" />
+  <img src="public/corbot-empire.svg" width="80" alt="CorBot-Empire" />
 </p>
 
-<h1 align="center">Claw-Empire</h1>
+<h1 align="center">CorBot-Empire</h1>
 
 <p align="center">
   <strong>Command Your AI Agent Empire from the CEO Desk</strong><br>
@@ -43,11 +43,11 @@
 
 ---
 
-## What is Claw-Empire?
+## What is CorBot-Empire?
 
-Claw-Empire transforms your AI coding assistants — connected via **CLI**, **OAuth**, or **direct API keys** — into a fully simulated **virtual software company**. You are the CEO. Your AI agents are the employees. Watch them collaborate across departments, hold meetings, deliver tasks, and level up — all visualized through a charming pixel-art office interface.
+CorBot-Empire transforms your AI coding assistants — connected via **CLI**, **OAuth**, or **direct API keys** — into a fully simulated **virtual software company**. You are the CEO. Your AI agents are the employees. Watch them collaborate across departments, hold meetings, deliver tasks, and level up — all visualized through a charming pixel-art office interface.
 
-### Why Claw-Empire?
+### Why CorBot-Empire?
 
 - **One interface, many AI agents** — Manage CLI, OAuth, and API-backed agents from a single dashboard
 - **Local-first & private** — All data stays on your machine. SQLite database, no cloud dependency
@@ -61,7 +61,7 @@ Claw-Empire transforms your AI coding assistants — connected via **CLI**, **OA
 > **Just paste this to your AI coding agent (Claude Code, Codex, Gemini CLI, etc.):**
 >
 > ```
-> Install Claw-Empire following the guide at:
+> Install CorBot-Empire following the guide at:
 > https://github.com/GreenSheep01201/claw-empire
 > ```
 >
@@ -345,7 +345,7 @@ Expected:
 
 ### Step 5: Direct messenger setup (no OpenClaw required)
 
-You can run messenger channels directly from Claw-Empire without OpenClaw.
+You can run messenger channels directly from CorBot-Empire without OpenClaw.
 
 1. Open `Settings > Channel Messages`.
 2. Click `Add Chat`.
@@ -539,7 +539,7 @@ Open your browser:
 The `pnpm setup` command injects **CEO directive orchestration rules** into your AI agent's `AGENTS.md` file. This teaches your AI coding agent (Claude Code, Codex, etc.) how to:
 
 - Interpret `$` prefix **CEO directives** for priority task delegation
-- Call the Claw-Empire REST API to create tasks, assign agents, and report status
+- Call the CorBot-Empire REST API to create tasks, assign agents, and report status
 - Work within isolated git worktrees for safe parallel development
 
 ```bash
@@ -591,7 +591,7 @@ curl -s http://127.0.0.1:8790/api/gateway/targets
 
 ### `$` Command -> OpenClaw Chat Delegation Logic
 
-When a chat message starts with `$`, Claw-Empire handles it as a CEO directive:
+When a chat message starts with `$`, CorBot-Empire handles it as a CEO directive:
 
 1. Orchestrator asks whether to hold a team-leader meeting first.
 2. Orchestrator asks for project path/context (`project_path` or `project_context`).
@@ -635,7 +635,7 @@ Copy `.env.example` to `.env`. All secrets stay local — never commit `.env`.
 | `API_AUTH_TOKEN`                       | Recommended              | Bearer token for non-loopback API/WebSocket access                                                                                           |
 | `INBOX_WEBHOOK_SECRET`                 | **Yes for `/api/inbox`** | Shared secret required in `x-inbox-secret` header                                                                                            |
 | `OPENCLAW_CONFIG`                      | Recommended for OpenClaw | Absolute path to `openclaw.json` used for gateway target discovery/chat relay                                                                |
-| `DB_PATH`                              | No                       | SQLite database path (default: `./claw-empire.sqlite`)                                                                                       |
+| `DB_PATH`                              | No                       | SQLite database path (default: `./corbot-empire.sqlite`)                                                                                       |
 | `LOGS_DIR`                             | No                       | Log directory (default: `./logs`)                                                                                                            |
 | `OAUTH_GITHUB_CLIENT_ID`               | No                       | GitHub OAuth App client ID                                                                                                                   |
 | `OAUTH_GITHUB_CLIENT_SECRET`           | No                       | GitHub OAuth App client secret                                                                                                               |
@@ -732,7 +732,7 @@ QA_API_AUTH_TOKEN="<API_AUTH_TOKEN>" pnpm run test:qa:project-path
 
 ### In-App Update Banner
 
-When a newer release is published on GitHub, Claw-Empire shows a top banner in the UI with pull instructions and a release-note link.
+When a newer release is published on GitHub, CorBot-Empire shows a top banner in the UI with pull instructions and a release-note link.
 
 - Windows PowerShell: `git pull; pnpm install`
 - macOS/Linux shell: `git pull && pnpm install`
@@ -794,7 +794,7 @@ Notes:
 - Direct API presets use the provider endpoint model IDs such as `glm-5`, `kimi-k2.5`, and `minimax-m2.5`. They do **not** use OpenCode CLI model IDs like `opencode-go/<model-id>`.
 - Bailian Coding Plan keys are intended for the interactive coding tool flow. Review the provider documentation before reusing those keys in other environments.
 
-Claw-Empire supports three provider paths:
+CorBot-Empire supports three provider paths:
 
 - **CLI tools** — install local coding CLIs and run tasks through local processes
 - **OAuth accounts** — connect supported providers (for example GitHub/Google-backed flows) via secure token exchange
@@ -865,7 +865,7 @@ claw-empire/
 
 ## Security
 
-Claw-Empire is designed with security in mind:
+CorBot-Empire is designed with security in mind:
 
 - **Local-first architecture** — All data stored locally in SQLite; no external cloud services required
 - **Encrypted OAuth + messenger tokens** — User-specific OAuth tokens and direct messenger channel tokens are stored **server-side only** in SQLite, encrypted at rest using AES-256-GCM with `OAUTH_ENCRYPTION_SECRET` (`SESSION_SECRET` fallback). The browser never receives refresh tokens
@@ -912,6 +912,6 @@ Full policy: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 **Built with pixels and passion.**
 
-_Claw-Empire — Where AI agents come to work._
+_CorBot-Empire — Where AI agents come to work._
 
 </div>

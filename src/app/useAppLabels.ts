@@ -27,10 +27,10 @@ export function useAppLabels({
 }: UseAppLabelsParams) {
   const uiLanguage = normalizeLanguage(settings.language);
   const loadingTitle = pickLang(uiLanguage, {
-    ko: "Claw-Empire 로딩 중...",
-    en: "Loading Claw-Empire...",
-    ja: "Claw-Empireを読み込み中...",
-    zh: "Claw-Empire 加载中...",
+    ko: "CorBot-Empire 로딩 중...",
+    en: "Loading CorBot-Empire...",
+    ja: "CorBot-Empireを読み込み中...",
+    zh: "CorBot-Empire 加载中...",
   });
   const loadingSubtitle = pickLang(uiLanguage, {
     ko: "AI 에이전트 제국을 준비하고 있습니다",
