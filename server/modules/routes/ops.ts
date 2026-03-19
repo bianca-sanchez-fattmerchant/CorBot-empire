@@ -7,6 +7,7 @@ import { registerOpsSettingsStatsRoutes } from "./ops/settings-stats.ts";
 import { prettyStreamJson } from "./ops/terminal/pretty-stream-json.ts";
 import { registerTaskTerminalRoutes } from "./ops/terminal/routes.ts";
 import { registerCustomSkillRoutes } from "./ops/custom-skills.ts";
+import { registerAgentBundleRoutes } from "./ops/agent-bundles.ts";
 import { registerWorktreeAndUsageRoutes } from "./ops/worktrees-and-usage.ts";
 import { registerTaskReportRoutes } from "./ops/task-reports/routes.ts";
 import { registerModelRoutes } from "./ops/models-routes.ts";
@@ -216,6 +217,7 @@ export function registerRoutesPartC(ctx: RuntimeContext): RouteOpsExports {
 
   const { normalizeSkillLearnProviders } = registerSkillRoutes(__ctx);
   registerCustomSkillRoutes(__ctx, { normalizeSkillLearnProviders });
+  registerAgentBundleRoutes(__ctx, { normalizeSkillLearnProviders });
 
   const { refreshCliUsageData } = registerWorktreeAndUsageRoutes(__ctx);
 

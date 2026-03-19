@@ -6,6 +6,7 @@ import { normalizeOfficeWorkflowPack } from "../app/office-workflow-pack";
 import { buildSpriteMap } from "./AgentAvatar";
 import AgentFormModal from "./agent-manager/AgentFormModal";
 import AgentsTab from "./agent-manager/AgentsTab";
+import BundleTransferPanel from "./agent-manager/BundleTransferPanel";
 import { BLANK, ICON_SPRITE_POOL } from "./agent-manager/constants";
 import DepartmentFormModal from "./agent-manager/DepartmentFormModal";
 import DepartmentInstructionsModal from "./agent-manager/DepartmentInstructionsModal";
@@ -533,26 +534,29 @@ export default function AgentManager({
       </div>
 
       {subTab === "agents" && (
-        <AgentsTab
-          tr={tr}
-          locale={locale}
-          isKo={isKo}
-          agents={agents}
-          departments={departments}
-          deptTab={deptTab}
-          setDeptTab={setDeptTab}
-          search={search}
-          setSearch={setSearch}
-          sortedAgents={sortedAgents}
-          spriteMap={spriteMap}
-          confirmDeleteId={confirmDeleteId}
-          setConfirmDeleteId={setConfirmDeleteId}
-          onEditAgent={openEdit}
-          onEditDepartment={openEditDept}
-          onDeleteAgent={handleDelete}
-          saving={saving}
-          randomIconSprites={{ total: randomIconSprites.total }}
-        />
+        <>
+          <BundleTransferPanel tr={tr} onImported={onAgentsChange} />
+          <AgentsTab
+            tr={tr}
+            locale={locale}
+            isKo={isKo}
+            agents={agents}
+            departments={departments}
+            deptTab={deptTab}
+            setDeptTab={setDeptTab}
+            search={search}
+            setSearch={setSearch}
+            sortedAgents={sortedAgents}
+            spriteMap={spriteMap}
+            confirmDeleteId={confirmDeleteId}
+            setConfirmDeleteId={setConfirmDeleteId}
+            onEditAgent={openEdit}
+            onEditDepartment={openEditDept}
+            onDeleteAgent={handleDelete}
+            saving={saving}
+            randomIconSprites={{ total: randomIconSprites.total }}
+          />
+        </>
       )}
 
       {subTab === "departments" && (

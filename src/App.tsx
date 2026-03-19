@@ -34,6 +34,7 @@ import { useAppLabels } from "./app/useAppLabels";
 import AppLoadingScreen from "./app/AppLoadingScreen";
 import AppMainLayout from "./app/AppMainLayout";
 import AppOverlays from "./app/AppOverlays";
+import FirstRunOnboarding from "./app/FirstRunOnboarding";
 import { useAppActions } from "./app/useAppActions";
 import { useActiveMeetingTaskId } from "./app/useActiveMeetingTaskId";
 import { useUpdateStatusPolling } from "./app/useUpdateStatusPolling";
@@ -92,6 +93,7 @@ export default function App() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [mobileHeaderMenuOpen, setMobileHeaderMenuOpen] = useState(false);
   const [officePackBootstrappingLabel, setOfficePackBootstrappingLabel] = useState<string | null>(null);
+  const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   const [runtimeOs] = useState<RuntimeOs>(() => detectRuntimeOs());
   const [forceUpdateBanner] = useState<boolean>(() => isForceUpdateBannerEnabled());
   const [updateStatus, setUpdateStatus] = useState<api.UpdateStatus | null>(null);
@@ -379,6 +381,28 @@ export default function App() {
     [activePackKey, activePackProfile?.agents, agents],
   );
 
+  const showOnboarding = !loading && !onboardingDismissed && settings.onboarding?.completed !== true;
+
+  const handleOnboardingCompleted = async (result: { companyName: string; officePackName: string; provider: "claude" | "gemini" }) => {
+    await api.saveSettingsPatch({
+      companyName: result.companyName,
+      officePackName: result.officePackName,
+      defaultProvider: result.provider,
+      onboarding: { version: 1, completed: true, completedAt: Date.now() },
+    });
+    const nextSettingsRaw = await api.getSettings();
+    const nextSettings = mergeSettingsWithDefaults(nextSettingsRaw);
+    setSettings(nextSettings);
+    const activePackKey = normalizeOfficeWorkflowPack(nextSettings.officeWorkflowPack ?? "development");
+    const [depts, ags] = await Promise.all([
+      api.getDepartments({ workflowPackKey: activePackKey }),
+      api.getAgents({ includeSeed: activePackKey !== "development" }),
+    ]);
+    setDepartments(depts);
+    setAgents(ags);
+    setOnboardingDismissed(true);
+  };
+
   if (loading) {
     return (
       <AppLoadingScreen language={labels.uiLanguage} title={labels.loadingTitle} subtitle={labels.loadingSubtitle} />
@@ -386,6 +410,15 @@ export default function App() {
   }
 
   return (
+    <>
+    {showOnboarding && (
+      <FirstRunOnboarding
+        settings={settings}
+        mode="required"
+        onCancelOptional={() => setOnboardingDismissed(true)}
+        onCompleted={handleOnboardingCompleted}
+      />
+    )}
     <AppMainLayout
       connected={connected}
       view={view}
@@ -559,5 +592,6 @@ export default function App() {
         }}
       />
     </AppMainLayout>
+    </>
   );
 }

@@ -1,8 +1,8 @@
 # Workflow Pack MVP Implementation Plan
 
-**Goal:** 개발 워크플로우 중심 구조를 유지하면서, `소설/보고서/영상 기획/웹서치+리포트/롤플레이` 수요를 동일한 오케스트레이션 엔진 위에서 처리한다.
+**Goal:** While preserving a development-workflow-centric structure, support `novel/report/video pre-production/web research + report/roleplay` demand on the same orchestration engine.
 
-**Architecture:** 기존 `task + meeting + messenger` 파이프라인은 공통 엔진으로 유지하고, 도메인별 차이는 `Workflow Pack` 설정(입력 스키마/프롬프트/검수/산출물)으로 분리한다.
+**Architecture:** Keep the existing `task + meeting + messenger` pipeline as a shared engine, and separate domain-specific differences via `Workflow Pack` configuration (input schema/prompt/QA/output).
 
 **Tech Stack:** TypeScript 5.9, Express 5, React 19, SQLite (`node:sqlite`), existing settings + task orchestration routes
 
@@ -12,24 +12,24 @@
 
 ### In Scope
 
-- `workflow_pack_key` 기반 실행 모드 분기
-- 세션별 기본 팩 지정(메신저 설정)
-- 자동 라우팅 + 저신뢰도 시 확인 질문
-- 팩별 필수 입력 수집(질문-응답 폼/대화)
-- 팩별 산출물 템플릿 + QA 게이트
+- Execution mode branching based on `workflow_pack_key`
+- Session-level default pack assignment (messenger settings)
+- Auto-routing + confirmation questions on low confidence
+- Pack-specific required input collection (Q&A form/conversation)
+- Pack-specific output templates + QA gate
 
-### Out of Scope (MVP 이후)
+### Out of Scope (Post-MVP)
 
-- 영상 파일 렌더링(실제 T2V 엔진 호출)
-- 다단계 결제/요금제 과금
-- 외부 번역 관리 SaaS 연동
+- Video file rendering (actual T2V engine invocation)
+- Multi-step payments/pricing billing
+- External translation management SaaS integration
 
 ### Success Metrics
 
-- 팩 자동 분류 정확도 >= 85%
-- 팩별 첫 응답 실패율 <= 5%
-- 재요청률(같은 의도 재입력) 20% 이상 감소
-- 완료 리포트 수신률(메신저/웹) >= 98%
+- Pack auto-classification accuracy >= 85%
+- First-response failure rate per pack <= 5%
+- Re-request rate (re-entering same intent) reduced by at least 20%
+- Completion report delivery rate (messenger/web) >= 98%
 
 ---
 
@@ -39,31 +39,31 @@
 type WorkflowPackKey = "development" | "novel" | "report" | "video_preprod" | "web_research_report" | "roleplay";
 ```
 
-공통 필드(설정 저장):
+Common fields (configuration storage):
 
-- `key`: 팩 식별자
-- `name`: 표시명
-- `enabled`: 사용 가능 여부
-- `input_schema_json`: 필수 입력 항목 정의
-- `prompt_preset_json`: 시스템/역할 프롬프트
-- `qa_rules_json`: 검수 규칙
-- `output_template_json`: 결과 포맷
-- `routing_keywords_json`: 라우팅 힌트
-- `cost_profile_json`: 모델/토큰/라운드 제한
+- `key`: Pack identifier
+- `name`: Display name
+- `enabled`: Availability flag
+- `input_schema_json`: Required input field definition
+- `prompt_preset_json`: System/role prompts
+- `qa_rules_json`: QA rules
+- `output_template_json`: Output format
+- `routing_keywords_json`: Routing hints
+- `cost_profile_json`: Model/token/round limits
 
-우선순위(실행 시 pack 결정):
+Priority order (pack resolution at runtime):
 
-1. 사용자 명시 전환(`/mode report`, UI 토글)
-2. 세션 기본 팩(`messengerChannels.*.sessions[].workflowPackKey`)
-3. 프로젝트 기본 팩(`projects.default_pack_key`)
-4. 자동 라우터 추론
-5. 글로벌 기본값 `development`
+1. User explicit switch (`/mode report`, UI toggle)
+2. Session default pack (`messengerChannels.*.sessions[].workflowPackKey`)
+3. Project default pack (`projects.default_pack_key`)
+4. Auto-router inference
+5. Global default `development`
 
 ---
 
 ## 3. Data Model / Migration Plan
 
-기존 구조를 최대한 유지하면서 확장:
+Extend while preserving the existing structure as much as possible:
 
 ### 3.1 New table
 
@@ -94,8 +94,8 @@ ALTER TABLE tasks ADD COLUMN output_format TEXT;
 
 ### 3.3 Settings schema extension
 
-- key: `messengerChannels` (기존 유지)
-- 세션 객체에 optional 필드 추가:
+- key: `messengerChannels` (keep existing)
+- Add optional fields in session objects:
   - `workflowPackKey?: WorkflowPackKey`
   - `workflowPackOverrides?: Record<string, unknown>`
 
@@ -106,25 +106,25 @@ ALTER TABLE tasks ADD COLUMN output_format TEXT;
 ### 4.1 Pack catalog
 
 - `GET /api/workflow-packs`
-  - 모든 팩 목록 + enabled/config 요약 반환
+  - Returns all packs + enabled/config summary
 - `PUT /api/workflow-packs/:key`
-  - 팩 설정/활성 상태 수정
+  - Updates pack configuration/activation status
 
 ### 4.2 Routing preview
 
 - `POST /api/workflow/route`
-  - 입력: `text`, `sessionKey?`, `projectId?`
-  - 출력: `packKey`, `confidence`, `reason`, `requiresConfirmation`
+  - Input: `text`, `sessionKey?`, `projectId?`
+  - Output: `packKey`, `confidence`, `reason`, `requiresConfirmation`
 
 ### 4.3 Session binding
 
 - `PATCH /api/messenger/sessions/:sessionId`
-  - 입력: `workflowPackKey`
-  - 효과: 세션 기본 팩 저장
+  - Input: `workflowPackKey`
+  - Effect: stores session default pack
 
 ### 4.4 Task execution binding
 
-- 기존 task/directive 생성 시 필드 추가:
+- Add fields to existing task/directive creation:
   - `workflow_pack_key`
   - `workflow_meta_json`
   - `output_format`
@@ -135,45 +135,45 @@ ALTER TABLE tasks ADD COLUMN output_format TEXT;
 
 ### development
 
-- 목적: 기존 개발회사형 워크플로우 유지
-- 필수입력: 프로젝트/경로/지시문
-- 산출물: task result + 보고서 + 의사결정
-- QA: 기존 테스트/리뷰 게이트 재사용
+- Purpose: Keep existing development-company workflow
+- Required input: project/path/instruction
+- Output: task result + report + decision
+- QA: Reuse existing test/review gates
 
 ### report
 
-- 목적: 구조화 문서 생성
-- 필수입력: 목적, 독자, 분량, 톤, 형식
-- 산출물: `요약 -> 본문 -> 액션아이템`
-- QA: 섹션 누락 시 자동 재생성
+- Purpose: Structured document generation
+- Required input: purpose, audience, length, tone, format
+- Output: `summary -> body -> action items`
+- QA: auto-regenerate when sections are missing
 
 ### web_research_report
 
-- 목적: 웹서치 기반 근거 보고서
-- 필수입력: 주제, 기간, 신뢰도 기준, 언어
-- 산출물: 출처 링크 포함 보고서
-- QA: 출처 없는 단정 문장 차단
+- Purpose: Evidence-based report via web research
+- Required input: topic, period, reliability criteria, language
+- Output: Report with source links
+- QA: block assertive statements without sources
 
 ### novel
 
-- 목적: 소설/시나리오 작성
-- 필수입력: 장르, 시점, 분위기, 분량, 등장인물
-- 산출물: 시놉시스 + 본문
-- QA: 캐릭터 일관성/톤 이탈 검사
+- Purpose: Novel/scenario writing
+- Required input: genre, POV, mood, length, characters
+- Output: synopsis + body
+- QA: character consistency/tone drift checks
 
 ### video_preprod
 
-- 목적: 영상 제작 사전기획
-- 필수입력: 플랫폼, 목표 길이, 타겟, 스타일
-- 산출물: 콘셉트 -> 대본 -> 샷리스트 -> 편집가이드
-- QA: 샷리스트 누락 시 실패
+- Purpose: Video production pre-planning
+- Required input: platform, target length, target audience, style
+- Output: concept -> script -> shot list -> editing guide
+- QA: fail if shot list is missing
 
 ### roleplay
 
-- 목적: 단순 대화형 역할 놀이
-- 필수입력: 캐릭터 카드, 금지 규칙, 톤
-- 산출물: 멀티턴 대화
-- QA: 안전 규칙/캐릭터 붕괴 방지
+- Purpose: Simple conversational roleplay
+- Required input: character card, prohibited rules, tone
+- Output: multi-turn dialogue
+- QA: safety-rule and character-collapse prevention
 
 ---
 
@@ -181,50 +181,50 @@ ALTER TABLE tasks ADD COLUMN output_format TEXT;
 
 ### BE-1. Schema + seed
 
-- 대상:
+- Targets:
   - `server/modules/bootstrap/schema/base-schema.ts`
   - `server/modules/bootstrap/schema/*migrations*.ts`
-  - 신규 `server/modules/bootstrap/schema/workflow-pack-seeds.ts`
-- 완료 기준:
-  - 신규/기존 DB 모두 migration 성공
-  - `workflow_packs` 기본 6개 row seed
+  - new `server/modules/bootstrap/schema/workflow-pack-seeds.ts`
+- Done criteria:
+  - Migration succeeds on both new/existing DBs
+  - Seed 6 default rows in `workflow_packs`
 
 ### BE-2. Runtime pack resolver
 
-- 대상:
-  - 신규 `server/modules/workflow/packs/resolver.ts`
-  - 신규 `server/modules/workflow/packs/router.ts`
+- Targets:
+  - new `server/modules/workflow/packs/resolver.ts`
+  - new `server/modules/workflow/packs/router.ts`
   - `server/modules/routes/collab/direct-chat.ts`
-- 완료 기준:
-  - 라우팅 우선순위 1~5 동작
-  - confidence low 시 확인 질문 반환
+- Done criteria:
+  - Routing priorities 1-5 work
+  - Return confirmation question on low confidence
 
 ### BE-3. Task binding + execution hooks
 
-- 대상:
+- Targets:
   - `server/modules/routes/ops/messages/directives-inbox-routes.ts`
   - `server/modules/routes/core/tasks/*`
   - `server/modules/workflow/orchestration.ts`
-- 완료 기준:
-  - task row에 `workflow_pack_key` 저장
-  - 실행 프롬프트에 pack preset 반영
+- Done criteria:
+  - Save `workflow_pack_key` in task rows
+  - Apply pack preset to execution prompts
 
 ### BE-4. Pack QA gate
 
-- 대상:
-  - 신규 `server/modules/workflow/packs/qa-gates.ts`
+- Targets:
+  - new `server/modules/workflow/packs/qa-gates.ts`
   - `server/modules/workflow/orchestration/report-workflow-tools.ts`
-- 완료 기준:
-  - 팩별 검수 실패/재생성 루프 1회 지원
+- Done criteria:
+  - Support one retry loop for pack-level QA failure/regeneration
 
-### BE-5. Settings/session 확장
+### BE-5. Settings/session extension
 
-- 대상:
+- Targets:
   - `server/modules/routes/ops/settings-stats.ts`
   - `server/messenger/session-agent-routing.ts`
   - `server/gateway/client.ts`
-- 완료 기준:
-  - 세션 `workflowPackKey` 저장/조회/기본값 처리
+- Done criteria:
+  - Save/read/default handling for session `workflowPackKey`
 
 ---
 
@@ -232,43 +232,43 @@ ALTER TABLE tasks ADD COLUMN output_format TEXT;
 
 ### FE-1. Type extension
 
-- 대상:
+- Targets:
   - `src/types/index.ts`
   - `src/api/*` (settings/task payload)
-- 완료 기준:
-  - `WorkflowPackKey` 타입, 세션 `workflowPackKey` 반영
+- Done criteria:
+  - Reflect `WorkflowPackKey` type and session `workflowPackKey`
 
-### FE-2. Settings UI (팩 관리)
+### FE-2. Settings UI (pack management)
 
-- 대상:
-  - 신규 `src/components/settings/WorkflowPacksTab.tsx`
+- Targets:
+  - new `src/components/settings/WorkflowPacksTab.tsx`
   - `src/components/settings/SettingsTabNav.tsx`
-- 완료 기준:
-  - 팩 활성/비활성 + 요약 표시
+- Done criteria:
+  - Display pack enable/disable + summary
 
-### FE-3. Messenger session UI 바인딩
+### FE-3. Messenger session UI binding
 
-- 대상:
+- Targets:
   - `src/components/settings/GatewaySettingsTab.tsx`
-- 완료 기준:
-  - 세션별 기본 팩 선택 가능
-  - 새 채팅 추가 모달에서도 팩 지정 가능
+- Done criteria:
+  - Select default pack per session
+  - Support pack selection in new-chat modal
 
 ### FE-4. Chat mode UX
 
-- 대상:
+- Targets:
   - `src/components/ChatPanel.tsx`
   - `src/components/chat-panel/*`
-- 완료 기준:
-  - 현재 모드 뱃지 표시
-  - `/mode` 또는 드롭다운으로 즉시 전환
+- Done criteria:
+  - Display current mode badge
+  - Instant switch via `/mode` or dropdown
 
-### FE-5. 다국어 텍스트 정리
+### FE-5. i18n text cleanup
 
-- 대상:
-  - 신규 `src/i18n/workflow-pack.ts` (또는 기존 `t({ko,en,ja,zh})` 확장)
-- 완료 기준:
-  - 신규 UI 문구 4개 언어 지원
+- Targets:
+  - new `src/i18n/workflow-pack.ts` (or extend existing `t({ko,en,ja,zh})`)
+- Done criteria:
+  - Support all new UI text in 4 languages
 
 ---
 
@@ -276,29 +276,29 @@ ALTER TABLE tasks ADD COLUMN output_format TEXT;
 
 ### QA-1. Unit
 
-- 서버:
+- Server:
   - `server/modules/workflow/packs/*.test.ts`
-  - `server/modules/routes/collab/direct-chat.normalize.test.ts` 확장
-- 프론트:
+  - extend `server/modules/routes/collab/direct-chat.normalize.test.ts`
+- Frontend:
   - `src/components/settings/*workflow*.test.tsx`
 
 ### QA-2. Integration
 
-- 시나리오:
-  - 세션 기본팩 `roleplay`에서 일반 채팅
-  - 같은 세션에서 `/mode report` 전환 후 보고서 태스크 생성
-  - `web_research_report`에서 출처 누락 시 재생성
+- Scenarios:
+  - General chat in a session with default pack `roleplay`
+  - In same session, switch with `/mode report` and create report task
+  - In `web_research_report`, regenerate on missing citations
 
 ### QA-3. Regression
 
-- 기존 `$` directive 흐름과 review decision inbox 영향 없음 확인
-- 메신저 채널 분리 라우팅 유지 확인
+- Verify no impact to existing `$` directive flow and review decision inbox
+- Verify messenger channel-separated routing remains intact
 
 ### QA-4. Exit Criteria
 
-- `pnpm run test` 통과
-- `pnpm run test:e2e` 통과
-- 수동 시나리오 6건 체크리스트 전부 통과
+- `pnpm run test` passes
+- `pnpm run test:e2e` passes
+- All 6 manual scenario checklist items pass
 
 ---
 
@@ -306,32 +306,32 @@ ALTER TABLE tasks ADD COLUMN output_format TEXT;
 
 ### Phase 1 (Foundation)
 
-- BE-1, BE-2, FE-1, FE-3, QA-1 일부
-- 결과: 팩 선택/저장/기본 라우팅 가능
+- BE-1, BE-2, FE-1, FE-3, part of QA-1
+- Outcome: pack select/save/default routing available
 
 ### Phase 2 (High-demand packs first)
 
 - `report`, `web_research_report`, `roleplay`
-- 결과: 실제 사용자 체감 기능 우선 제공
+- Outcome: prioritize highest user-perceived value
 
 ### Phase 3 (Creative packs)
 
 - `novel`, `video_preprod`
-- 결과: 크리에이티브 수요 대응
+- Outcome: support creative demand
 
 ### Phase 4 (Hardening)
 
-- 비용 상한, 라우팅 정확도, 분석 대시보드
+- Cost cap, routing accuracy, analytics dashboard
 
 ---
 
 ## 10. Risks and Guardrails
 
-- 리스크: 팩 분기 증가로 프롬프트 복잡도 상승
-  - 대응: 팩별 preset 최소화 + 공통 템플릿 재사용
-- 리스크: 웹서치 팩 환각/출처 누락
-  - 대응: citation gate 강제
-- 리스크: roleplay가 업무지시로 오탐
-  - 대응: task intent classifier와 pack intent classifier 분리
-- 리스크: UX 복잡도 증가
-  - 대응: 세션 기본팩 + 현재 모드 뱃지 + 단일 전환 UX
+- Risk: Prompt complexity increases as pack branching grows
+  - Mitigation: Minimize per-pack presets + reuse common templates
+- Risk: Hallucinations/missing sources in web-research pack
+  - Mitigation: enforce citation gate
+- Risk: `roleplay` misclassified as work directive
+  - Mitigation: separate task-intent classifier and pack-intent classifier
+- Risk: UX complexity increases
+  - Mitigation: session default pack + current mode badge + single-switch UX

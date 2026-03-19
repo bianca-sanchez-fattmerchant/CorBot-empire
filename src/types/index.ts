@@ -378,6 +378,13 @@ export interface McpServerConfig {
   enabled?: boolean;
 }
 
+export interface OnboardingSettings {
+  version: number;
+  completed: boolean;
+  completedAt?: number;
+  migrationPromptDismissed?: boolean;
+}
+
 export interface OfficePackProfile {
   departments: Department[];
   agents: Agent[];
@@ -388,6 +395,7 @@ export type OfficePackProfiles = Partial<Record<WorkflowPackKey, OfficePackProfi
 
 export interface CompanySettings {
   companyName: string;
+  officePackName?: string;
   ceoName: string;
   autoAssign: boolean;
   yoloMode?: boolean;
@@ -402,6 +410,7 @@ export interface CompanySettings {
   roomThemes?: Record<string, RoomTheme>;
   messengerChannels?: MessengerChannelsConfig;
   mcpServers?: McpServerConfig[];
+  onboarding?: OnboardingSettings;
   officePackProfiles?: OfficePackProfiles;
   officePackHydratedPacks?: string[];
 }
@@ -441,5 +450,10 @@ export const DEFAULT_SETTINGS: CompanySettings = {
     imessage: { token: "", sessions: [], receiveEnabled: false },
   },
   mcpServers: [],
+  onboarding: {
+    version: 1,
+    completed: false,
+    migrationPromptDismissed: false,
+  },
   officePackProfiles: {},
 };

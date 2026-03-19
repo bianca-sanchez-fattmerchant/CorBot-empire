@@ -23,6 +23,14 @@ export function registerDepartmentRoutes(deps: DepartmentRouteDeps): void {
       return false;
     }
   })();
+  const hasTasksWorkflowPackColumn = (() => {
+    try {
+      const cols = db.prepare("PRAGMA table_info(tasks)").all() as Array<{ name?: unknown }>;
+      return cols.some((col) => String(col.name ?? "").trim() === "workflow_pack_key");
+    } catch {
+      return false;
+    }
+  })();
 
   function parseIncludeSeedParam(input: unknown): boolean {
     if (Array.isArray(input)) input = input[0];

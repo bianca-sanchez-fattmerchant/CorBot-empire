@@ -217,6 +217,92 @@ export async function deleteAgent(id: string): Promise<void> {
   await del(`/api/agents/${id}`);
 }
 
+export type AgentBundleConflictPolicy = "skip" | "update" | "error";
+
+export interface AgentBundleImportOptions {
+  conflict_policy: AgentBundleConflictPolicy;
+  match_by: "name";
+  include_instructions: boolean;
+  include_skills: boolean;
+}
+
+interface AgentBundleImportPayloadBase {
+  options: AgentBundleImportOptions;
+}
+
+export interface AgentBundleImportPayloadJson extends AgentBundleImportPayloadBase {
+  format?: "json";
+  bundle: Record<string, unknown>;
+}
+
+export interface AgentBundleImportPayloadZip extends AgentBundleImportPayloadBase {
+  format: "zip";
+  archive_base64: string;
+}
+
+export type AgentBundleImportPayload = AgentBundleImportPayloadJson | AgentBundleImportPayloadZip;
+
+export interface AgentBundlePreviewResponse {
+  ok: boolean;
+  format?: "json" | "zip";
+  options: AgentBundleImportOptions;
+  preview?: {
+    agent_actions?: Array<{ name: string; action: string; reason?: string }>;
+    instruction_actions?: Array<{ target: string; action: string; reason?: string }>;
+    skill_actions?: Array<{ skillName: string; action: string; reason?: string }>;
+  };
+  errors?: Array<{ type: string; target: string; message: string }>;
+}
+
+export interface AgentBundleApplyResponse extends AgentBundlePreviewResponse {
+  result?: {
+    createdAgents: number;
+    updatedAgents: number;
+    skippedAgents: number;
+    updatedInstructions: number;
+    skippedInstructions: number;
+    createdSkills: number;
+    updatedSkills: number;
+    skippedSkills: number;
+  };
+}
+
+export async function previewAgentBundleImport(payload: AgentBundleImportPayload): Promise<AgentBundlePreviewResponse> {
+  return post<AgentBundlePreviewResponse>("/api/agents/bundle/import/preview", payload);
+}
+
+export async function applyAgentBundleImport(payload: AgentBundleImportPayload): Promise<AgentBundleApplyResponse> {
+  return post<AgentBundleApplyResponse>("/api/agents/bundle/import/apply", payload);
+}
+
+export type AgentBundleExportResponse =
+  | {
+      ok: boolean;
+      format: "json";
+      file_name: string;
+      bundle: Record<string, unknown>;
+    }
+  | {
+      ok: boolean;
+      format: "zip";
+      file_name: string;
+      archive_base64: string;
+    };
+
+export async function exportAgentBundle(input?: {
+  format?: "json" | "zip";
+  includeInstructions?: boolean;
+  includeSkills?: boolean;
+  agentIds?: string[];
+}): Promise<AgentBundleExportResponse> {
+  return post<AgentBundleExportResponse>("/api/agents/bundle/export", {
+    format: input?.format ?? "zip",
+    includeInstructions: input?.includeInstructions ?? true,
+    includeSkills: input?.includeSkills ?? true,
+    agentIds: input?.agentIds,
+  });
+}
+
 export async function processSprite(imageBase64: string): Promise<{
   ok: boolean;
   previews: Record<string, string>;

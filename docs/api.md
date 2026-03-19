@@ -130,6 +130,9 @@ or
 | DELETE | `/api/agents/cli-processes/:pid` | Kill a detected CLI process by pid                              |
 | GET    | `/api/cli-status`                | Installed CLI provider detection + authentication readiness     |
 | POST   | `/api/agents`                    | Create agent                                                    |
+| POST   | `/api/agents/bundle/export`      | Export a portable agent bundle (agents + optional instructions/skills) |
+| POST   | `/api/agents/bundle/import/preview` | Validate bundle and preview create/update/skip plan         |
+| POST   | `/api/agents/bundle/import/apply`   | Apply bundle import using selected conflict policy          |
 | POST   | `/api/agents/:id/spawn`          | Spawn assigned task execution directly from an agent card       |
 | PATCH  | `/api/agents/:id`                | Update agent                                                    |
 | DELETE | `/api/agents/:id`                | Delete agent                                                    |
@@ -138,6 +141,17 @@ or
 | GET    | `/api/stats`                     | Dashboard/company stats                                         |
 | GET    | `/api/settings`                  | Read settings                                                   |
 | PUT    | `/api/settings`                  | Save settings                                                   |
+
+Bundle endpoint payload notes:
+
+- `POST /api/agents/bundle/export`
+  - Request fields: `format?: "json" | "zip"`, `includeInstructions?: boolean`, `includeSkills?: boolean`, `agentIds?: string[]`
+  - `format="json"` (default) response: `{ ok, format: "json", file_name, bundle }`
+  - `format="zip"` response: `{ ok, format: "zip", file_name, archive_base64 }` where `archive_base64` is a zip file containing `bundle.json`.
+- `POST /api/agents/bundle/import/preview` and `POST /api/agents/bundle/import/apply`
+  - JSON path: `{ bundle, options }`
+  - ZIP path: `{ format: "zip", archive_base64, options }`
+  - `options`: `{ conflict_policy: "skip" | "update" | "error", match_by: "name", include_instructions: boolean, include_skills: boolean }`
 
 ### Tasks / Execution
 
