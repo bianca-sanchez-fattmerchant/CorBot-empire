@@ -24,6 +24,7 @@ interface ChatPanelProps {
   selectedAgent: Agent | null;
   messages: Message[];
   agents: Agent[];
+  defaultProjectPath?: string;
   streamingMessage?: StreamingMessage | null;
   onSendMessage: (
     content: string,
@@ -53,6 +54,7 @@ export function ChatPanel({
   selectedAgent,
   messages,
   agents,
+  defaultProjectPath,
   streamingMessage,
   onSendMessage,
   onSendAnnouncement,
@@ -142,7 +144,7 @@ export function ChatPanel({
     setExistingProjectInput("");
     setExistingProjectError("");
     setNewProjectName("");
-    setNewProjectPath("");
+    setNewProjectPath(defaultProjectPath?.trim() ?? "");
     setNewProjectGoal("");
     setProjectItems([]);
   };
@@ -312,6 +314,7 @@ export function ChatPanel({
     setExistingProjectError("");
     setProjectItems([]);
     setNewProjectGoal(action.kind === "directive" ? action.content : "");
+    setNewProjectPath(defaultProjectPath?.trim() ?? "");
   };
 
   const handleSend = () => {
@@ -462,7 +465,12 @@ export function ChatPanel({
         tr={tr}
         onClose={closeProjectFlow}
         onChooseExisting={handleChooseExistingProject}
-        onChooseNew={() => setProjectFlowStep("new")}
+        onChooseNew={() => {
+          if (!(newProjectPath ?? "").trim() && (defaultProjectPath ?? "").trim()) {
+            setNewProjectPath((defaultProjectPath ?? "").trim());
+          }
+          setProjectFlowStep("new");
+        }}
         onBackToChoose={() => setProjectFlowStep("choose")}
         onSelectExistingProject={handleSelectExistingProject}
         onExistingProjectInputChange={handleExistingProjectInputChange}

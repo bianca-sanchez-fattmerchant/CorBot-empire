@@ -36,6 +36,35 @@ afterEach(() => {
 });
 
 describe("worktree lifecycle branch collision handling", () => {
+  it("bootstraps HEAD when repository has no commits", () => {
+    const repo = fs.mkdtempSync(path.join(os.tmpdir(), "climpire-wt-unborn-"));
+    tempDirs.push(repo);
+    try {
+      runGit(repo, ["init", "-b", "main"]);
+    } catch {
+      runGit(repo, ["init"]);
+      runGit(repo, ["checkout", "-B", "main"]);
+    }
+    runGit(repo, ["config", "user.name", "CorBot-Empire Test"]);
+    runGit(repo, ["config", "user.email", "claw-empire-test@example.local"]);
+
+    const taskId = "unborn-000-0000-0000-0000-000000000000";
+    const taskWorktrees = new Map();
+    const tools = createWorktreeLifecycleTools({
+      appendTaskLog: () => {},
+      taskWorktrees,
+    });
+
+    const worktreePath = tools.createWorktree(repo, taskId, "Tester");
+    expect(worktreePath).toBeTruthy();
+
+    const head = runGit(repo, ["rev-parse", "HEAD"]);
+    expect(head.length).toBeGreaterThan(0);
+
+    tools.cleanupWorktree(repo, taskId);
+    expect(taskWorktrees.has(taskId)).toBe(false);
+  });
+
   it("reuses existing task branch when branch already exists", () => {
     const repo = initRepo("climpire-wt-reuse-");
     tempDirs.push(repo);

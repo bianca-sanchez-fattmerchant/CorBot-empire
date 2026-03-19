@@ -34,7 +34,12 @@ import { useProjectSaveHandler } from "./project-manager/useProjectSaveHandler";
 
 const PAGE_SIZE = 5;
 
-export default function ProjectManagerModal({ agents, departments = [], onClose }: ProjectManagerModalProps) {
+export default function ProjectManagerModal({
+  agents,
+  departments = [],
+  defaultProjectPath,
+  onClose,
+}: ProjectManagerModalProps) {
   const { t, language } = useI18n();
 
   const [projects, setProjects] = useState<Project[]>([]);
@@ -202,13 +207,13 @@ export default function ProjectManagerModal({ agents, departments = [], onClose 
     setIsCreating(true);
     setEditingProjectId(null);
     setName("");
-    setProjectPath("");
+    setProjectPath(defaultProjectPath?.trim() ?? "");
     setCoreGoal("");
     setAssignmentMode("auto");
     setSelectedAgentIds(new Set());
     setManualAssignmentWarning(null);
     pathTools.resetPathHelperState();
-  }, [pathTools]);
+  }, [defaultProjectPath, pathTools]);
 
   const startEditSelected = useCallback(() => {
     if (!viewedProject) return;

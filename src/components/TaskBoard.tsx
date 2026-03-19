@@ -13,6 +13,7 @@ interface TaskBoardProps {
   tasks: Task[];
   agents: Agent[];
   departments: Department[];
+  defaultProjectPath?: string;
   subtasks: SubTask[];
   onCreateTask: (input: {
     title: string;
@@ -42,6 +43,7 @@ export function TaskBoard({
   tasks,
   agents,
   departments,
+  defaultProjectPath,
   subtasks,
   onCreateTask,
   onUpdateTask,
@@ -302,7 +304,12 @@ export function TaskBoard({
       )}
 
       {showProjectManager && (
-        <ProjectManagerModal agents={agents} departments={departments} onClose={() => setShowProjectManager(false)} />
+        <ProjectManagerModal
+          agents={agents}
+          departments={departments}
+          defaultProjectPath={defaultProjectPath}
+          onClose={() => setShowProjectManager(false)}
+        />
       )}
 
       {showBulkHideModal && (

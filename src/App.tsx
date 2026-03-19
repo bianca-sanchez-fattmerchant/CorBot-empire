@@ -45,6 +45,7 @@ import { resolvePackAgentViews, resolvePackDepartmentsForDisplay } from "./app/o
 import {
   buildOfficePackPresentation,
   buildOfficePackStarterAgents,
+  getOfficePackSeedTargetCount,
   getOfficePackMeta,
   normalizeOfficeWorkflowPack,
   resolveOfficePackSeedProvider,
@@ -160,7 +161,7 @@ export default function App() {
     const starterDrafts = buildOfficePackStarterAgents({
       packKey,
       departments: presentation.departments,
-      targetCount: 8,
+      targetCount: getOfficePackSeedTargetCount(packKey),
       locale,
     });
     if (starterDrafts.length <= 0) return null;
@@ -497,6 +498,7 @@ export default function App() {
       <AppOverlays
         showChat={showChat}
         chatAgent={chatAgent}
+        defaultProjectPath={settings.defaultProjectPath}
         messages={messages}
         agents={overlayAgents}
         streamingMessage={streamingMessage}

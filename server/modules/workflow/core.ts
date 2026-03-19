@@ -298,6 +298,7 @@ export function initializeWorkflowPartA(ctx: RuntimeContext): WorkflowCoreExport
   });
 
   const { runAgentOneShot } = createOneShotRunner({
+    db,
     logsDir,
     broadcast,
     getProviderModelConfig,

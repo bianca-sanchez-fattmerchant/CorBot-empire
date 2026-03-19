@@ -4,6 +4,7 @@ import type { RuntimeContext } from "../../../../types/runtime-context.ts";
 import { buildWorkflowPackExecutionGuidance } from "../../../workflow/packs/execution-guidance.ts";
 import { resolveVideoArtifactSpecForTask } from "../../../workflow/packs/video-artifact.ts";
 import { ensureVideoPreprodRemotionBestPracticesSkill } from "../../../workflow/core/video-skill-bootstrap.ts";
+import { resolveCliModelWithSettingsFallback } from "../../../workflow/core/model-fallback.ts";
 
 export function registerAgentSpawnRoute(ctx: RuntimeContext): void {
   const {
@@ -185,13 +186,38 @@ export function registerAgentSpawnRoute(ctx: RuntimeContext): void {
       : "";
     const departmentPrompt = normalizeTextField(agent.department_prompt);
     const departmentPromptBlock = departmentPrompt ? `[Department Shared Prompt]\n${departmentPrompt}` : "";
-    const departmentInstructionRow = agent.department_id
-      ? (db
+    let departmentInstructionRow: { content?: unknown } | undefined;
+    if (agent.department_id) {
+      const workflowPackKey = task.workflow_pack_key ?? "development";
+      try {
+        departmentInstructionRow = db
           .prepare(
             "SELECT content FROM department_instructions WHERE workflow_pack_key = ? AND department_id = ? LIMIT 1",
           )
-          .get(task.workflow_pack_key ?? "development", agent.department_id) as { content?: unknown } | undefined)
-      : undefined;
+          .get(workflowPackKey, agent.department_id) as { content?: unknown } | undefined;
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        const legacySchemaIssue = /no such column:\s*workflow_pack_key/i.test(msg);
+        if (legacySchemaIssue) {
+          try {
+            departmentInstructionRow = db
+              .prepare(
+                "SELECT content FROM department_instructions WHERE department_id = ? ORDER BY updated_at DESC LIMIT 1",
+              )
+              .get(agent.department_id) as { content?: unknown } | undefined;
+            appendTaskLog(
+              taskId,
+              "system",
+              "Legacy department instruction schema detected; using department-only fallback.",
+            );
+          } catch {
+            departmentInstructionRow = undefined;
+          }
+        } else {
+          appendTaskLog(taskId, "system", `Department instruction lookup failed: ${msg}`);
+        }
+      }
+    }
     const departmentInstructionContent =
       typeof departmentInstructionRow?.content === "string" ? departmentInstructionRow.content.trim() : "";
     const departmentInstructionBlock = departmentInstructionContent
@@ -248,11 +274,17 @@ export function registerAgentSpawnRoute(ctx: RuntimeContext): void {
     appendTaskLog(taskId, "system", `RUN start (agent=${agent.name}, provider=${provider})`);
 
     const spawnModelConfig = getProviderModelConfig();
-    const spawnModel = agent.cli_model || spawnModelConfig[provider]?.model || undefined;
+    const { model: spawnModel, reason: modelFallbackReason } = resolveCliModelWithSettingsFallback({
+      db: db as any,
+      provider,
+      agentModel: agent.cli_model,
+      getProviderModelConfig,
+    });
     const spawnReasoningLevel =
       provider === "codex"
         ? agent.cli_reasoning_level || spawnModelConfig[provider]?.reasoningLevel || undefined
         : spawnModelConfig[provider]?.reasoningLevel || undefined;
+    if (modelFallbackReason) appendTaskLog(taskId, "system", modelFallbackReason);
 
     if (provider === "api") {
       const controller = new AbortController();

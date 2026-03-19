@@ -275,6 +275,44 @@ export default function AgentManager({
     ],
   );
 
+  const handleUpdate = useCallback(
+    async (id: string, updates: Partial<Agent>) => {
+      setSaving(true);
+      try {
+        if (isIsolatedPack) {
+          if (useDbBackedPack) {
+            await api.updateAgent(id, updates);
+            const nextAgents = agents.map((agent) =>
+              agent.id === id ? { ...agent, ...updates } : agent,
+            );
+            await persistIsolatedProfile(departments, nextAgents);
+            onAgentsChange();
+          } else {
+            const nextAgents = agents.map((agent) =>
+              agent.id === id ? { ...agent, ...updates } : agent,
+            );
+            await persistIsolatedProfile(departments, nextAgents);
+          }
+        } else {
+          await api.updateAgent(id, updates);
+          onAgentsChange();
+        }
+      } catch (err) {
+        console.error("Update failed:", err);
+      } finally {
+        setSaving(false);
+      }
+    },
+    [
+      agents,
+      departments,
+      isIsolatedPack,
+      onAgentsChange,
+      persistIsolatedProfile,
+      useDbBackedPack,
+    ],
+  );
+
   const openCreateDept = useCallback(() => {
     setEditDept(null);
     setShowDeptModal(true);
@@ -553,6 +591,7 @@ export default function AgentManager({
             onEditAgent={openEdit}
             onEditDepartment={openEditDept}
             onDeleteAgent={handleDelete}
+            onUpdateAgent={handleUpdate}
             saving={saving}
             randomIconSprites={{ total: randomIconSprites.total }}
           />

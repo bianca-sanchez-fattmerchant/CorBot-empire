@@ -3,6 +3,8 @@ import type { Department } from "../types";
 import {
   buildOfficePackPresentation,
   buildOfficePackStarterAgents,
+  getOfficePackSeedTargetCount,
+  listOfficePackOptions,
   resolveOfficePackSeedProvider,
 } from "./office-workflow-pack";
 
@@ -163,5 +165,21 @@ describe("buildOfficePackPresentation", () => {
     });
     expect(presentationKo.departments[0]?.description).toContain("협업");
     expect(presentationKo.departments[0]?.prompt).toContain("[부서 역할]");
+  });
+});
+
+describe("office pack options", () => {
+  it("사이드바에 다중 오피스 팩 옵션을 노출한다", () => {
+    const options = listOfficePackOptions("en");
+    const keys = options.map((option) => option.key);
+    expect(keys).toEqual(expect.arrayContaining(["development", "report", "web_research_report", "video_preprod"]));
+  });
+});
+
+describe("getOfficePackSeedTargetCount", () => {
+  it("문서 중심 팩에 더 큰 시드 인원 목표를 반환한다", () => {
+    expect(getOfficePackSeedTargetCount("report")).toBeGreaterThan(8);
+    expect(getOfficePackSeedTargetCount("web_research_report")).toBeGreaterThan(8);
+    expect(getOfficePackSeedTargetCount("development")).toBe(8);
   });
 });

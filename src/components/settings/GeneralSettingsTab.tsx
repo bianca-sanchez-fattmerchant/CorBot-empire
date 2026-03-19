@@ -88,6 +88,34 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
           />
         </div>
 
+        <div>
+          <label className="block text-xs mb-1" style={{ color: "var(--th-text-secondary)" }}>
+            {t({
+              ko: "기본 프로젝트 폴더",
+              en: "Default Project Folder",
+              ja: "デフォルトのプロジェクトフォルダ",
+              zh: "默认项目文件夹",
+            })}
+          </label>
+          <input
+            type="text"
+            value={form.defaultProjectPath ?? ""}
+            onChange={(e) => setForm({ ...form, defaultProjectPath: e.target.value })}
+            placeholder={t({
+              ko: "예: /Users/yourname/Projects",
+              en: "e.g. /Users/yourname/Projects",
+              ja: "例: /Users/yourname/Projects",
+              zh: "例如: /Users/yourname/Projects",
+            })}
+            className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors"
+            style={{
+              background: "var(--th-input-bg)",
+              borderColor: "var(--th-input-border)",
+              color: "var(--th-text-primary)",
+            }}
+          />
+        </div>
+
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <ToggleSettingCard
             label={t({ ko: "자동 배정", en: "Auto Assign", ja: "自動割り当て", zh: "自动分配" })}

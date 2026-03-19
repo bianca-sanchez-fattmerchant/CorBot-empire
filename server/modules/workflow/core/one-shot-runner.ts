@@ -2,8 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import type { AgentRow, OneShotRunOptions, OneShotRunResult } from "./conversation-types.ts";
+import { resolveCliModelWithSettingsFallback } from "./model-fallback.ts";
 
 type CreateOneShotRunnerDeps = {
+  db: any;
   logsDir: string;
   broadcast: (event: string, payload: unknown) => void;
   getProviderModelConfig: () => Record<string, { model?: string; reasoningLevel?: string }>;
@@ -22,6 +24,7 @@ type CreateOneShotRunnerDeps = {
 
 export function createOneShotRunner(deps: CreateOneShotRunnerDeps) {
   const {
+    db,
     logsDir,
     broadcast,
     getProviderModelConfig,
@@ -193,7 +196,12 @@ export function createOneShotRunner(deps: CreateOneShotRunnerDeps) {
         if (!rawOutput.trim() && fs.existsSync(logPath)) rawOutput = fs.readFileSync(logPath, "utf8");
       } else {
         const modelConfig = getProviderModelConfig();
-        const model = agent.cli_model || modelConfig[provider]?.model || undefined;
+        const { model } = resolveCliModelWithSettingsFallback({
+          db: db as any,
+          provider,
+          agentModel: agent.cli_model,
+          getProviderModelConfig,
+        });
         const reasoningLevel =
           provider === "codex"
             ? agent.cli_reasoning_level || modelConfig[provider]?.reasoningLevel || undefined

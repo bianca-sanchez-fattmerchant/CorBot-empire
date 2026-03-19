@@ -1,6 +1,8 @@
+import { useState } from "react";
 import type { Agent, Department } from "../../types";
 import { localeName } from "../../i18n";
 import AgentCard from "./AgentCard";
+import AgentTableView from "./AgentTableView";
 import { StackedSpriteIcon } from "./EmojiPicker";
 import type { Translator } from "./types";
 
@@ -21,6 +23,7 @@ interface AgentsTabProps {
   onEditAgent: (agent: Agent) => void;
   onEditDepartment: (department: Department) => void;
   onDeleteAgent: (agentId: string) => void;
+  onUpdateAgent: (agentId: string, updates: Partial<Agent>) => Promise<void>;
   saving: boolean;
   randomIconSprites: {
     total: [number, number];
@@ -44,9 +47,11 @@ export default function AgentsTab({
   onEditAgent,
   onEditDepartment,
   onDeleteAgent,
+  onUpdateAgent,
   saving,
   randomIconSprites,
 }: AgentsTabProps) {
+  const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
   const workingCount = agents.filter((agent) => agent.status === "working").length;
   const deptCounts = new Map<string, { total: number; working: number }>();
   for (const agent of agents) {
@@ -116,7 +121,29 @@ export default function AgentsTab({
             </button>
           );
         })}
-        <div className="ml-auto pb-1">
+        <div className="ml-auto pb-1 flex items-center gap-2">
+          <div className="flex rounded-lg overflow-hidden" style={{ border: "1px solid var(--th-input-border)" }}>
+            <button
+              onClick={() => setViewMode("cards")}
+              className={`px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                viewMode === "cards" ? "bg-blue-600 text-white" : "hover:bg-white/5"
+              }`}
+              style={viewMode !== "cards" ? { color: "var(--th-text-muted)", background: "var(--th-input-bg)" } : undefined}
+              title={tr("카드 보기", "Card View")}
+            >
+              ⊞
+            </button>
+            <button
+              onClick={() => setViewMode("table")}
+              className={`px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                viewMode === "table" ? "bg-blue-600 text-white" : "hover:bg-white/5"
+              }`}
+              style={viewMode !== "table" ? { color: "var(--th-text-muted)", background: "var(--th-input-bg)", borderLeft: "1px solid var(--th-input-border)" } : { borderLeft: "1px solid rgba(255,255,255,0.2)" }}
+              title={tr("테이블 보기", "Table View")}
+            >
+              ☰
+            </button>
+          </div>
           <input
             type="text"
             placeholder={`${tr("검색", "Search")}...`}
@@ -132,31 +159,49 @@ export default function AgentsTab({
         </div>
       </div>
 
-      {sortedAgents.length === 0 ? (
-        <div className="text-center py-16" style={{ color: "var(--th-text-muted)" }}>
-          <div className="text-3xl mb-2">🔍</div>
-          {tr("검색 결과 없음", "No agents found")}
-        </div>
+      {viewMode === "cards" ? (
+        sortedAgents.length === 0 ? (
+          <div className="text-center py-16" style={{ color: "var(--th-text-muted)" }}>
+            <div className="text-3xl mb-2">🔍</div>
+            {tr("검색 결과 없음", "No agents found")}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {sortedAgents.map((agent) => (
+              <AgentCard
+                key={agent.id}
+                agent={agent}
+                spriteMap={spriteMap}
+                isKo={isKo}
+                locale={locale}
+                tr={tr}
+                departments={departments}
+                onEdit={() => onEditAgent(agent)}
+                confirmDeleteId={confirmDeleteId}
+                onDeleteClick={() => setConfirmDeleteId(agent.id)}
+                onDeleteConfirm={() => onDeleteAgent(agent.id)}
+                onDeleteCancel={() => setConfirmDeleteId(null)}
+                saving={saving}
+              />
+            ))}
+          </div>
+        )
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {sortedAgents.map((agent) => (
-            <AgentCard
-              key={agent.id}
-              agent={agent}
-              spriteMap={spriteMap}
-              isKo={isKo}
-              locale={locale}
-              tr={tr}
-              departments={departments}
-              onEdit={() => onEditAgent(agent)}
-              confirmDeleteId={confirmDeleteId}
-              onDeleteClick={() => setConfirmDeleteId(agent.id)}
-              onDeleteConfirm={() => onDeleteAgent(agent.id)}
-              onDeleteCancel={() => setConfirmDeleteId(null)}
-              saving={saving}
-            />
-          ))}
-        </div>
+        <AgentTableView
+          tr={tr}
+          locale={locale}
+          isKo={isKo}
+          agents={agents}
+          departments={departments}
+          sortedAgents={sortedAgents}
+          spriteMap={spriteMap}
+          confirmDeleteId={confirmDeleteId}
+          setConfirmDeleteId={setConfirmDeleteId}
+          onEditAgent={onEditAgent}
+          onDeleteAgent={onDeleteAgent}
+          onUpdateAgent={onUpdateAgent}
+          saving={saving}
+        />
       )}
     </>
   );

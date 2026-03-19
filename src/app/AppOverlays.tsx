@@ -15,6 +15,7 @@ import type { ProjectMetaPayload, RoomThemeMap, TaskPanelTab } from "./types";
 interface AppOverlaysProps {
   showChat: boolean;
   chatAgent: Agent | null;
+  defaultProjectPath?: string;
   messages: Message[];
   agents: Agent[];
   streamingMessage: {
@@ -78,6 +79,7 @@ interface AppOverlaysProps {
 export default function AppOverlays({
   showChat,
   chatAgent,
+  defaultProjectPath,
   messages,
   agents,
   streamingMessage,
@@ -128,6 +130,7 @@ export default function AppOverlays({
           selectedAgent={chatAgent}
           messages={messages}
           agents={agents}
+          defaultProjectPath={defaultProjectPath}
           streamingMessage={streamingMessage}
           onSendMessage={onSendMessage}
           onSendAnnouncement={onSendAnnouncement}

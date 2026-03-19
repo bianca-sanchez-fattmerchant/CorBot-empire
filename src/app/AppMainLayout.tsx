@@ -217,6 +217,7 @@ export default function AppMainLayout({
     () =>
       buildOfficePackPresentation({
         packKey: officePackKey,
+      getOfficePackSeedTargetCount,
         locale: uiLanguage,
         departments,
         agents,
@@ -234,7 +235,7 @@ export default function AppMainLayout({
     const drafts = buildOfficePackStarterAgents({
       packKey: officePackKey,
       departments: generatedOfficePresentation.departments,
-      targetCount: 8,
+      targetCount: getOfficePackSeedTargetCount(officePackKey),
       locale: uiLanguage,
     });
     const now = Date.now();
@@ -514,6 +515,7 @@ export default function AppMainLayout({
                 tasks={tasksForActivePack}
                 agents={displayAgents}
                 departments={displayDepartments}
+                defaultProjectPath={settings.defaultProjectPath}
                 subtasks={subtasks}
                 onCreateTask={handleCreateTaskForActivePack}
                 onUpdateTask={onUpdateTask}

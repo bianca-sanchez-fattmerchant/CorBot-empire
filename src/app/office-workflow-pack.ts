@@ -638,14 +638,26 @@ export function listOfficePackOptions(locale: UiLanguageLike): Array<{
   slug: string;
   accent: number;
 }> {
-  const onlyDefaultPack: WorkflowPackKey[] = ["development"];
-  return onlyDefaultPack.map((key) => ({
+  return (Object.keys(PACK_PRESETS) as WorkflowPackKey[]).map((key) => ({
     key,
     label: pickText(locale, PACK_PRESETS[key].label),
     summary: pickText(locale, PACK_PRESETS[key].summary),
     slug: PACK_PRESETS[key].slug,
     accent: PACK_PRESETS[key].roomThemes.ceoOffice?.accent ?? 0x5a9fd4,
   }));
+}
+
+const OFFICE_PACK_SEED_TARGETS: Partial<Record<WorkflowPackKey, number>> = {
+  report: 18,
+  web_research_report: 16,
+};
+
+export function getOfficePackSeedTargetCount(packKey: WorkflowPackKey, fallback = 8): number {
+  const configured = OFFICE_PACK_SEED_TARGETS[packKey];
+  if (typeof configured === "number" && Number.isFinite(configured) && configured > 0) {
+    return Math.max(1, Math.trunc(configured));
+  }
+  return Math.max(1, Math.trunc(fallback));
 }
 
 export function buildOfficePackPresentation(params: {

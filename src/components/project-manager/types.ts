@@ -18,6 +18,7 @@ export type ProjectI18nTranslate = (messages: I18nTextMap) => string;
 export interface ProjectManagerModalProps {
   agents: Agent[];
   departments?: Department[];
+  defaultProjectPath?: string;
   onClose: () => void;
 }
 

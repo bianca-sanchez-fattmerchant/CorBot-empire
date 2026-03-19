@@ -397,6 +397,7 @@ export interface CompanySettings {
   companyName: string;
   officePackName?: string;
   ceoName: string;
+  defaultProjectPath?: string;
   autoAssign: boolean;
   yoloMode?: boolean;
   autoUpdateEnabled: boolean;
@@ -418,6 +419,7 @@ export interface CompanySettings {
 export const DEFAULT_SETTINGS: CompanySettings = {
   companyName: "CorBot-Empire",
   ceoName: "CEO",
+  defaultProjectPath: "",
   autoAssign: true,
   yoloMode: false,
   autoUpdateEnabled: false,

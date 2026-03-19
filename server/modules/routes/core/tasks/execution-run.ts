@@ -6,6 +6,7 @@ import { resolveConstrainedAgentScopeForTask, selectAutoAssignableAgentForTask }
 import { buildWorkflowPackExecutionGuidance } from "../../../workflow/packs/execution-guidance.ts";
 import { resolveVideoArtifactSpecForTask } from "../../../workflow/packs/video-artifact.ts";
 import { ensureVideoPreprodRemotionBestPracticesSkill } from "../../../workflow/core/video-skill-bootstrap.ts";
+import { resolveCliModelWithSettingsFallback } from "../../../workflow/core/model-fallback.ts";
 import {
   buildInterruptPromptBlock,
   consumeInterruptPrompts,
@@ -414,7 +415,12 @@ Whenever you complete a subtask, report it in this format:
       : "";
 
     const modelConfig = getProviderModelConfig();
-    const mainModel = agent.cli_model || modelConfig[provider]?.model || undefined;
+    const { model: mainModel, reason: modelFallbackReason } = resolveCliModelWithSettingsFallback({
+      db: db as any,
+      provider,
+      agentModel: agent.cli_model,
+      getProviderModelConfig,
+    });
     const subModel = modelConfig[provider]?.subModel || undefined;
     const mainReasoningLevel =
       provider === "codex"
@@ -498,6 +504,10 @@ Whenever you complete a subtask, report it in this format:
         "system",
         `INJECT consumed (${pendingInterruptPrompts.length}) for session ${executionSession.sessionId}`,
       );
+    }
+
+    if (modelFallbackReason) {
+      appendTaskLog(id, "system", modelFallbackReason);
     }
 
     appendTaskLog(id, "system", `RUN start (agent=${agent.name}, provider=${provider})`);

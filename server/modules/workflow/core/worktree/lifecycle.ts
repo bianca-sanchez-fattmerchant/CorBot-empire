@@ -122,9 +122,62 @@ export function createWorktreeLifecycleTools(deps: CreateWorktreeLifecycleToolsD
     }
   }
 
+  function ensureWorktreeHeadCommit(projectPath: string, taskId: string): boolean {
+    try {
+      execFileSync("git", ["rev-parse", "--verify", "HEAD"], {
+        cwd: projectPath,
+        stdio: "pipe",
+        timeout: 5000,
+      });
+      return true;
+    } catch {
+      // Fall through and create an initial local HEAD commit for unborn repositories.
+    }
+
+    const readConfig = (key: string): string => {
+      try {
+        return execFileSync("git", ["config", "--get", key], { cwd: projectPath, stdio: "pipe", timeout: 3000 })
+          .toString()
+          .trim();
+      } catch {
+        return "";
+      }
+    };
+
+    try {
+      if (!readConfig("user.name")) {
+        execFileSync("git", ["config", "user.name", "CorBot-Empire Bot"], {
+          cwd: projectPath,
+          stdio: "pipe",
+          timeout: 3000,
+        });
+      }
+      if (!readConfig("user.email")) {
+        execFileSync("git", ["config", "user.email", "claw-empire@local"], {
+          cwd: projectPath,
+          stdio: "pipe",
+          timeout: 3000,
+        });
+      }
+
+      execFileSync("git", ["commit", "--allow-empty", "-m", "chore: initialize HEAD for CorBot-Empire worktrees"], {
+        cwd: projectPath,
+        stdio: "pipe",
+        timeout: 10000,
+      });
+      appendTaskLog(taskId, "system", "Git HEAD was missing; created initial local commit for worktree execution.");
+      return true;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      appendTaskLog(taskId, "system", `Git HEAD bootstrap failed: ${msg}`);
+      return false;
+    }
+  }
+
   function createWorktree(projectPath: string, taskId: string, agentName: string, baseBranch?: string): string | null {
     if (!ensureWorktreeBootstrapRepo(projectPath, taskId)) return null;
     if (!isGitRepo(projectPath)) return null;
+    if (!ensureWorktreeHeadCommit(projectPath, taskId)) return null;
 
     const shortId = taskId.slice(0, 8);
     const branchName = `climpire/${shortId}`;

@@ -4,6 +4,7 @@ import { getDepartmentPromptForPack } from "../packs/department-scope.ts";
 import { ensureVideoPreprodRemotionBestPracticesSkill } from "../core/video-skill-bootstrap.ts";
 import { buildWorkflowPackExecutionGuidance } from "../packs/execution-guidance.ts";
 import { resolveVideoArtifactSpecForTask } from "../packs/video-artifact.ts";
+import { resolveCliModelWithSettingsFallback } from "../core/model-fallback.ts";
 import {
   buildInterruptPromptBlock,
   consumeInterruptPrompts,
@@ -184,15 +185,38 @@ export function createExecutionStartTaskTools(deps: CreateExecutionStartTaskTool
       : null;
     const deptPrompt = typeof deptPromptRaw === "string" ? deptPromptRaw.trim() : "";
     const deptPromptBlock = deptPrompt ? `[Department Shared Prompt]\n${deptPrompt}` : "";
-    const departmentInstructionRow = resolvedDepartmentId
-      ? (db
+    let departmentInstructionRow: { content?: unknown } | undefined;
+    if (resolvedDepartmentId) {
+      const workflowPackKey = taskData.workflow_pack_key ?? "development";
+      try {
+        departmentInstructionRow = db
           .prepare(
             "SELECT content FROM department_instructions WHERE workflow_pack_key = ? AND department_id = ? LIMIT 1",
           )
-          .get(taskData.workflow_pack_key ?? "development", resolvedDepartmentId) as
-          | { content?: unknown }
-          | undefined)
-      : undefined;
+          .get(workflowPackKey, resolvedDepartmentId) as { content?: unknown } | undefined;
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        const legacySchemaIssue = /no such column:\s*workflow_pack_key/i.test(msg);
+        if (legacySchemaIssue) {
+          try {
+            departmentInstructionRow = db
+              .prepare(
+                "SELECT content FROM department_instructions WHERE department_id = ? ORDER BY updated_at DESC LIMIT 1",
+              )
+              .get(resolvedDepartmentId) as { content?: unknown } | undefined;
+            appendTaskLog(
+              taskId,
+              "system",
+              "Legacy department instruction schema detected; using department-only fallback.",
+            );
+          } catch {
+            departmentInstructionRow = undefined;
+          }
+        } else {
+          appendTaskLog(taskId, "system", `Department instruction lookup failed: ${msg}`);
+        }
+      }
+    }
     const departmentInstructionContent =
       typeof departmentInstructionRow?.content === "string" ? departmentInstructionRow.content.trim() : "";
     const departmentInstructionBlock = departmentInstructionContent
@@ -312,11 +336,17 @@ export function createExecutionStartTaskTools(deps: CreateExecutionStartTaskTool
       );
     } else {
       const modelConfig = getProviderModelConfig();
-      const modelForProvider = execAgent.cli_model || modelConfig[provider]?.model || undefined;
+      const { model: modelForProvider, reason: modelFallbackReason } = resolveCliModelWithSettingsFallback({
+        db: db as any,
+        provider,
+        agentModel: execAgent.cli_model,
+        getProviderModelConfig,
+      });
       const reasoningLevel =
         provider === "codex"
           ? execAgent.cli_reasoning_level || modelConfig[provider]?.reasoningLevel || undefined
           : modelConfig[provider]?.reasoningLevel || undefined;
+      if (modelFallbackReason) appendTaskLog(taskId, "system", modelFallbackReason);
       const child = spawnCliAgent(
         taskId,
         provider,

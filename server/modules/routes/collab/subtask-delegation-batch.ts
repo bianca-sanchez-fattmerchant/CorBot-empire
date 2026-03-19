@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 import type { Lang } from "../../../types/lang.ts";
 import { resolveWorkflowPackKeyForTask } from "../../workflow/packs/task-pack-resolver.ts";
 import { ensureVideoPreprodRemotionBestPracticesSkill } from "../../workflow/core/video-skill-bootstrap.ts";
+import { resolveCliModelWithSettingsFallback } from "../../workflow/core/model-fallback.ts";
 import { resolveConstrainedAgentScopeForTask } from "../core/tasks/execution-run-auto-assign.ts";
 import type { AgentRow } from "./direct-chat.ts";
 import type { L10n } from "./language-policy.ts";
@@ -626,11 +627,17 @@ export function createSubtaskDelegationBatch(deps: BatchDeps) {
             }
           } else {
             const delegateModelConfig = getProviderModelConfig();
-            const delegateModel = execAgent.cli_model || delegateModelConfig[execProvider]?.model || undefined;
+            const { model: delegateModel, reason: modelFallbackReason } = resolveCliModelWithSettingsFallback({
+              db: db as any,
+              provider: execProvider,
+              agentModel: execAgent.cli_model,
+              getProviderModelConfig,
+            });
             const delegateReasoningLevel =
               execProvider === "codex"
                 ? execAgent.cli_reasoning_level || delegateModelConfig[execProvider]?.reasoningLevel || undefined
                 : delegateModelConfig[execProvider]?.reasoningLevel || undefined;
+            if (modelFallbackReason) appendTaskLog(delegatedTaskId, "system", modelFallbackReason);
             let child: {
               on: (event: "close", listener: (code: number | null) => void) => void;
             } | null = null;

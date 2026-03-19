@@ -93,16 +93,40 @@ export function createApiProviderTools(deps: CreateApiProviderToolsDeps) {
     );
   }
 
-  function resolveApiProviderModel(provider: ApiProviderRow, requestedModel: string | null): string {
-    if (requestedModel) return requestedModel;
+  function resolveApiProviderModel(
+    provider: ApiProviderRow,
+    requestedModel: string | null,
+  ): { model: string; fallbackMessage?: string } {
+    let cachedModels: string[] = [];
     if (provider.models_cache) {
       try {
-        const models = JSON.parse(provider.models_cache) as string[];
-        if (models.length > 0) return models[0];
+        const parsed = JSON.parse(provider.models_cache) as unknown;
+        if (Array.isArray(parsed)) {
+          cachedModels = parsed
+            .filter((entry): entry is string => typeof entry === "string")
+            .map((entry) => entry.trim())
+            .filter((entry) => entry.length > 0);
+        }
       } catch {
         /* ignore */
       }
     }
+
+    const defaultModel = cachedModels.length > 0 ? cachedModels[0] : null;
+    const requested = typeof requestedModel === "string" ? requestedModel.trim() : "";
+
+    if (requested.length > 0) {
+      if (!defaultModel || cachedModels.includes(requested)) {
+        return { model: requested };
+      }
+      return {
+        model: defaultModel,
+        fallbackMessage: `Agent model '${requested}' is unavailable for API provider '${provider.name}'. Falling back to default '${defaultModel}'.`,
+      };
+    }
+
+    if (defaultModel) return { model: defaultModel };
+
     throw new Error(
       `No model specified for API provider '${provider.name}'. ` +
         `Please select a model in the agent settings or run a connection test first to cache available models.`,
@@ -209,7 +233,12 @@ export function createApiProviderTools(deps: CreateApiProviderToolsDeps) {
       throw new Error(`API provider '${provider.name}' is disabled.`);
     }
 
-    const model = resolveApiProviderModel(provider, apiModel ?? null);
+    const { model, fallbackMessage } = resolveApiProviderModel(provider, apiModel ?? null);
+    if (fallbackMessage) {
+      const fallbackLine = `[api] ${fallbackMessage}\n`;
+      safeWrite(fallbackLine);
+      if (taskId) broadcast("cli_output", { task_id: taskId, stream: "stderr", data: fallbackLine });
+    }
     const header = `[api:${provider.type}] Provider: ${provider.name}, Model: ${model}\n---\n`;
     safeWrite(header);
     if (taskId) broadcast("cli_output", { task_id: taskId, stream: "stderr", data: header });
