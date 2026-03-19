@@ -110,7 +110,7 @@ export function createChatReplyGenerator(deps: ChatResponseDeps): {
     }
 
     if (agent.status === "working") {
-      const taskKo = taskTitle ? ` "${taskTitle}" 작업` : " 할당된 업무";
+      const taskKo = taskTitle ? ` "${taskTitle}"` : " my current task";
       const taskEn = taskTitle ? ` "${taskTitle}"` : " my current task";
       const taskJa = taskTitle ? ` "${taskTitle}"` : " 現在のタスク";
       const taskZh = taskTitle ? ` "${taskTitle}"` : " 当前任务";

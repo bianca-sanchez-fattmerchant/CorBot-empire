@@ -20,7 +20,7 @@ export function PrioritySection({ priority, t, onPriorityChange }: PrioritySecti
   return (
     <div>
       <label className="mb-2 block text-sm font-medium text-slate-300">
-        {t({ ko: "우선순위", en: "Priority", ja: "優先度", zh: "优先级" })}: {priorityIcon(priority)}{" "}
+        {t({ ko: "Priority", en: "Priority", ja: "優先度", zh: "优先级" })}: {priorityIcon(priority)}{" "}
         {priorityLabel(priority, t)} ({priority}/5)
       </label>
       <div className="flex gap-2">
@@ -61,7 +61,7 @@ export function AssigneeSection({
   return (
     <div>
       <label className="mb-1 block text-sm font-medium text-slate-300">
-        {t({ ko: "담당 에이전트", en: "Assignee", ja: "担当エージェント", zh: "负责人" })}
+        {t({ ko: "Assignee", en: "Assignee", ja: "担当エージェント", zh: "负责人" })}
       </label>
       <AgentSelect
         agents={agents}
@@ -158,7 +158,7 @@ export function ProjectSection({
   return (
     <div>
       <label className="mb-1 block text-sm font-medium text-slate-300">
-        {t({ ko: "프로젝트명", en: "Project Name", ja: "プロジェクト名", zh: "项目名" })}
+        {t({ ko: "Project Name", en: "Project Name", ja: "プロジェクト名", zh: "项目名" })}
       </label>
       <div className="relative" ref={projectPickerRef}>
         <div className="flex items-center gap-2">
@@ -235,7 +235,7 @@ export function ProjectSection({
                   }}
                   className="ml-auto shrink-0 rounded-md border border-emerald-500 bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-500"
                 >
-                  {t({ ko: "예", en: "Yes", ja: "はい", zh: "是" })}
+                  {t({ ko: "Yes", en: "Yes", ja: "はい", zh: "是" })}
                 </button>
               </div>
             ) : (
@@ -311,7 +311,7 @@ export function ProjectSection({
                     ja: "自動候補を閉じる",
                     zh: "关闭自动查找",
                   })
-                : t({ ko: "자동 경로찾기", en: "Auto Path Finder", ja: "自動パス検索", zh: "自动路径查找" })}
+                : t({ ko: "Auto Path Finder", en: "Auto Path Finder", ja: "自動パス検索", zh: "自动路径查找" })}
             </button>
             <button
               type="button"

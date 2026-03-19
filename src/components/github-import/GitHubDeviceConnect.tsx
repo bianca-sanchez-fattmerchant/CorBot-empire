@@ -111,9 +111,9 @@ export default function GitHubDeviceConnect({ reason, onConnected, onCancel }: G
             className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-50"
           >
             {disconnecting
-              ? t({ ko: "연결 해제 중...", en: "Disconnecting...", ja: "切断中...", zh: "断开中..." })
+              ? t({ ko: "Disconnecting...", en: "Disconnecting...", ja: "切断中...", zh: "断开中..." })
               : reason === "not_connected"
-                ? t({ ko: "GitHub 연결", en: "Connect GitHub", ja: "GitHub 接続", zh: "连接 GitHub" })
+                ? t({ ko: "Connect GitHub", en: "Connect GitHub", ja: "GitHub 接続", zh: "连接 GitHub" })
                 : t({
                     ko: "GitHub 재연결 (repo 권한)",
                     en: "Reconnect GitHub (repo scope)",
@@ -126,7 +126,7 @@ export default function GitHubDeviceConnect({ reason, onConnected, onCancel }: G
             onClick={onCancel}
             className="rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-300"
           >
-            {t({ ko: "닫기", en: "Close", ja: "閉じる", zh: "关闭" })}
+            {t({ ko: "Close", en: "Close", ja: "閉じる", zh: "关闭" })}
           </button>
         </div>
       )}
@@ -152,7 +152,7 @@ export default function GitHubDeviceConnect({ reason, onConnected, onCancel }: G
               }}
               className="rounded border border-slate-600 px-2 py-1 text-xs text-slate-300 hover:bg-slate-700"
             >
-              {t({ ko: "복사", en: "Copy", ja: "コピー", zh: "复制" })}
+              {t({ ko: "Copy", en: "Copy", ja: "コピー", zh: "复制" })}
             </button>
           </div>
           {deviceVerifyUrl && (
@@ -171,7 +171,7 @@ export default function GitHubDeviceConnect({ reason, onConnected, onCancel }: G
             </a>
           )}
           <p className="animate-pulse text-xs text-slate-400">
-            {t({ ko: "인증 대기 중...", en: "Waiting for authorization...", ja: "認証待ち...", zh: "等待授权..." })}
+            {t({ ko: "Waiting for authorization...", en: "Waiting for authorization...", ja: "認証待ち...", zh: "等待授权..." })}
           </p>
         </div>
       )}
@@ -200,7 +200,7 @@ export default function GitHubDeviceConnect({ reason, onConnected, onCancel }: G
             }}
             className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs text-slate-300"
           >
-            {t({ ko: "다시 시도", en: "Try again", ja: "再試行", zh: "重试" })}
+            {t({ ko: "Try again", en: "Try again", ja: "再試行", zh: "重试" })}
           </button>
         </div>
       )}

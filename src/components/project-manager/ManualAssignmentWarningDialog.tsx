@@ -25,7 +25,7 @@ export default function ManualAssignmentWarningDialog({
       >
         <div className="border-b border-amber-500/30 px-4 py-3">
           <h3 className="text-sm font-semibold text-amber-200">
-            {t({ ko: "수동 배정 확인", en: "Manual Assignment Check", ja: "手動割り当て確認", zh: "手动分配确认" })}
+            {t({ ko: "Manual Assignment Check", en: "Manual Assignment Check", ja: "手動割り当て確認", zh: "手动分配确认" })}
           </h3>
         </div>
         <div className="space-y-2 px-4 py-4">
@@ -46,11 +46,11 @@ export default function ManualAssignmentWarningDialog({
           </p>
           <div className="rounded-md border border-slate-700 bg-slate-800/60 px-3 py-2 text-[11px] text-slate-300">
             <p>
-              {t({ ko: "선택 요약", en: "Selection Summary", ja: "選択サマリー", zh: "选择摘要" })}: {stats.total}
+              {t({ ko: "Selection Summary", en: "Selection Summary", ja: "選択サマリー", zh: "选择摘要" })}: {stats.total}
             </p>
             <p>
-              {t({ ko: "팀장", en: "Leaders", ja: "リーダー", zh: "组长" })}: {stats.leaders} ·{" "}
-              {t({ ko: "하위 직원", en: "Subordinates", ja: "サブ担当", zh: "下属成员" })}: {stats.subordinates}
+              {t({ ko: "Leaders", en: "Leaders", ja: "リーダー", zh: "组长" })}: {stats.leaders} ·{" "}
+              {t({ ko: "Subordinates", en: "Subordinates", ja: "サブ担当", zh: "下属成员" })}: {stats.subordinates}
             </p>
           </div>
         </div>
@@ -60,14 +60,14 @@ export default function ManualAssignmentWarningDialog({
             onClick={onCancel}
             className="rounded-md border border-slate-600 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:bg-slate-800"
           >
-            {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+            {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
           </button>
           <button
             type="button"
             onClick={() => onConfirm(warning)}
             className="rounded-md bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-amber-500"
           >
-            {t({ ko: "계속 저장", en: "Save Anyway", ja: "そのまま保存", zh: "仍然保存" })}
+            {t({ ko: "Save Anyway", en: "Save Anyway", ja: "そのまま保存", zh: "仍然保存" })}
           </button>
         </div>
       </div>

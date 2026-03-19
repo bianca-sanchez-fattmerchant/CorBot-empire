@@ -402,14 +402,14 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
 
   const stepTitle =
     step === 1
-      ? t({ ko: "오피스 기본 설정", en: "Office Setup", ja: "オフィス設定", zh: "办公室设置" })
+      ? t({ ko: "Office Setup", en: "Office Setup", ja: "オフィス設定", zh: "办公室设置" })
       : step === 2
-        ? t({ ko: "AI 프로바이더 연결", en: "AI Provider Setup", ja: "AI プロバイダ設定", zh: "AI 提供方设置" })
+        ? t({ ko: "AI Provider Setup", en: "AI Provider Setup", ja: "AI プロバイダ設定", zh: "AI 提供方设置" })
         : step === 3
-          ? t({ ko: "첫 부서 만들기", en: "Create First Department", ja: "最初の部署作成", zh: "创建首个部门" })
+          ? t({ ko: "Create First Department", en: "Create First Department", ja: "最初の部署作成", zh: "创建首个部门" })
           : step === 4
-            ? t({ ko: "첫 에이전트 만들기", en: "Create First Agent", ja: "最初のエージェント作成", zh: "创建首个代理" })
-            : t({ ko: "완료 확인", en: "Review & Finish", ja: "確認して完了", zh: "确认并完成" });
+            ? t({ ko: "Create First Agent", en: "Create First Agent", ja: "最初のエージェント作成", zh: "创建首个代理" })
+            : t({ ko: "Review & Finish", en: "Review & Finish", ja: "確認して完了", zh: "确认并完成" });
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4" style={{ background: "rgba(2, 6, 23, 0.8)" }}>
@@ -432,7 +432,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
               onClick={onCancelOptional}
               className="rounded-lg border border-slate-600 px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800"
             >
-              {t({ ko: "나중에", en: "Later", ja: "後で", zh: "稍后" })}
+              {t({ ko: "Later", en: "Later", ja: "後で", zh: "稍后" })}
             </button>
           )}
         </div>
@@ -445,7 +445,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
           {step === 1 && (
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <label className="space-y-1 text-sm">
-                <span className="text-slate-300">{t({ ko: "오피스 이름", en: "Office Name", ja: "オフィス名", zh: "办公室名称" })}</span>
+                <span className="text-slate-300">{t({ ko: "Office Name", en: "Office Name", ja: "オフィス名", zh: "办公室名称" })}</span>
                 <input
                   className="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2"
                   value={companyName}
@@ -453,7 +453,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
                 />
               </label>
               <label className="space-y-1 text-sm">
-                <span className="text-slate-300">{t({ ko: "오피스 팩 이름", en: "Office Pack Name", ja: "オフィスパック名", zh: "办公室包名称" })}</span>
+                <span className="text-slate-300">{t({ ko: "Office Pack Name", en: "Office Pack Name", ja: "オフィスパック名", zh: "办公室包名称" })}</span>
                 <input
                   className="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2"
                   value={officePackName}
@@ -476,18 +476,18 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
                     <div className="font-medium">{p === "claude" ? "Claude" : "Gemini"}</div>
                     <div className="text-xs text-slate-400 mt-1">
                       {p === "claude"
-                        ? t({ ko: "Claude CLI를 사용합니다.", en: "Use Claude CLI.", ja: "Claude CLI を使用します。", zh: "使用 Claude CLI。" })
-                        : t({ ko: "Gemini CLI를 사용합니다.", en: "Use Gemini CLI.", ja: "Gemini CLI を使用します。", zh: "使用 Gemini CLI。" })}
+                        ? t({ ko: "Use Claude CLI.", en: "Use Claude CLI.", ja: "Claude CLI を使用します。", zh: "使用 Claude CLI。" })
+                        : t({ ko: "Use Gemini CLI.", en: "Use Gemini CLI.", ja: "Gemini CLI を使用します。", zh: "使用 Gemini CLI。" })}
                     </div>
                   </button>
                 ))}
               </div>
 
               <div className="rounded-lg border border-slate-700 bg-slate-800/70 p-3 text-xs text-slate-300 space-y-1">
-                <p>{t({ ko: "인증 체크 방법", en: "Authentication check", ja: "認証チェック", zh: "认证检查" })}</p>
-                <p>{t({ ko: "1) 선택한 CLI 로그인 완료", en: "1) Complete CLI login for your selected provider", ja: "1) 選択した CLI のログイン完了", zh: "1) 完成所选 CLI 登录" })}</p>
-                <p>{t({ ko: "2) 상태 새로고침 버튼 클릭", en: "2) Click Refresh Status", ja: "2) 状態更新ボタンをクリック", zh: "2) 点击刷新状态" })}</p>
-                <p>{t({ ko: "3) installed + authenticated가 모두 true여야 진행 가능", en: "3) Continue only when both installed and authenticated are true", ja: "3) installed と authenticated の両方が true の場合のみ続行", zh: "3) installed 与 authenticated 均为 true 才可继续" })}</p>
+                <p>{t({ ko: "Authentication check", en: "Authentication check", ja: "認証チェック", zh: "认证检查" })}</p>
+                <p>{t({ ko: "1) Complete CLI login for your selected provider", en: "1) Complete CLI login for your selected provider", ja: "1) 選択した CLI のログイン完了", zh: "1) 完成所选 CLI 登录" })}</p>
+                <p>{t({ ko: "2) Click Refresh Status", en: "2) Click Refresh Status", ja: "2) 状態更新ボタンをクリック", zh: "2) 点击刷新状态" })}</p>
+                <p>{t({ ko: "3) Continue only when both installed and authenticated are true", en: "3) Continue only when both installed and authenticated are true", ja: "3) installed と authenticated の両方が true の場合のみ続行", zh: "3) installed 与 authenticated 均为 true 才可继续" })}</p>
               </div>
 
               <div className="flex items-center gap-2">
@@ -499,12 +499,12 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
                   disabled={busy}
                   className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-500 disabled:opacity-50"
                 >
-                  {t({ ko: "상태 새로고침", en: "Refresh Status", ja: "状態更新", zh: "刷新状态" })}
+                  {t({ ko: "Refresh Status", en: "Refresh Status", ja: "状態更新", zh: "刷新状态" })}
                 </button>
                 <span className={`text-xs ${providerReady ? "text-emerald-300" : "text-amber-300"}`}>
                   {providerReady
-                    ? t({ ko: "인증 확인됨", en: "Provider authenticated", ja: "認証済み", zh: "已认证" })
-                    : t({ ko: "인증 필요", en: "Authentication required", ja: "認証が必要", zh: "需要认证" })}
+                    ? t({ ko: "Provider authenticated", en: "Provider authenticated", ja: "認証済み", zh: "已认证" })
+                    : t({ ko: "Authentication required", en: "Authentication required", ja: "認証が必要", zh: "需要认证" })}
                 </span>
               </div>
             </div>
@@ -513,7 +513,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
           {step === 3 && (
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               <label className="space-y-1 text-sm sm:col-span-2">
-                <span className="text-slate-300">{t({ ko: "부서 이름", en: "Department Name", ja: "部署名", zh: "部门名称" })}</span>
+                <span className="text-slate-300">{t({ ko: "Department Name", en: "Department Name", ja: "部署名", zh: "部门名称" })}</span>
                 <input
                   className="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2"
                   value={departmentName}
@@ -521,7 +521,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
                 />
               </label>
               <label className="space-y-1 text-sm">
-                <span className="text-slate-300">{t({ ko: "아이콘", en: "Icon", ja: "アイコン", zh: "图标" })}</span>
+                <span className="text-slate-300">{t({ ko: "Icon", en: "Icon", ja: "アイコン", zh: "图标" })}</span>
                 <input
                   className="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2"
                   value={departmentIcon}
@@ -529,7 +529,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
                 />
               </label>
               <label className="space-y-1 text-sm sm:col-span-3">
-                <span className="text-slate-300">{t({ ko: "색상", en: "Color", ja: "カラー", zh: "颜色" })}</span>
+                <span className="text-slate-300">{t({ ko: "Color", en: "Color", ja: "カラー", zh: "颜色" })}</span>
                 <input
                   type="color"
                   className="h-10 w-28 rounded-lg border border-slate-600 bg-slate-800 px-2"
@@ -539,7 +539,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
               </label>
               {createdDepartment && (
                 <div className="sm:col-span-3 rounded-lg border border-emerald-700 bg-emerald-900/20 p-2 text-xs text-emerald-200">
-                  {t({ ko: "부서가 생성되었습니다.", en: "Department created.", ja: "部署を作成しました。", zh: "部门已创建。" })}
+                  {t({ ko: "Department created.", en: "Department created.", ja: "部署を作成しました。", zh: "部门已创建。" })}
                 </div>
               )}
             </div>
@@ -548,7 +548,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
           {step === 4 && (
             <div className="space-y-4">
               <div>
-                <h4 className="text-sm font-medium mb-2">{t({ ko: "에이전트 템플릿 선택", en: "Choose an Agent Template", ja: "テンプレート選択", zh: "选择代理模板" })}</h4>
+                <h4 className="text-sm font-medium mb-2">{t({ ko: "Choose an Agent Template", en: "Choose an Agent Template", ja: "テンプレート選択", zh: "选择代理模板" })}</h4>
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                   {AGENT_TEMPLATES.map((tpl) => (
                     <button
@@ -571,7 +571,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <label className="space-y-1 text-sm">
-                  <span className="text-slate-300">{t({ ko: "에이전트 이름", en: "Agent Name", ja: "エージェント名", zh: "代理名称" })}</span>
+                  <span className="text-slate-300">{t({ ko: "Agent Name", en: "Agent Name", ja: "エージェント名", zh: "代理名称" })}</span>
                   <input
                     className="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2"
                     value={firstAgentName}
@@ -579,7 +579,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
                   />
                 </label>
                 <label className="space-y-1 text-sm">
-                  <span className="text-slate-300">{t({ ko: "역할", en: "Role", ja: "役割", zh: "角色" })}</span>
+                  <span className="text-slate-300">{t({ ko: "Role", en: "Role", ja: "役割", zh: "角色" })}</span>
                   <select
                     className="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2"
                     value={firstAgentRole}
@@ -592,11 +592,11 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
                   </select>
                 </label>
                 <label className="space-y-1 text-sm sm:col-span-2">
-                  <span className="text-slate-300">{t({ ko: "역할 설명", en: "Role Guidance", ja: "役割ガイダンス", zh: "角色说明" })}</span>
+                  <span className="text-slate-300">{t({ ko: "Role Guidance", en: "Role Guidance", ja: "役割ガイダンス", zh: "角色说明" })}</span>
                   <p className="rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-xs text-slate-300">{roleText}</p>
                 </label>
                 <label className="space-y-1 text-sm sm:col-span-2">
-                  <span className="text-slate-300">{t({ ko: "성향/지시", en: "Persona", ja: "ペルソナ", zh: "个性描述" })}</span>
+                  <span className="text-slate-300">{t({ ko: "Persona", en: "Persona", ja: "ペルソナ", zh: "个性描述" })}</span>
                   <textarea
                     rows={3}
                     className="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2"
@@ -611,11 +611,11 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
           {step === 5 && (
             <div className="space-y-3 text-sm">
               <div className="rounded-lg border border-slate-700 bg-slate-800/70 p-3">
-                <p><strong>{t({ ko: "오피스", en: "Office", ja: "オフィス", zh: "办公室" })}:</strong> {companyName}</p>
-                <p><strong>{t({ ko: "오피스 팩", en: "Office Pack", ja: "オフィスパック", zh: "办公室包" })}:</strong> {officePackName}</p>
-                <p><strong>{t({ ko: "프로바이더", en: "Provider", ja: "プロバイダ", zh: "提供方" })}:</strong> {provider}</p>
-                <p><strong>{t({ ko: "부서", en: "Department", ja: "部署", zh: "部门" })}:</strong> {createdDepartment?.name ?? "-"}</p>
-                <p><strong>{t({ ko: "첫 에이전트", en: "First Agent", ja: "最初のエージェント", zh: "首个代理" })}:</strong> {firstAgentName}</p>
+                <p><strong>{t({ ko: "Office", en: "Office", ja: "オフィス", zh: "办公室" })}:</strong> {companyName}</p>
+                <p><strong>{t({ ko: "Office Pack", en: "Office Pack", ja: "オフィスパック", zh: "办公室包" })}:</strong> {officePackName}</p>
+                <p><strong>{t({ ko: "Provider", en: "Provider", ja: "プロバイダ", zh: "提供方" })}:</strong> {provider}</p>
+                <p><strong>{t({ ko: "Department", en: "Department", ja: "部署", zh: "部门" })}:</strong> {createdDepartment?.name ?? "-"}</p>
+                <p><strong>{t({ ko: "First Agent", en: "First Agent", ja: "最初のエージェント", zh: "首个代理" })}:</strong> {firstAgentName}</p>
               </div>
               <p className="text-xs text-slate-400">
                 {t({
@@ -638,7 +638,7 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
             disabled={step <= 1 || busy}
             onClick={() => setStep((prev) => Math.max(1, prev - 1))}
           >
-            {t({ ko: "이전", en: "Back", ja: "戻る", zh: "上一步" })}
+            {t({ ko: "Back", en: "Back", ja: "戻る", zh: "上一步" })}
           </button>
 
           <button
@@ -650,8 +650,8 @@ export default function FirstRunOnboarding({ settings, mode, onCancelOptional, o
             className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
           >
             {step === 5
-              ? t({ ko: "완료", en: "Finish", ja: "完了", zh: "完成" })
-              : t({ ko: "다음", en: "Next", ja: "次へ", zh: "下一步" })}
+              ? t({ ko: "Finish", en: "Finish", ja: "完了", zh: "完成" })
+              : t({ ko: "Next", en: "Next", ja: "次へ", zh: "下一步" })}
           </button>
         </div>
       </div>

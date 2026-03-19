@@ -89,7 +89,7 @@ export default function GitHubImportWizard({
           onClick={onResetToRepo}
           className={`rounded-full px-3 py-1 text-xs font-medium ${step === "repo" ? "bg-blue-600 text-white" : "bg-slate-700 text-slate-300 hover:bg-slate-600"}`}
         >
-          1. {t({ ko: "리포 선택", en: "Select Repo", ja: "リポ選択", zh: "选择仓库" })}
+          1. {t({ ko: "Select Repo", en: "Select Repo", ja: "リポ選択", zh: "选择仓库" })}
         </button>
         <span className="text-slate-600">/</span>
         <button
@@ -98,7 +98,7 @@ export default function GitHubImportWizard({
           onClick={onGoToBranch}
           className={`rounded-full px-3 py-1 text-xs font-medium ${step === "branch" ? "bg-blue-600 text-white" : "bg-slate-700 text-slate-300 hover:bg-slate-600"} disabled:opacity-40`}
         >
-          2. {t({ ko: "브랜치", en: "Branch", ja: "ブランチ", zh: "分支" })}
+          2. {t({ ko: "Branch", en: "Branch", ja: "ブランチ", zh: "分支" })}
         </button>
         <span className="text-slate-600">/</span>
         <button
@@ -107,7 +107,7 @@ export default function GitHubImportWizard({
           onClick={onGoToClone}
           className={`rounded-full px-3 py-1 text-xs font-medium ${step === "clone" ? "bg-blue-600 text-white" : "bg-slate-700 text-slate-300 hover:bg-slate-600"} disabled:opacity-40`}
         >
-          3. {t({ ko: "가져오기", en: "Import", ja: "インポート", zh: "导入" })}
+          3. {t({ ko: "Import", en: "Import", ja: "インポート", zh: "导入" })}
         </button>
         <div className="flex-1" />
         <button
@@ -115,7 +115,7 @@ export default function GitHubImportWizard({
           onClick={onCancel}
           className="rounded-lg border border-slate-700 px-3 py-1 text-xs text-slate-400 hover:text-white"
         >
-          {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+          {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
         </button>
       </div>
 
@@ -153,7 +153,7 @@ export default function GitHubImportWizard({
                   disabled={!directInput.trim()}
                   className="shrink-0 rounded-lg bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-500 disabled:opacity-40"
                 >
-                  {t({ ko: "이동", en: "Go", ja: "移動", zh: "前往" })}
+                  {t({ ko: "Go", en: "Go", ja: "移動", zh: "前往" })}
                 </button>
               </div>
               {directInputError && <p className="text-[11px] text-rose-300">{directInputError}</p>}
@@ -186,11 +186,11 @@ export default function GitHubImportWizard({
             />
             {reposLoading ? (
               <p className="text-xs text-slate-400">
-                {t({ ko: "불러오는 중...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
+                {t({ ko: "Loading...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
               </p>
             ) : repos.length === 0 ? (
               <p className="text-xs text-slate-500">
-                {t({ ko: "검색 결과 없음", en: "No results", ja: "結果なし", zh: "无结果" })}
+                {t({ ko: "No results", en: "No results", ja: "結果なし", zh: "无结果" })}
               </p>
             ) : (
               <div className="space-y-1">
@@ -211,7 +211,7 @@ export default function GitHubImportWizard({
                     </div>
                     {repo.description && <p className="mt-1 truncate text-xs text-slate-400">{repo.description}</p>}
                     <p className="mt-1 text-[11px] text-slate-500">
-                      {t({ ko: "기본 브랜치", en: "Default", ja: "デフォルト", zh: "默认分支" })}: {repo.default_branch}{" "}
+                      {t({ ko: "Default", en: "Default", ja: "デフォルト", zh: "默认分支" })}: {repo.default_branch}{" "}
                       · {new Date(repo.updated_at).toLocaleDateString()}
                     </p>
                   </button>
@@ -228,7 +228,7 @@ export default function GitHubImportWizard({
               {selectedRepo.description && <p className="text-xs text-slate-400">{selectedRepo.description}</p>}
             </div>
             <h4 className="text-xs font-semibold text-slate-300">
-              {t({ ko: "브랜치 선택", en: "Select Branch", ja: "ブランチを選択", zh: "选择分支" })}
+              {t({ ko: "Select Branch", en: "Select Branch", ja: "ブランチを選択", zh: "选择分支" })}
             </h4>
             {branchError && (
               <div className="space-y-3">
@@ -270,8 +270,8 @@ export default function GitHubImportWizard({
                       className="shrink-0 rounded-lg bg-amber-600 px-4 py-2 text-xs font-medium text-white hover:bg-amber-500 disabled:opacity-40"
                     >
                       {patLoading
-                        ? t({ ko: "확인 중...", en: "Verifying...", ja: "確認中...", zh: "验证中..." })
-                        : t({ ko: "인증", en: "Authenticate", ja: "認証", zh: "认证" })}
+                        ? t({ ko: "Verifying...", en: "Verifying...", ja: "確認中...", zh: "验证中..." })
+                        : t({ ko: "Authenticate", en: "Authenticate", ja: "認証", zh: "认证" })}
                     </button>
                   </div>
                 </div>
@@ -279,11 +279,11 @@ export default function GitHubImportWizard({
             )}
             {branchesLoading ? (
               <p className="text-xs text-slate-400">
-                {t({ ko: "불러오는 중...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
+                {t({ ko: "Loading...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
               </p>
             ) : branches.length === 0 && !branchError ? (
               <p className="text-xs text-slate-500">
-                {t({ ko: "브랜치 없음", en: "No branches", ja: "ブランチなし", zh: "无分支" })}
+                {t({ ko: "No branches", en: "No branches", ja: "ブランチなし", zh: "无分支" })}
               </p>
             ) : (
               <div className="space-y-1">
@@ -323,7 +323,7 @@ export default function GitHubImportWizard({
             </div>
 
             <label className="block text-xs text-slate-400">
-              {t({ ko: "프로젝트 이름", en: "Project Name", ja: "プロジェクト名", zh: "项目名称" })}
+              {t({ ko: "Project Name", en: "Project Name", ja: "プロジェクト名", zh: "项目名称" })}
               <input
                 type="text"
                 value={projectName}
@@ -334,7 +334,7 @@ export default function GitHubImportWizard({
             </label>
 
             <label className="block text-xs text-slate-400">
-              {t({ ko: "대상 경로", en: "Target Path", ja: "対象パス", zh: "目标路径" })}
+              {t({ ko: "Target Path", en: "Target Path", ja: "対象パス", zh: "目标路径" })}
               <input
                 type="text"
                 value={targetPath}
@@ -365,8 +365,8 @@ export default function GitHubImportWizard({
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-400">
                     {cloneStatus === "done"
-                      ? t({ ko: "완료", en: "Complete", ja: "完了", zh: "完成" })
-                      : t({ ko: "클론 중...", en: "Cloning...", ja: "クローン中...", zh: "正在克隆..." })}
+                      ? t({ ko: "Complete", en: "Complete", ja: "完了", zh: "完成" })
+                      : t({ ko: "Cloning...", en: "Cloning...", ja: "クローン中...", zh: "正在克隆..." })}
                   </span>
                   <span className="text-slate-400">{cloneProgress}%</span>
                 </div>
@@ -393,7 +393,7 @@ export default function GitHubImportWizard({
                 className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-40"
               >
                 {creating
-                  ? t({ ko: "가져오는 중...", en: "Importing...", ja: "インポート中...", zh: "正在导入..." })
+                  ? t({ ko: "Importing...", en: "Importing...", ja: "インポート中...", zh: "正在导入..." })
                   : t({
                       ko: "GitHub에서 가져오기",
                       en: "Import from GitHub",
@@ -407,7 +407,7 @@ export default function GitHubImportWizard({
                 disabled={creating}
                 className="rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-300 disabled:opacity-40"
               >
-                {t({ ko: "이전", en: "Back", ja: "戻る", zh: "返回" })}
+                {t({ ko: "Back", en: "Back", ja: "戻る", zh: "返回" })}
               </button>
             </div>
           </div>

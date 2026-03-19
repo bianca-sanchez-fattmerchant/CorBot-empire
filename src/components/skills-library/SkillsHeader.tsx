@@ -53,12 +53,12 @@ export default function SkillsHeader({
             })}
           >
             <span className="text-base">✏️</span>
-            {t({ ko: "커스텀 스킬 추가", en: "Add Custom Skill", ja: "カスタムスキル追加", zh: "添加自定义技能" })}
+            {t({ ko: "Add Custom Skill", en: "Add Custom Skill", ja: "カスタムスキル追加", zh: "添加自定义技能" })}
           </button>
           <div className="text-right">
             <div className="text-2xl font-bold text-empire-gold">{skillsCount}</div>
             <div className="text-xs text-slate-500">
-              {t({ ko: "등록된 스킬", en: "Registered skills", ja: "登録済みスキル", zh: "已收录技能" })}
+              {t({ ko: "Registered skills", en: "Registered skills", ja: "登録済みスキル", zh: "已收录技能" })}
             </div>
           </div>
         </div>
@@ -93,11 +93,11 @@ export default function SkillsHeader({
           onChange={(e) => onSortByChange(e.target.value as "rank" | "name" | "installs")}
           className="bg-slate-900/60 border border-slate-600/50 rounded-lg px-3 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-blue-500/50"
         >
-          <option value="rank">{t({ ko: "순위순", en: "By Rank", ja: "順位順", zh: "按排名" })}</option>
+          <option value="rank">{t({ ko: "By Rank", en: "By Rank", ja: "順位順", zh: "按排名" })}</option>
           <option value="installs">
-            {t({ ko: "설치순", en: "By Installs", ja: "インストール順", zh: "按安装量" })}
+            {t({ ko: "By Installs", en: "By Installs", ja: "インストール順", zh: "按安装量" })}
           </option>
-          <option value="name">{t({ ko: "이름순", en: "By Name", ja: "名前順", zh: "按名称" })}</option>
+          <option value="name">{t({ ko: "By Name", en: "By Name", ja: "名前順", zh: "按名称" })}</option>
         </select>
       </div>
     </div>

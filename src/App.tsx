@@ -132,7 +132,7 @@ export default function App() {
   };
 
   const getPackLabelByLanguage = (packKey: WorkflowPackKey, language: string): string => {
-    const label = getOfficePackMeta(packKey).label;
+    const label = getOfficePackMeta(packKey, settings.officePackNames).label;
     const lang = normalizeLanguage(language);
     if (lang === "ko") return label.ko || label.en;
     if (lang === "ja") return label.ja || label.en;

@@ -55,7 +55,7 @@ export default function ManualPathPickerDialog({
         <div className="space-y-3 px-4 py-4">
           <div className="rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2">
             <p className="text-[11px] text-slate-400">
-              {t({ ko: "현재 위치", en: "Current Location", ja: "現在位置", zh: "当前位置" })}
+              {t({ ko: "Current Location", en: "Current Location", ja: "現在位置", zh: "当前位置" })}
             </p>
             <p className="break-all text-xs text-slate-200">{manualPathCurrent || "-"}</p>
           </div>
@@ -69,7 +69,7 @@ export default function ManualPathPickerDialog({
               }}
               className="rounded-md border border-slate-600 px-2.5 py-1 text-xs font-semibold text-slate-200 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {t({ ko: "상위 폴더", en: "Up", ja: "上位フォルダ", zh: "上级目录" })}
+              {t({ ko: "Up", en: "Up", ja: "上位フォルダ", zh: "上级目录" })}
             </button>
             <button
               type="button"
@@ -77,7 +77,7 @@ export default function ManualPathPickerDialog({
               onClick={() => void onLoadEntries(manualPathCurrent || undefined)}
               className="rounded-md border border-slate-600 px-2.5 py-1 text-xs font-semibold text-slate-200 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {t({ ko: "새로고침", en: "Refresh", ja: "更新", zh: "刷新" })}
+              {t({ ko: "Refresh", en: "Refresh", ja: "更新", zh: "刷新" })}
             </button>
           </div>
           <div className="max-h-[45dvh] overflow-y-auto rounded-lg border border-slate-700 bg-slate-800/50">
@@ -132,7 +132,7 @@ export default function ManualPathPickerDialog({
             onClick={onClose}
             className="rounded-md border border-slate-600 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:bg-slate-800"
           >
-            {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+            {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
           </button>
           <button
             type="button"
@@ -140,7 +140,7 @@ export default function ManualPathPickerDialog({
             onClick={onSelectCurrent}
             className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {t({ ko: "현재 폴더 선택", en: "Select Current Folder", ja: "現在フォルダを選択", zh: "选择当前文件夹" })}
+            {t({ ko: "Select Current Folder", en: "Select Current Folder", ja: "現在フォルダを選択", zh: "选择当前文件夹" })}
           </button>
         </div>
       </div>

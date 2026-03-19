@@ -12,7 +12,7 @@ import DepartmentFormModal from "./agent-manager/DepartmentFormModal";
 import DepartmentInstructionsModal from "./agent-manager/DepartmentInstructionsModal";
 import DepartmentsTab from "./agent-manager/DepartmentsTab";
 import { StackedSpriteIcon } from "./agent-manager/EmojiPicker";
-import type { AgentManagerProps, FormData } from "./agent-manager/types";
+import type { AgentManagerProps, AgentUpdatePayload, FormData } from "./agent-manager/types";
 import { pickRandomSpritePair } from "./agent-manager/utils";
 
 export default function AgentManager({
@@ -276,7 +276,7 @@ export default function AgentManager({
   );
 
   const handleUpdate = useCallback(
-    async (id: string, updates: Partial<Agent>) => {
+    async (id: string, updates: AgentUpdatePayload) => {
       setSaving(true);
       try {
         if (isIsolatedPack) {

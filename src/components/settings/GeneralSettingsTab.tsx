@@ -51,12 +51,12 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
         style={{ background: "var(--th-card-bg)", border: "1px solid var(--th-card-border)" }}
       >
         <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--th-text-primary)" }}>
-          {t({ ko: "회사 정보", en: "Company", ja: "会社情報", zh: "公司信息" })}
+          {t({ ko: "Company", en: "Company", ja: "Company", zh: "公司信息" })}
         </h3>
 
         <div>
           <label className="block text-xs mb-1" style={{ color: "var(--th-text-secondary)" }}>
-            {t({ ko: "회사명", en: "Company Name", ja: "会社名", zh: "公司名称" })}
+            {t({ ko: "Company Name", en: "Company Name", ja: "Company Name", zh: "公司名称" })}
           </label>
           <input
             type="text"
@@ -73,7 +73,7 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
 
         <div>
           <label className="block text-xs mb-1" style={{ color: "var(--th-text-secondary)" }}>
-            {t({ ko: "CEO 이름", en: "CEO Name", ja: "CEO 名", zh: "CEO 名称" })}
+            {t({ ko: "CEO Name", en: "CEO Name", ja: "CEO Name", zh: "CEO 名称" })}
           </label>
           <input
             type="text"
@@ -91,9 +91,7 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
         <div>
           <label className="block text-xs mb-1" style={{ color: "var(--th-text-secondary)" }}>
             {t({
-              ko: "기본 프로젝트 폴더",
-              en: "Default Project Folder",
-              ja: "デフォルトのプロジェクトフォルダ",
+              ko: "Default Project Folder", en: "Default Project Folder", ja: "Default Project Folder",
               zh: "默认项目文件夹",
             })}
           </label>
@@ -102,9 +100,7 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
             value={form.defaultProjectPath ?? ""}
             onChange={(e) => setForm({ ...form, defaultProjectPath: e.target.value })}
             placeholder={t({
-              ko: "예: /Users/yourname/Projects",
-              en: "e.g. /Users/yourname/Projects",
-              ja: "例: /Users/yourname/Projects",
+              ko: "e.g. /Users/yourname/Projects", en: "e.g. /Users/yourname/Projects", ja: "e.g. /Users/yourname/Projects",
               zh: "例如: /Users/yourname/Projects",
             })}
             className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors"
@@ -118,48 +114,40 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <ToggleSettingCard
-            label={t({ ko: "자동 배정", en: "Auto Assign", ja: "自動割り当て", zh: "自动分配" })}
+            label={t({ ko: "Auto Assign", en: "Auto Assign", ja: "Auto Assign", zh: "自动分配" })}
             checked={form.autoAssign}
             onToggle={() => setForm({ ...form, autoAssign: !form.autoAssign })}
           />
 
           <ToggleSettingCard
-            label={t({ ko: "YOLO 모드", en: "YOLO Mode", ja: "YOLO モード", zh: "YOLO 模式" })}
+            label={t({ ko: "YOLO Mode", en: "YOLO Mode", ja: "YOLO Mode", zh: "YOLO 模式" })}
             checked={form.yoloMode === true}
             onToggle={() => setForm({ ...form, yoloMode: !(form.yoloMode === true) })}
             title={t({
-              ko: "켜면 기획팀장이 의사결정 단계를 자동으로 분석하고 다음 단계를 진행합니다.",
-              en: "When enabled, the planning lead auto-analyzes decision steps and proceeds automatically.",
-              ja: "有効にすると、企画リードが意思決定段階を自動分析して次段階へ進めます。",
+              ko: "When enabled, the planning lead auto-analyzes decision steps and proceeds automatically.", en: "When enabled, the planning lead auto-analyzes decision steps and proceeds automatically.", ja: "When enabled, the planning lead auto-analyzes decision steps and proceeds automatically.",
               zh: "启用后，规划负责人会自动分析决策步骤并推进到下一阶段。",
             })}
           />
 
           <ToggleSettingCard
             label={t({
-              ko: "자동 업데이트 (전역)",
-              en: "Auto Update (Global)",
-              ja: "Auto Update（全体）",
+              ko: "Auto Update (Global)", en: "Auto Update (Global)", ja: "Auto Update (Global)",
               zh: "自动更新（全局）",
             })}
             checked={form.autoUpdateEnabled}
             onToggle={() => setForm({ ...form, autoUpdateEnabled: !form.autoUpdateEnabled })}
             title={t({
-              ko: "서버 전체 자동 업데이트 루프를 켜거나 끕니다.",
-              en: "Enable or disable auto-update loop for the whole server.",
-              ja: "サーバー全体の自動更新ループを有効/無効にします。",
+              ko: "Enable or disable auto-update loop for the whole server.", en: "Enable or disable auto-update loop for the whole server.", ja: "Enable or disable auto-update loop for the whole server.",
               zh: "启用或禁用整个服务器的自动更新循环。",
             })}
           />
 
           <ToggleSettingCard
-            label={t({ ko: "OAuth 자동 스왑", en: "OAuth Auto Swap", ja: "OAuth 自動スワップ", zh: "OAuth 自动切换" })}
+            label={t({ ko: "OAuth Auto Swap", en: "OAuth Auto Swap", ja: "OAuth Auto Swap", zh: "OAuth 自动切换" })}
             checked={form.oauthAutoSwap !== false}
             onToggle={() => setForm({ ...form, oauthAutoSwap: !(form.oauthAutoSwap !== false) })}
             title={t({
-              ko: "실패/한도 시 다음 OAuth 계정으로 자동 전환",
-              en: "Auto-switch to next OAuth account on failures/limits",
-              ja: "失敗/上限時に次の OAuth アカウントへ自動切替",
+              ko: "Auto-switch to next OAuth account on failures/limits", en: "Auto-switch to next OAuth account on failures/limits", ja: "Auto-switch to next OAuth account on failures/limits",
               zh: "失败/额度限制时自动切换到下一个 OAuth 账号",
             })}
           />
@@ -168,9 +156,7 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
         <div>
           <label className="block text-xs mb-1" style={{ color: "var(--th-text-secondary)" }}>
             {t({
-              ko: "기본 CLI 프로바이더",
-              en: "Default CLI Provider",
-              ja: "デフォルト CLI プロバイダ",
+              ko: "Default CLI Provider", en: "Default CLI Provider", ja: "Default CLI Provider",
               zh: "默认 CLI 提供方",
             })}
           </label>
@@ -193,11 +179,11 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
 
         <div>
           <label className="block text-xs mb-1" style={{ color: "var(--th-text-secondary)" }}>
-            {t({ ko: "언어", en: "Language", ja: "言語", zh: "语言" })}
+            Language
           </label>
           <select
-            value={form.language}
-            onChange={(e) => setForm({ ...form, language: e.target.value as LocalSettings["language"] })}
+            value="en"
+            onChange={() => setForm({ ...form, language: "en" as LocalSettings["language"] })}
             className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors"
             style={{
               background: "var(--th-input-bg)",
@@ -205,10 +191,7 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
               color: "var(--th-text-primary)",
             }}
           >
-            <option value="ko">{t({ ko: "한국어", en: "Korean", ja: "韓国語", zh: "韩语" })}</option>
-            <option value="en">{t({ ko: "영어", en: "English", ja: "英語", zh: "英语" })}</option>
-            <option value="ja">{t({ ko: "일본어", en: "Japanese", ja: "日本語", zh: "日语" })}</option>
-            <option value="zh">{t({ ko: "중국어", en: "Chinese", ja: "中国語", zh: "中文" })}</option>
+            <option value="en">English</option>
           </select>
         </div>
       </section>
@@ -216,14 +199,14 @@ export default function GeneralSettingsTab({ t, form, setForm, saved, onSave }: 
       <div className="flex justify-end gap-3">
         {saved && (
           <span className="text-green-400 text-sm self-center">
-            ✅ {t({ ko: "저장 완료", en: "Saved", ja: "保存完了", zh: "已保存" })}
+            ✅ {t({ ko: "Saved", en: "Saved", ja: "Saved", zh: "已保存" })}
           </span>
         )}
         <button
           onClick={onSave}
           className="px-8 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-xl transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30"
         >
-          {t({ ko: "저장", en: "Save", ja: "保存", zh: "保存" })}
+          {t({ ko: "Save", en: "Save", ja: "Save", zh: "保存" })}
         </button>
       </div>
     </>

@@ -67,52 +67,52 @@ const DEV_THEMES: Record<string, RoomTheme> = {
 
 const DEPARTMENT_PERSON_NAME_POOL: Partial<Record<string, Localized[]>> = {
   planning: [
-    { ko: "세이지", en: "Sage", ja: "セージ", zh: "赛吉" },
-    { ko: "미나", en: "Mina", ja: "ミナ", zh: "米娜" },
-    { ko: "주노", en: "Juno", ja: "ジュノ", zh: "朱诺" },
-    { ko: "리안", en: "Rian", ja: "リアン", zh: "里安" },
-    { ko: "하루", en: "Haru", ja: "ハル", zh: "晴" },
-    { ko: "노아", en: "Noa", ja: "ノア", zh: "诺亚" },
+    { ko: "Sage", en: "Sage", ja: "Sage", zh: "赛吉" },
+    { ko: "Mina", en: "Mina", ja: "Mina", zh: "米娜" },
+    { ko: "Juno", en: "Juno", ja: "Juno", zh: "朱诺" },
+    { ko: "Rian", en: "Rian", ja: "Rian", zh: "里安" },
+    { ko: "Haru", en: "Haru", ja: "Haru", zh: "晴" },
+    { ko: "Noa", en: "Noa", ja: "Noa", zh: "诺亚" },
   ],
   dev: [
-    { ko: "아리아", en: "Aria", ja: "アリア", zh: "阿莉娅" },
-    { ko: "테오", en: "Theo", ja: "テオ", zh: "西奥" },
-    { ko: "카이", en: "Kai", ja: "カイ", zh: "凯" },
-    { ko: "리암", en: "Liam", ja: "リアム", zh: "利亚姆" },
-    { ko: "세나", en: "Sena", ja: "セナ", zh: "塞娜" },
-    { ko: "로완", en: "Rowan", ja: "ローワン", zh: "罗恩" },
+    { ko: "Aria", en: "Aria", ja: "Aria", zh: "阿莉娅" },
+    { ko: "Theo", en: "Theo", ja: "Theo", zh: "西奥" },
+    { ko: "Kai", en: "Kai", ja: "Kai", zh: "凯" },
+    { ko: "Liam", en: "Liam", ja: "Liam", zh: "利亚姆" },
+    { ko: "Sena", en: "Sena", ja: "Sena", zh: "塞娜" },
+    { ko: "Rowan", en: "Rowan", ja: "Rowan", zh: "罗恩" },
   ],
   design: [
-    { ko: "도로", en: "Doro", ja: "ドロ", zh: "多罗" },
-    { ko: "루나", en: "Luna", ja: "ルナ", zh: "露娜" },
-    { ko: "픽셀", en: "Pixel", ja: "ピクセル", zh: "像素" },
-    { ko: "유나", en: "Yuna", ja: "ユナ", zh: "优娜" },
-    { ko: "미로", en: "Miro", ja: "ミロ", zh: "米洛" },
-    { ko: "아이리스", en: "Iris", ja: "アイリス", zh: "爱丽丝" },
+    { ko: "Doro", en: "Doro", ja: "Doro", zh: "多罗" },
+    { ko: "Luna", en: "Luna", ja: "Luna", zh: "露娜" },
+    { ko: "Pixel", en: "Pixel", ja: "Pixel", zh: "像素" },
+    { ko: "Yuna", en: "Yuna", ja: "Yuna", zh: "优娜" },
+    { ko: "Miro", en: "Miro", ja: "Miro", zh: "米洛" },
+    { ko: "Iris", en: "Iris", ja: "Iris", zh: "爱丽丝" },
   ],
   qa: [
-    { ko: "스피키", en: "Speaky", ja: "スピーキー", zh: "斯皮奇" },
-    { ko: "호크", en: "Hawk", ja: "ホーク", zh: "霍克" },
-    { ko: "베라", en: "Vera", ja: "ヴェラ", zh: "薇拉" },
-    { ko: "퀸", en: "Quinn", ja: "クイン", zh: "奎因" },
-    { ko: "토리", en: "Tori", ja: "トリ", zh: "托莉" },
-    { ko: "하윤", en: "Hayoon", ja: "ハユン", zh: "夏允" },
+    { ko: "Speaky", en: "Speaky", ja: "Speaky", zh: "斯皮奇" },
+    { ko: "Hawk", en: "Hawk", ja: "Hawk", zh: "霍克" },
+    { ko: "Vera", en: "Vera", ja: "Vera", zh: "薇拉" },
+    { ko: "Quinn", en: "Quinn", ja: "Quinn", zh: "奎因" },
+    { ko: "Tori", en: "Tori", ja: "Tori", zh: "托莉" },
+    { ko: "Hayoon", en: "Hayoon", ja: "Hayoon", zh: "夏允" },
   ],
   operations: [
-    { ko: "아틀라스", en: "Atlas", ja: "アトラス", zh: "阿特拉斯" },
-    { ko: "나리", en: "Nari", ja: "ナリ", zh: "娜莉" },
-    { ko: "오웬", en: "Owen", ja: "オーウェン", zh: "欧文" },
-    { ko: "다미", en: "Dami", ja: "ダミ", zh: "达米" },
-    { ko: "키라", en: "Kira", ja: "キラ", zh: "琪拉" },
-    { ko: "솔", en: "Sol", ja: "ソル", zh: "索尔" },
+    { ko: "Atlas", en: "Atlas", ja: "Atlas", zh: "阿特拉斯" },
+    { ko: "Nari", en: "Nari", ja: "Nari", zh: "娜莉" },
+    { ko: "Owen", en: "Owen", ja: "Owen", zh: "欧文" },
+    { ko: "Dami", en: "Dami", ja: "Dami", zh: "达米" },
+    { ko: "Kira", en: "Kira", ja: "Kira", zh: "琪拉" },
+    { ko: "Sol", en: "Sol", ja: "Sol", zh: "索尔" },
   ],
   devsecops: [
-    { ko: "볼트S", en: "VoltS", ja: "ボルトS", zh: "伏特S" },
-    { ko: "시온", en: "Sion", ja: "シオン", zh: "锡安" },
-    { ko: "녹스", en: "Knox", ja: "ノックス", zh: "诺克斯" },
-    { ko: "레이븐", en: "Raven", ja: "レイヴン", zh: "渡鸦" },
-    { ko: "미라", en: "Mira", ja: "ミラ", zh: "米拉" },
-    { ko: "알렉스", en: "Alex", ja: "アレックス", zh: "亚历克斯" },
+    { ko: "VoltS", en: "VoltS", ja: "VoltS", zh: "伏特S" },
+    { ko: "Sion", en: "Sion", ja: "Sion", zh: "锡安" },
+    { ko: "Knox", en: "Knox", ja: "Knox", zh: "诺克斯" },
+    { ko: "Raven", en: "Raven", ja: "Raven", zh: "渡鸦" },
+    { ko: "Mira", en: "Mira", ja: "Mira", zh: "米拉" },
+    { ko: "Alex", en: "Alex", ja: "Alex", zh: "亚历克斯" },
   ],
 };
 
@@ -120,45 +120,35 @@ const PACK_SEED_PROFILE: Partial<Record<WorkflowPackKey, SeedProfile>> = {
   report: {
     nameOffset: 0,
     tone: {
-      ko: "근거와 문서 완성도를 최우선으로 판단합니다.",
-      en: "Prioritizes evidence quality and document completeness.",
-      ja: "根拠の確かさと文書の完成度を最優先します。",
+      ko: "Prioritizes evidence quality and document completeness.", en: "Prioritizes evidence quality and document completeness.", ja: "Prioritizes evidence quality and document completeness.",
       zh: "以证据质量与文档完整度为最高优先级。",
     },
   },
   web_research_report: {
     nameOffset: 1,
     tone: {
-      ko: "출처 신뢰도와 사실 검증을 중심으로 움직입니다.",
-      en: "Focused on source credibility and fact verification.",
-      ja: "情報源の信頼性と事実検証を中心に進めます。",
+      ko: "Focused on source credibility and fact verification.", en: "Focused on source credibility and fact verification.", ja: "Focused on source credibility and fact verification.",
       zh: "聚焦来源可信度与事实核验。",
     },
   },
   novel: {
     nameOffset: 2,
     tone: {
-      ko: "서사 몰입도와 캐릭터 일관성을 가장 중시합니다.",
-      en: "Values narrative immersion and character consistency the most.",
-      ja: "物語への没入感とキャラクターの一貫性を最重視します。",
+      ko: "Values narrative immersion and character consistency the most.", en: "Values narrative immersion and character consistency the most.", ja: "Values narrative immersion and character consistency the most.",
       zh: "最重视叙事沉浸感与角色一致性。",
     },
   },
   video_preprod: {
     nameOffset: 3,
     tone: {
-      ko: "콘티, 샷 구성, 제작 효율을 우선합니다.",
-      en: "Prioritizes storyboard quality, shot composition, and production efficiency.",
-      ja: "コンテ品質、ショット構成、制作効率を優先します。",
+      ko: "Prioritizes storyboard quality, shot composition, and production efficiency.", en: "Prioritizes storyboard quality, shot composition, and production efficiency.", ja: "Prioritizes storyboard quality, shot composition, and production efficiency.",
       zh: "优先保证分镜质量、镜头构成与制作效率。",
     },
   },
   roleplay: {
     nameOffset: 4,
     tone: {
-      ko: "캐릭터 몰입감과 대화 리듬을 우선합니다.",
-      en: "Prioritizes character immersion and dialogue rhythm.",
-      ja: "キャラクター没入感と会話のテンポを優先します。",
+      ko: "Prioritizes character immersion and dialogue rhythm.", en: "Prioritizes character immersion and dialogue rhythm.", ja: "Prioritizes character immersion and dialogue rhythm.",
       zh: "优先保障角色沉浸感与对话节奏。",
     },
   },
@@ -169,15 +159,11 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     key: "development",
     slug: "DEV",
     label: {
-      ko: "개발 오피스",
-      en: "Development Office",
-      ja: "開発オフィス",
+      ko: "Development Office", en: "Development Office", ja: "Development Office",
       zh: "开发办公室",
     },
     summary: {
-      ko: "기본 개발 조직 구조",
-      en: "Default engineering organization",
-      ja: "標準の開発組織",
+      ko: "Default engineering organization", en: "Default engineering organization", ja: "Default engineering organization",
       zh: "默认开发组织",
     },
     roomThemes: DEV_THEMES,
@@ -187,15 +173,11 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     key: "report",
     slug: "RPT",
     label: {
-      ko: "보고서 오피스",
-      en: "Report Office",
-      ja: "レポートオフィス",
-      zh: "报告办公室",
+      ko: "Docs Office", en: "Docs Office", ja: "Docs Office",
+      zh: "文档办公室",
     },
     summary: {
-      ko: "리서치/문서화 중심 팀 구성",
-      en: "Research and documentation focused crew",
-      ja: "調査・文書化中心の構成",
+      ko: "Research and documentation focused crew", en: "Research and documentation focused crew", ja: "Research and documentation focused crew",
       zh: "以调研与文档为核心的团队",
     },
     roomThemes: {
@@ -210,27 +192,27 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     },
     departments: {
       planning: {
-        name: { ko: "편집기획실", en: "Editorial Planning", ja: "編集企画室", zh: "编辑企划室" },
+        name: { ko: "Editorial Planning", en: "Editorial Planning", ja: "Editorial Planning", zh: "编辑企划室" },
         icon: "📚",
-        agentPrefix: { ko: "편집 PM", en: "Editorial PM", ja: "編集PM", zh: "编辑PM" },
+        agentPrefix: { ko: "Editorial PM", en: "Editorial PM", ja: "Editorial PM", zh: "编辑PM" },
         avatarPool: ["📚", "🗂️", "🧭"],
       },
       dev: {
-        name: { ko: "리서치엔진팀", en: "Research Engine", ja: "リサーチエンジン", zh: "调研引擎组" },
+        name: { ko: "Research Engine", en: "Research Engine", ja: "Research Engine", zh: "调研引擎组" },
         icon: "🧠",
-        agentPrefix: { ko: "리서처", en: "Researcher", ja: "リサーチャー", zh: "研究员" },
+        agentPrefix: { ko: "Researcher", en: "Researcher", ja: "Researcher", zh: "研究员" },
         avatarPool: ["🧠", "📊", "📝"],
       },
       design: {
-        name: { ko: "문서디자인팀", en: "Doc Design", ja: "ドキュメントデザイン", zh: "文档设计组" },
+        name: { ko: "Doc Design", en: "Doc Design", ja: "Doc Design", zh: "文档设计组" },
         icon: "🧾",
-        agentPrefix: { ko: "문서 디자이너", en: "Doc Designer", ja: "資料デザイナー", zh: "文档设计师" },
+        agentPrefix: { ko: "Doc Designer", en: "Doc Designer", ja: "Doc Designer", zh: "文档设计师" },
         avatarPool: ["🧾", "🎨", "📐"],
       },
       qa: {
-        name: { ko: "검수팀", en: "Review Desk", ja: "レビュー班", zh: "审校组" },
+        name: { ko: "Review Desk", en: "Review Desk", ja: "Review Desk", zh: "审校组" },
         icon: "🔎",
-        agentPrefix: { ko: "검수관", en: "Reviewer", ja: "レビュア", zh: "审校员" },
+        agentPrefix: { ko: "Reviewer", en: "Reviewer", ja: "Reviewer", zh: "审校员" },
         avatarPool: ["🔎", "✅", "🧪"],
       },
     },
@@ -242,15 +224,11 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     key: "web_research_report",
     slug: "WEB",
     label: {
-      ko: "웹 리서치 오피스",
-      en: "Web Research Office",
-      ja: "Web調査オフィス",
+      ko: "Web Research Office", en: "Web Research Office", ja: "Web Research Office",
       zh: "网页调研办公室",
     },
     summary: {
-      ko: "소스 수집과 근거 검증 중심",
-      en: "Source collection and citation verification",
-      ja: "情報源収集と根拠検証中心",
+      ko: "Source collection and citation verification", en: "Source collection and citation verification", ja: "Source collection and citation verification",
       zh: "以来源收集与证据校验为核心",
     },
     roomThemes: {
@@ -265,21 +243,21 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     },
     departments: {
       planning: {
-        name: { ko: "조사전략실", en: "Research Strategy", ja: "調査戦略室", zh: "调研战略室" },
+        name: { ko: "Research Strategy", en: "Research Strategy", ja: "Research Strategy", zh: "调研战略室" },
         icon: "🧭",
-        agentPrefix: { ko: "전략 분석가", en: "Strategy Analyst", ja: "戦略アナリスト", zh: "策略分析师" },
+        agentPrefix: { ko: "Strategy Analyst", en: "Strategy Analyst", ja: "Strategy Analyst", zh: "策略分析师" },
         avatarPool: ["🧭", "🗺️", "📌"],
       },
       dev: {
-        name: { ko: "크롤링팀", en: "Crawler Team", ja: "クロール班", zh: "爬取组" },
+        name: { ko: "Crawler Team", en: "Crawler Team", ja: "Crawler Team", zh: "爬取组" },
         icon: "🕸️",
-        agentPrefix: { ko: "수집 엔지니어", en: "Collection Engineer", ja: "収集エンジニア", zh: "采集工程师" },
+        agentPrefix: { ko: "Collection Engineer", en: "Collection Engineer", ja: "Collection Engineer", zh: "采集工程师" },
         avatarPool: ["🕸️", "🔗", "🧠"],
       },
       qa: {
-        name: { ko: "팩트체크팀", en: "Fact Check", ja: "ファクトチェック", zh: "事实核验组" },
+        name: { ko: "Fact Check", en: "Fact Check", ja: "Fact Check", zh: "事实核验组" },
         icon: "✅",
-        agentPrefix: { ko: "검증관", en: "Verifier", ja: "検証官", zh: "核验员" },
+        agentPrefix: { ko: "Verifier", en: "Verifier", ja: "Verifier", zh: "核验员" },
         avatarPool: ["✅", "🔍", "📎"],
       },
     },
@@ -291,15 +269,11 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     key: "novel",
     slug: "NOV",
     label: {
-      ko: "소설 스튜디오",
-      en: "Novel Studio",
-      ja: "小説スタジオ",
+      ko: "Novel Studio", en: "Novel Studio", ja: "Novel Studio",
       zh: "小说工作室",
     },
     summary: {
-      ko: "세계관/캐릭터/서사 중심 구성",
-      en: "Worldbuilding, character and narrative setup",
-      ja: "世界観・キャラ・物語中心",
+      ko: "Worldbuilding, character and narrative setup", en: "Worldbuilding, character and narrative setup", ja: "Worldbuilding, character and narrative setup",
       zh: "世界观/角色/叙事导向",
     },
     roomThemes: {
@@ -314,27 +288,27 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     },
     departments: {
       planning: {
-        name: { ko: "세계관실", en: "Worldbuilding", ja: "世界観室", zh: "世界观组" },
+        name: { ko: "Worldbuilding", en: "Worldbuilding", ja: "Worldbuilding", zh: "世界观组" },
         icon: "🌌",
-        agentPrefix: { ko: "세계관 작가", en: "Lore Writer", ja: "設定作家", zh: "设定作者" },
+        agentPrefix: { ko: "Lore Writer", en: "Lore Writer", ja: "Lore Writer", zh: "设定作者" },
         avatarPool: ["🌌", "📜", "🧭"],
       },
       dev: {
-        name: { ko: "서사엔진팀", en: "Narrative Engine", ja: "物語エンジン", zh: "叙事引擎组" },
+        name: { ko: "Narrative Engine", en: "Narrative Engine", ja: "Narrative Engine", zh: "叙事引擎组" },
         icon: "✍️",
-        agentPrefix: { ko: "서사 설계자", en: "Narrative Architect", ja: "物語設計者", zh: "叙事架构师" },
+        agentPrefix: { ko: "Narrative Architect", en: "Narrative Architect", ja: "Narrative Architect", zh: "叙事架构师" },
         avatarPool: ["✍️", "🖋️", "📘"],
       },
       design: {
-        name: { ko: "캐릭터 아트팀", en: "Character Art", ja: "キャラアート", zh: "角色美术组" },
+        name: { ko: "Character Art", en: "Character Art", ja: "Character Art", zh: "角色美术组" },
         icon: "🎭",
-        agentPrefix: { ko: "캐릭터 디자이너", en: "Character Designer", ja: "キャラデザ", zh: "角色设计师" },
+        agentPrefix: { ko: "Character Designer", en: "Character Designer", ja: "Character Designer", zh: "角色设计师" },
         avatarPool: ["🎭", "🧵", "🎨"],
       },
       qa: {
-        name: { ko: "톤 검수팀", en: "Tone QA", ja: "トーン検証", zh: "语气审校组" },
+        name: { ko: "Tone QA", en: "Tone QA", ja: "Tone QA", zh: "语气审校组" },
         icon: "🪶",
-        agentPrefix: { ko: "문체 검수관", en: "Style Reviewer", ja: "文体レビュア", zh: "文风审校员" },
+        agentPrefix: { ko: "Style Reviewer", en: "Style Reviewer", ja: "Style Reviewer", zh: "文风审校员" },
         avatarPool: ["🪶", "📖", "✅"],
       },
     },
@@ -346,15 +320,11 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     key: "video_preprod",
     slug: "VID",
     label: {
-      ko: "영상 프리프로덕션",
-      en: "Video Pre-production",
-      ja: "映像プリプロ",
+      ko: "Video Pre-production", en: "Video Pre-production", ja: "Video Pre-production",
       zh: "视频前期策划",
     },
     summary: {
-      ko: "콘티/샷리스트/편집 노트 중심",
-      en: "Storyboard and shot-list focused setup",
-      ja: "コンテ・ショットリスト中心",
+      ko: "Storyboard and shot-list focused setup", en: "Storyboard and shot-list focused setup", ja: "Storyboard and shot-list focused setup",
       zh: "分镜与镜头清单导向",
     },
     roomThemes: {
@@ -369,27 +339,27 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     },
     departments: {
       planning: {
-        name: { ko: "프리프로덕션팀", en: "Pre-production", ja: "プリプロ班", zh: "前期策划组" },
+        name: { ko: "Pre-production", en: "Pre-production", ja: "Pre-production", zh: "前期策划组" },
         icon: "🎬",
-        agentPrefix: { ko: "프로듀서", en: "Producer", ja: "プロデューサ", zh: "制片" },
+        agentPrefix: { ko: "Producer", en: "Producer", ja: "Producer", zh: "制片" },
         avatarPool: ["🎬", "📽️", "🧭"],
       },
       dev: {
-        name: { ko: "씬 엔진팀", en: "Scene Engine", ja: "シーン設計", zh: "场景引擎组" },
+        name: { ko: "Scene Engine", en: "Scene Engine", ja: "Scene Engine", zh: "场景引擎组" },
         icon: "🎞️",
-        agentPrefix: { ko: "씬 디렉터", en: "Scene Director", ja: "シーン監督", zh: "场景导演" },
+        agentPrefix: { ko: "Scene Director", en: "Scene Director", ja: "Scene Director", zh: "场景导演" },
         avatarPool: ["🎞️", "🧱", "🔧"],
       },
       design: {
-        name: { ko: "아트/촬영팀", en: "Art & Camera", ja: "アート撮影", zh: "美术摄影组" },
+        name: { ko: "Art & Camera", en: "Art & Camera", ja: "Art & Camera", zh: "美术摄影组" },
         icon: "📷",
-        agentPrefix: { ko: "촬영 디자이너", en: "Camera Designer", ja: "撮影デザイナ", zh: "摄影设计师" },
+        agentPrefix: { ko: "Camera Designer", en: "Camera Designer", ja: "Camera Designer", zh: "摄影设计师" },
         avatarPool: ["📷", "🎨", "💡"],
       },
       qa: {
-        name: { ko: "컷 검수팀", en: "Cut QA", ja: "カット検証", zh: "镜头审校组" },
+        name: { ko: "Cut QA", en: "Cut QA", ja: "Cut QA", zh: "镜头审校组" },
         icon: "🧪",
-        agentPrefix: { ko: "컷 검수관", en: "Cut Reviewer", ja: "カットレビュア", zh: "镜头审校员" },
+        agentPrefix: { ko: "Cut Reviewer", en: "Cut Reviewer", ja: "Cut Reviewer", zh: "镜头审校员" },
         avatarPool: ["🧪", "✅", "📌"],
       },
     },
@@ -401,15 +371,11 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     key: "roleplay",
     slug: "RPG",
     label: {
-      ko: "롤플레이 스튜디오",
-      en: "Roleplay Studio",
-      ja: "ロールプレイスタジオ",
+      ko: "Roleplay Studio", en: "Roleplay Studio", ja: "Roleplay Studio",
       zh: "角色扮演工作室",
     },
     summary: {
-      ko: "캐릭터 연기와 대사 몰입 중심",
-      en: "Character role and dialogue immersion",
-      ja: "キャラ演技と会話没入",
+      ko: "Character role and dialogue immersion", en: "Character role and dialogue immersion", ja: "Character role and dialogue immersion",
       zh: "角色演绎与对话沉浸",
     },
     roomThemes: {
@@ -424,27 +390,27 @@ const PACK_PRESETS: Record<WorkflowPackKey, PackPreset> = {
     },
     departments: {
       planning: {
-        name: { ko: "캐릭터기획실", en: "Character Planning", ja: "キャラ企画室", zh: "角色企划室" },
+        name: { ko: "Character Planning", en: "Character Planning", ja: "Character Planning", zh: "角色企划室" },
         icon: "🎭",
-        agentPrefix: { ko: "캐릭터 플래너", en: "Character Planner", ja: "キャラ企画", zh: "角色策划" },
+        agentPrefix: { ko: "Character Planner", en: "Character Planner", ja: "Character Planner", zh: "角色策划" },
         avatarPool: ["🎭", "🧠", "📜"],
       },
       dev: {
-        name: { ko: "대사엔진팀", en: "Dialogue Engine", ja: "会話エンジン", zh: "对话引擎组" },
+        name: { ko: "Dialogue Engine", en: "Dialogue Engine", ja: "Dialogue Engine", zh: "对话引擎组" },
         icon: "🗣️",
-        agentPrefix: { ko: "대사 연출가", en: "Dialogue Director", ja: "台詞演出", zh: "台词导演" },
+        agentPrefix: { ko: "Dialogue Director", en: "Dialogue Director", ja: "Dialogue Director", zh: "台词导演" },
         avatarPool: ["🗣️", "💬", "🎙️"],
       },
       design: {
-        name: { ko: "연출아트팀", en: "Stage Art", ja: "演出アート", zh: "演出美术组" },
+        name: { ko: "Stage Art", en: "Stage Art", ja: "Stage Art", zh: "演出美术组" },
         icon: "🎨",
-        agentPrefix: { ko: "연출 디자이너", en: "Stage Designer", ja: "演出デザイナ", zh: "演出设计师" },
+        agentPrefix: { ko: "Stage Designer", en: "Stage Designer", ja: "Stage Designer", zh: "演出设计师" },
         avatarPool: ["🎨", "✨", "🎬"],
       },
       qa: {
-        name: { ko: "캐릭터검수팀", en: "Character QA", ja: "キャラ検証", zh: "角色审校组" },
+        name: { ko: "Character QA", en: "Character QA", ja: "Character QA", zh: "角色审校组" },
         icon: "🔐",
-        agentPrefix: { ko: "설정 검수관", en: "Lore Reviewer", ja: "設定レビュア", zh: "设定审校员" },
+        agentPrefix: { ko: "Lore Reviewer", en: "Lore Reviewer", ja: "Lore Reviewer", zh: "设定审校员" },
         avatarPool: ["🔐", "✅", "🧪"],
       },
     },
@@ -458,6 +424,8 @@ export function normalizeOfficeWorkflowPack(value: unknown): WorkflowPackKey {
   if (typeof value !== "string") return "development";
   return value in PACK_PRESETS ? (value as WorkflowPackKey) : "development";
 }
+
+export type OfficePackCustomNames = Partial<Record<WorkflowPackKey, string>>;
 
 function pickText(locale: UiLanguageLike, text: Localized): string {
   switch (locale) {
@@ -621,9 +589,26 @@ function buildPackDepartmentPrompt(params: {
   return `[Department Role] ${deptName}\n[Execution Standard] ${summary}\nBreak requests into actionable steps and clearly provide rationale and deliverables.`;
 }
 
-export function getOfficePackMeta(packKey: WorkflowPackKey): { label: Localized; summary: Localized } {
+function resolveCustomPackLabel(packKey: WorkflowPackKey, customNames?: OfficePackCustomNames): Localized | null {
+  const raw = customNames?.[packKey];
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  return {
+    ko: trimmed,
+    en: trimmed,
+    ja: trimmed,
+    zh: trimmed,
+  };
+}
+
+export function getOfficePackMeta(
+  packKey: WorkflowPackKey,
+  customNames?: OfficePackCustomNames,
+): { label: Localized; summary: Localized } {
   const preset = PACK_PRESETS[packKey] ?? PACK_PRESETS.development;
-  return { label: preset.label, summary: preset.summary };
+  const customLabel = resolveCustomPackLabel(packKey, customNames);
+  return { label: customLabel ?? preset.label, summary: preset.summary };
 }
 
 export function getOfficePackRoomThemes(packKey: WorkflowPackKey): Record<string, RoomTheme> {
@@ -631,7 +616,7 @@ export function getOfficePackRoomThemes(packKey: WorkflowPackKey): Record<string
   return preset.roomThemes;
 }
 
-export function listOfficePackOptions(locale: UiLanguageLike): Array<{
+export function listOfficePackOptions(locale: UiLanguageLike, customNames?: OfficePackCustomNames): Array<{
   key: WorkflowPackKey;
   label: string;
   summary: string;
@@ -640,7 +625,7 @@ export function listOfficePackOptions(locale: UiLanguageLike): Array<{
 }> {
   return (Object.keys(PACK_PRESETS) as WorkflowPackKey[]).map((key) => ({
     key,
-    label: pickText(locale, PACK_PRESETS[key].label),
+    label: pickText(locale, resolveCustomPackLabel(key, customNames) ?? PACK_PRESETS[key].label),
     summary: pickText(locale, PACK_PRESETS[key].summary),
     slug: PACK_PRESETS[key].slug,
     accent: PACK_PRESETS[key].roomThemes.ceoOffice?.accent ?? 0x5a9fd4,
@@ -772,9 +757,7 @@ export function buildOfficePackStarterAgents(params: {
     const baseNameJa = department?.name_ja ?? baseName;
     const baseNameZh = department?.name_zh ?? baseName;
     return {
-      ko: `${baseNameKo} 팀원`,
-      en: `${baseName} Member`,
-      ja: `${baseNameJa} メンバー`,
+      ko: `${baseName} Member`, en: `${baseName} Member`, ja: `${baseName} Member`,
       zh: `${baseNameZh} 成员`,
     };
   };

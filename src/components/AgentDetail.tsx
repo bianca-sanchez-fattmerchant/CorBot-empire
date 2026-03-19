@@ -119,11 +119,11 @@ export default function AgentDetail({
     (effort: string, fallback?: string) => {
       switch (effort) {
         case "low":
-          return t({ ko: "빠름, 낮은 깊이", en: "Faster, lower depth", ja: "高速・浅い推論", zh: "更快，较浅推理" });
+          return t({ ko: "Faster, lower depth", en: "Faster, lower depth", ja: "Faster, lower depth", zh: "Faster, lower depth" });
         case "medium":
-          return t({ ko: "균형 기본값", en: "Balanced default", ja: "バランス既定", zh: "均衡默认" });
+          return t({ ko: "Balanced default", en: "Balanced default", ja: "Balanced default", zh: "Balanced default" });
         case "high":
-          return t({ ko: "높은 추론 깊이", en: "Higher reasoning depth", ja: "高い推論深度", zh: "更高推理深度" });
+          return t({ ko: "Higher reasoning depth", en: "Higher reasoning depth", ja: "Higher reasoning depth", zh: "Higher reasoning depth" });
         case "xhigh":
           return t({
             ko: "최대 추론 깊이",
@@ -401,17 +401,17 @@ export default function AgentDetail({
     (packKey: WorkflowPackKey) => {
       switch (packKey) {
         case "development":
-          return t({ ko: "개발", en: "Development", ja: "開発", zh: "开发" });
+          return t({ ko: "Development", en: "Development", ja: "Development", zh: "Development" });
         case "novel":
-          return t({ ko: "소설", en: "Novel", ja: "小説", zh: "小说" });
+          return t({ ko: "Novel", en: "Novel", ja: "Novel", zh: "Novel" });
         case "report":
-          return t({ ko: "리포트", en: "Report", ja: "レポート", zh: "报告" });
+          return t({ ko: "Report", en: "Report", ja: "Report", zh: "Report" });
         case "video_preprod":
-          return t({ ko: "영상 프리프로덕션", en: "Video Pre-production", ja: "動画プリプロ", zh: "视频前期" });
+          return t({ ko: "Video Pre-production", en: "Video Pre-production", ja: "Video Pre-production", zh: "Video Pre-production" });
         case "web_research_report":
-          return t({ ko: "웹 리서치 리포트", en: "Web Research Report", ja: "Webリサーチ", zh: "网页调研报告" });
+          return t({ ko: "Web Research Report", en: "Web Research Report", ja: "Web Research Report", zh: "Web Research Report" });
         case "roleplay":
-          return t({ ko: "역할놀이", en: "Roleplay", ja: "ロールプレイ", zh: "角色扮演" });
+          return t({ ko: "Roleplay", en: "Roleplay", ja: "Roleplay", zh: "Roleplay" });
         default:
           return packKey;
       }
@@ -446,7 +446,7 @@ export default function AgentDetail({
           const existingLeaderName = String(
             details.existing_leader?.name_ko ||
               details.existing_leader?.name ||
-              t({ ko: "기존 리더", en: "current leader" }),
+              t({ ko: "current leader", en: "current leader" }),
           ).trim();
           const packKey = details.pack_key ?? activeOfficeWorkflowPack;
           const packLabel = resolvePackLabel(packKey);
@@ -560,7 +560,7 @@ export default function AgentDetail({
                   </span>
                   {savingPlanningLead && (
                     <span className="text-[10px] text-slate-400">
-                      {t({ ko: "저장중...", en: "Saving...", ja: "保存中...", zh: "保存中..." })}
+                      {t({ ko: "Saving...", en: "Saving...", ja: "Saving...", zh: "Saving..." })}
                     </span>
                   )}
                 </label>
@@ -673,13 +673,13 @@ export default function AgentDetail({
                           }}
                           className="text-[10px] px-1.5 py-0.5 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors disabled:opacity-50"
                         >
-                          {savingCli ? "..." : t({ ko: "저장", en: "Save", ja: "保存", zh: "保存" })}
+                          {savingCli ? "..." : t({ ko: "Save", en: "Save", ja: "Save", zh: "Save" })}
                         </button>
                         <button
                           onClick={handleCancelCliEdit}
                           className="text-[10px] px-1.5 py-0.5 bg-slate-600 hover:bg-slate-500 text-slate-300 rounded transition-colors"
                         >
-                          {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+                          {t({ ko: "Cancel", en: "Cancel", ja: "Cancel", zh: "Cancel" })}
                         </button>
                       </div>
                     </div>
@@ -803,13 +803,13 @@ export default function AgentDetail({
                         }}
                         className="text-[10px] px-1.5 py-0.5 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors disabled:opacity-50"
                       >
-                        {savingCli ? "..." : t({ ko: "저장", en: "Save", ja: "保存", zh: "保存" })}
+                        {savingCli ? "..." : t({ ko: "Save", en: "Save", ja: "Save", zh: "Save" })}
                       </button>
                       <button
                         onClick={handleCancelCliEdit}
                         className="text-[10px] px-1.5 py-0.5 bg-slate-600 hover:bg-slate-500 text-slate-300 rounded transition-colors"
                       >
-                        {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+                        {t({ ko: "Cancel", en: "Cancel", ja: "Cancel", zh: "Cancel" })}
                       </button>
                     </div>
                   )
@@ -855,18 +855,18 @@ export default function AgentDetail({
 
         <div className="flex border-b border-slate-700">
           {[
-            { key: "info", label: t({ ko: "정보", en: "Info", ja: "情報", zh: "信息" }) },
+            { key: "info", label: t({ ko: "Info", en: "Info", ja: "Info", zh: "Info" }) },
             {
               key: "tasks",
-              label: `${t({ ko: "업무", en: "Tasks", ja: "タスク", zh: "任务" })} (${agentTasks.length})`,
+              label: `${t({ ko: "Tasks", en: "Tasks", ja: "Tasks", zh: "Tasks" })} (${agentTasks.length})`,
             },
             {
               key: "alba",
-              label: `${t({ ko: "알바생", en: "Sub-agents", ja: "サブエージェント", zh: "子代理" })} (${agentSubAgents.length})`,
+              label: `${t({ ko: "Sub-agents", en: "Sub-agents", ja: "Sub-agents", zh: "Sub-agents" })} (${agentSubAgents.length})`,
             },
             {
               key: "instructions",
-              label: t({ ko: "지시문", en: "Instructions", ja: "指示文", zh: "指令" }),
+              label: t({ ko: "Instructions", en: "Instructions", ja: "Instructions", zh: "Instructions" }),
             },
           ].map((tabItem) => (
             <button
@@ -904,7 +904,7 @@ export default function AgentDetail({
                   </div>
                   <pre className="whitespace-pre-wrap wrap-break-word text-xs text-slate-300 max-h-[120px] overflow-auto">
                     {departmentInstructionsText ||
-                      t({ ko: "(없음)", en: "(none)", ja: "(なし)", zh: "（无）" })}
+                      t({ ko: "(none)", en: "(none)", ja: "(none)", zh: "(none)" })}
                   </pre>
                 </div>
               )}
@@ -928,7 +928,7 @@ export default function AgentDetail({
                     disabled={!hasInstructionsDraftChanges || instructionsLoading || instructionsSaving || instructionsDeleting}
                     className="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-xs text-slate-200 disabled:opacity-50"
                   >
-                    {t({ ko: "초안 되돌리기", en: "Revert Draft", ja: "下書きを戻す", zh: "恢复草稿" })}
+                    {t({ ko: "Revert Draft", en: "Revert Draft", ja: "Revert Draft", zh: "Revert Draft" })}
                   </button>
                   <button
                     onClick={() => {
@@ -938,8 +938,8 @@ export default function AgentDetail({
                     className="px-2 py-1 rounded bg-blue-600 hover:bg-blue-500 text-xs text-white disabled:opacity-50"
                   >
                     {instructionsSaving
-                      ? t({ ko: "저장중...", en: "Saving...", ja: "保存中...", zh: "保存中..." })
-                      : t({ ko: "저장", en: "Save", ja: "保存", zh: "保存" })}
+                      ? t({ ko: "Saving...", en: "Saving...", ja: "Saving...", zh: "Saving..." })
+                      : t({ ko: "Save", en: "Save", ja: "Save", zh: "Save" })}
                   </button>
                   <button
                     onClick={() => {
@@ -949,8 +949,8 @@ export default function AgentDetail({
                     className="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-xs text-slate-100 disabled:opacity-50"
                   >
                     {instructionsDeleting
-                      ? t({ ko: "삭제중...", en: "Clearing...", ja: "削除中...", zh: "删除中..." })
-                      : t({ ko: "지시문 삭제", en: "Clear", ja: "指示文を削除", zh: "清空" })}
+                      ? t({ ko: "Clearing...", en: "Clearing...", ja: "Clearing...", zh: "Clearing..." })
+                      : t({ ko: "Clear", en: "Clear", ja: "Clear", zh: "Clear" })}
                   </button>
                 </div>
               </div>

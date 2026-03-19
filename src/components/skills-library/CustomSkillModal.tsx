@@ -53,7 +53,7 @@ export default function CustomSkillModal({
           <div>
             <h3 className="text-base font-semibold text-white flex items-center gap-2">
               <span>✏️</span>
-              {t({ ko: "커스텀 스킬 추가", en: "Add Custom Skill", ja: "カスタムスキル追加", zh: "添加自定义技能" })}
+              {t({ ko: "Add Custom Skill", en: "Add Custom Skill", ja: "カスタムスキル追加", zh: "添加自定义技能" })}
             </h3>
             <div className="mt-1 text-xs text-slate-400">
               {t({
@@ -69,14 +69,14 @@ export default function CustomSkillModal({
             disabled={customSkillSubmitting}
             className="rounded-lg border border-slate-600 px-2.5 py-1 text-xs text-slate-300 hover:bg-slate-800 transition-all"
           >
-            {t({ ko: "닫기", en: "Close", ja: "閉じる", zh: "关闭" })}
+            {t({ ko: "Close", en: "Close", ja: "閉じる", zh: "关闭" })}
           </button>
         </div>
 
         <div className="space-y-4 overflow-y-auto px-5 py-4 max-h-[calc(90vh-72px)]">
           <div>
             <label className="block text-xs text-slate-400 mb-1.5">
-              {t({ ko: "스킬명", en: "Skill Name", ja: "スキル名", zh: "技能名称" })}
+              {t({ ko: "Skill Name", en: "Skill Name", ja: "スキル名", zh: "技能名称" })}
             </label>
             <input
               type="text"
@@ -102,7 +102,7 @@ export default function CustomSkillModal({
 
           <div>
             <label className="block text-xs text-slate-400 mb-1.5">
-              {t({ ko: "skills.md 파일", en: "skills.md File", ja: "skills.md ファイル", zh: "skills.md 文件" })}
+              {t({ ko: "skills.md File", en: "skills.md File", ja: "skills.md ファイル", zh: "skills.md 文件" })}
             </label>
             <div className="flex items-center gap-2">
               <button
@@ -110,7 +110,7 @@ export default function CustomSkillModal({
                 className="flex items-center gap-1.5 px-3 py-2 text-xs bg-slate-800/60 border border-slate-600/50 rounded-lg text-slate-300 hover:bg-slate-700/60 transition-all"
               >
                 <span>📎</span>
-                {t({ ko: "파일 선택", en: "Choose File", ja: "ファイル選択", zh: "选择文件" })}
+                {t({ ko: "Choose File", en: "Choose File", ja: "ファイル選択", zh: "选择文件" })}
               </button>
               <input
                 ref={customFileInputRef}
@@ -150,7 +150,7 @@ export default function CustomSkillModal({
                   ? preferKoreanName
                     ? row.agent.name_ko || row.agent.name
                     : row.agent.name || row.agent.name_ko
-                  : t({ ko: "없음", en: "None", ja: "なし", zh: "无" });
+                  : t({ ko: "None", en: "None", ja: "なし", zh: "无" });
                 return (
                   <button
                     key={`custom-${row.provider}`}
@@ -196,7 +196,7 @@ export default function CustomSkillModal({
               disabled={customSkillSubmitting}
               className="px-3 py-1.5 rounded-lg text-xs border border-slate-600 text-slate-300 hover:bg-slate-800 transition-all"
             >
-              {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+              {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
             </button>
             <button
               onClick={onSubmit}
@@ -215,12 +215,12 @@ export default function CustomSkillModal({
               {customSkillSubmitting ? (
                 <>
                   <span className="animate-spin w-3 h-3 border border-violet-400 border-t-transparent rounded-full" />
-                  {t({ ko: "등록중...", en: "Submitting...", ja: "登録中...", zh: "提交中..." })}
+                  {t({ ko: "Submitting...", en: "Submitting...", ja: "登録中...", zh: "提交中..." })}
                 </>
               ) : (
                 <>
                   <span>🎓</span>
-                  {t({ ko: "학습 시작", en: "Start Training", ja: "学習開始", zh: "开始培训" })}
+                  {t({ ko: "Start Training", en: "Start Training", ja: "学習開始", zh: "开始培训" })}
                 </>
               )}
             </button>

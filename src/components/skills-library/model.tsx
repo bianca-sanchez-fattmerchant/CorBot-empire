@@ -228,29 +228,29 @@ export const CATEGORY_COLORS: Record<string, string> = {
 export function categoryLabel(category: string, t: TFunction) {
   switch (category) {
     case "All":
-      return t({ ko: "전체", en: "All", ja: "すべて", zh: "全部" });
+      return t({ ko: "All", en: "All", ja: "すべて", zh: "全部" });
     case "Frontend":
-      return t({ ko: "프론트엔드", en: "Frontend", ja: "フロントエンド", zh: "前端" });
+      return t({ ko: "Frontend", en: "Frontend", ja: "フロントエンド", zh: "前端" });
     case "Backend":
-      return t({ ko: "백엔드", en: "Backend", ja: "バックエンド", zh: "后端" });
+      return t({ ko: "Backend", en: "Backend", ja: "バックエンド", zh: "后端" });
     case "Design":
-      return t({ ko: "디자인", en: "Design", ja: "デザイン", zh: "设计" });
+      return t({ ko: "Design", en: "Design", ja: "デザイン", zh: "设计" });
     case "AI & Agent":
-      return t({ ko: "AI & 에이전트", en: "AI & Agent", ja: "AI & エージェント", zh: "AI 与代理" });
+      return t({ ko: "AI & Agent", en: "AI & Agent", ja: "AI & エージェント", zh: "AI 与代理" });
     case "Marketing":
-      return t({ ko: "마케팅", en: "Marketing", ja: "マーケティング", zh: "营销" });
+      return t({ ko: "Marketing", en: "Marketing", ja: "マーケティング", zh: "营销" });
     case "Testing & QA":
-      return t({ ko: "테스트 & QA", en: "Testing & QA", ja: "テスト & QA", zh: "测试与 QA" });
+      return t({ ko: "Testing & QA", en: "Testing & QA", ja: "テスト & QA", zh: "测试与 QA" });
     case "DevOps":
-      return t({ ko: "데브옵스", en: "DevOps", ja: "DevOps", zh: "DevOps" });
+      return t({ ko: "DevOps", en: "DevOps", ja: "DevOps", zh: "DevOps" });
     case "Productivity":
-      return t({ ko: "생산성", en: "Productivity", ja: "生産性", zh: "效率" });
+      return t({ ko: "Productivity", en: "Productivity", ja: "生産性", zh: "效率" });
     case "Architecture":
-      return t({ ko: "아키텍처", en: "Architecture", ja: "アーキテクチャ", zh: "架构" });
+      return t({ ko: "Architecture", en: "Architecture", ja: "アーキテクチャ", zh: "架构" });
     case "Security":
-      return t({ ko: "보안", en: "Security", ja: "セキュリティ", zh: "安全" });
+      return t({ ko: "Security", en: "Security", ja: "セキュリティ", zh: "安全" });
     case "Other":
-      return t({ ko: "기타", en: "Other", ja: "その他", zh: "其他" });
+      return t({ ko: "Other", en: "Other", ja: "その他", zh: "其他" });
     default:
       return category;
   }
@@ -278,10 +278,10 @@ export function formatFirstSeen(value: string, localeTag: string): string {
 
 export function localizeAuditStatus(status: string, t: TFunction): string {
   const normalized = status.toLowerCase();
-  if (normalized === "pass") return t({ ko: "통과", en: "Pass", ja: "合格", zh: "通过" });
-  if (normalized === "warn") return t({ ko: "경고", en: "Warn", ja: "警告", zh: "警告" });
-  if (normalized === "pending") return t({ ko: "대기", en: "Pending", ja: "保留", zh: "待处理" });
-  if (normalized === "fail") return t({ ko: "실패", en: "Fail", ja: "失敗", zh: "失败" });
+  if (normalized === "pass") return t({ ko: "Pass", en: "Pass", ja: "合格", zh: "通过" });
+  if (normalized === "warn") return t({ ko: "Warn", en: "Warn", ja: "警告", zh: "警告" });
+  if (normalized === "pending") return t({ ko: "Pending", en: "Pending", ja: "保留", zh: "待处理" });
+  if (normalized === "fail") return t({ ko: "Fail", en: "Fail", ja: "失敗", zh: "失败" });
   return status;
 }
 
@@ -306,10 +306,10 @@ const ROLE_ORDER: Record<AgentRole, number> = {
 };
 
 export function roleLabel(role: AgentRole, t: TFunction): string {
-  if (role === "team_leader") return t({ ko: "팀장", en: "Team Lead", ja: "チームリード", zh: "团队负责人" });
-  if (role === "senior") return t({ ko: "시니어", en: "Senior", ja: "シニア", zh: "资深" });
-  if (role === "junior") return t({ ko: "주니어", en: "Junior", ja: "ジュニア", zh: "初级" });
-  return t({ ko: "인턴", en: "Intern", ja: "インターン", zh: "实习生" });
+  if (role === "team_leader") return t({ ko: "Team Lead", en: "Team Lead", ja: "チームリード", zh: "团队负责人" });
+  if (role === "senior") return t({ ko: "Senior", en: "Senior", ja: "シニア", zh: "资深" });
+  if (role === "junior") return t({ ko: "Junior", en: "Junior", ja: "ジュニア", zh: "初级" });
+  return t({ ko: "Intern", en: "Intern", ja: "インターン", zh: "实习生" });
 }
 
 export function providerLabel(provider: SkillLearnProvider): string {
@@ -385,10 +385,10 @@ export function cliProviderIcon(provider: SkillHistoryProvider) {
 }
 
 export function learningStatusLabel(status: SkillLearnJob["status"] | null, t: TFunction): string {
-  if (status === "queued") return t({ ko: "대기중", en: "Queued", ja: "待機中", zh: "排队中" });
-  if (status === "running") return t({ ko: "학습중", en: "Running", ja: "学習中", zh: "学习中" });
-  if (status === "succeeded") return t({ ko: "완료", en: "Succeeded", ja: "完了", zh: "完成" });
-  if (status === "failed") return t({ ko: "실패", en: "Failed", ja: "失敗", zh: "失败" });
+  if (status === "queued") return t({ ko: "Queued", en: "Queued", ja: "待機中", zh: "排队中" });
+  if (status === "running") return t({ ko: "Running", en: "Running", ja: "学習中", zh: "学习中" });
+  if (status === "succeeded") return t({ ko: "Succeeded", en: "Succeeded", ja: "完了", zh: "完成" });
+  if (status === "failed") return t({ ko: "Failed", en: "Failed", ja: "失敗", zh: "失败" });
   return "-";
 }
 

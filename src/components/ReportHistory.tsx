@@ -114,7 +114,7 @@ export default function ReportHistory({ agents, departments, uiLanguage, onClose
           <div className="flex items-center gap-3">
             <span className="text-2xl">&#x1F4CA;</span>
             <h2 className="text-lg font-bold text-white">
-              {t({ ko: "작업 보고서 이력", en: "Report History", ja: "レポート履歴", zh: "报告历史" })}
+              {t({ ko: "Report History", en: "Report History", ja: "レポート履歴", zh: "报告历史" })}
             </h2>
           </div>
           <button
@@ -130,7 +130,7 @@ export default function ReportHistory({ agents, departments, uiLanguage, onClose
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-sm text-slate-500">
-                {t({ ko: "불러오는 중...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
+                {t({ ko: "Loading...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
               </div>
             </div>
           ) : reports.length === 0 ? (
@@ -200,7 +200,7 @@ export default function ReportHistory({ agents, departments, uiLanguage, onClose
                             disabled={groupCurrent <= 0}
                             className="rounded border border-slate-700 px-2 py-0.5 text-[11px] text-slate-300 transition hover:border-slate-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
                           >
-                            {t({ ko: "이전", en: "Prev", ja: "前へ", zh: "上一页" })}
+                            {t({ ko: "Prev", en: "Prev", ja: "前へ", zh: "上一页" })}
                           </button>
                           <span className="text-[11px] text-slate-400">
                             {groupCurrent + 1} / {groupTotal}
@@ -211,7 +211,7 @@ export default function ReportHistory({ agents, departments, uiLanguage, onClose
                             disabled={groupCurrent >= groupTotal - 1}
                             className="rounded border border-slate-700 px-2 py-0.5 text-[11px] text-slate-300 transition hover:border-slate-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
                           >
-                            {t({ ko: "다음", en: "Next", ja: "次へ", zh: "下一页" })}
+                            {t({ ko: "Next", en: "Next", ja: "次へ", zh: "下一页" })}
                           </button>
                         </div>
                       </div>
@@ -243,7 +243,7 @@ export default function ReportHistory({ agents, departments, uiLanguage, onClose
                     disabled={currentPage <= 0}
                     className="rounded border border-slate-700 px-2 py-0.5 text-[11px] text-slate-300 transition hover:border-slate-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    {t({ ko: "이전", en: "Prev", ja: "前へ", zh: "上一页" })}
+                    {t({ ko: "Prev", en: "Prev", ja: "前へ", zh: "上一页" })}
                   </button>
                   <span className="text-[11px] text-slate-400">
                     {currentPage + 1} / {totalPages}
@@ -254,7 +254,7 @@ export default function ReportHistory({ agents, departments, uiLanguage, onClose
                     disabled={currentPage >= totalPages - 1}
                     className="rounded border border-slate-700 px-2 py-0.5 text-[11px] text-slate-300 transition hover:border-slate-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    {t({ ko: "다음", en: "Next", ja: "次へ", zh: "下一页" })}
+                    {t({ ko: "Next", en: "Next", ja: "次へ", zh: "下一页" })}
                   </button>
                 </div>
               )}
@@ -262,7 +262,7 @@ export default function ReportHistory({ agents, departments, uiLanguage, onClose
                 onClick={onClose}
                 className="rounded-lg bg-slate-700 px-4 py-1.5 text-sm font-medium text-slate-300 transition hover:bg-slate-600"
               >
-                {t({ ko: "닫기", en: "Close", ja: "閉じる", zh: "关闭" })}
+                {t({ ko: "Close", en: "Close", ja: "閉じる", zh: "关闭" })}
               </button>
             </div>
           </div>

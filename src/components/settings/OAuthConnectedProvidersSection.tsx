@@ -38,7 +38,7 @@ export default function OAuthConnectedProvidersSection({
   return (
     <div className="space-y-2">
       <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-        {t({ ko: "인증 상태", en: "Auth Status", ja: "認証状態", zh: "认证状态" })}
+        {t({ ko: "Auth Status", en: "Auth Status", ja: "認証状態", zh: "认证状态" })}
       </div>
       {detectedProviders.map(([provider, info]) => {
         const oauthInfo = OAUTH_INFO[provider];
@@ -59,12 +59,12 @@ export default function OAuthConnectedProvidersSection({
                 {info.email && <span className="max-w-full break-all text-xs text-slate-400">{info.email}</span>}
                 {isFileDetected && (
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-600/50 text-slate-400">
-                    {t({ ko: "CLI 감지", en: "CLI detected", ja: "CLI 検出", zh: "检测到 CLI" })}
+                    {t({ ko: "CLI detected", en: "CLI detected", ja: "CLI 検出", zh: "检测到 CLI" })}
                   </span>
                 )}
                 {isWebOAuth && (
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400">
-                    {t({ ko: "웹 OAuth", en: "Web OAuth", ja: "Web OAuth", zh: "网页 OAuth" })}
+                    {t({ ko: "Web OAuth", en: "Web OAuth", ja: "Web OAuth", zh: "网页 OAuth" })}
                   </span>
                 )}
               </div>
@@ -82,12 +82,12 @@ export default function OAuthConnectedProvidersSection({
                 ) : !isExpired ? (
                   <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">
                     {info.lastRefreshed
-                      ? t({ ko: "자동 갱신됨", en: "Auto-refreshed", ja: "自動更新済", zh: "已自动刷新" })
-                      : t({ ko: "연결됨", en: "Connected", ja: "接続中", zh: "已连接" })}
+                      ? t({ ko: "Auto-refreshed", en: "Auto-refreshed", ja: "自動更新済", zh: "已自动刷新" })
+                      : t({ ko: "Connected", en: "Connected", ja: "接続中", zh: "已连接" })}
                   </span>
                 ) : info.refreshFailed ? (
                   <span className="text-xs px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-400">
-                    {t({ ko: "갱신 실패", en: "Refresh failed", ja: "更新失敗", zh: "刷新失败" })}
+                    {t({ ko: "Refresh failed", en: "Refresh failed", ja: "更新失敗", zh: "刷新失败" })}
                   </span>
                 ) : isExpired && !info.hasRefreshToken ? (
                   <span className="text-xs px-2 py-0.5 rounded-full bg-red-500/20 text-red-400">
@@ -100,7 +100,7 @@ export default function OAuthConnectedProvidersSection({
                   </span>
                 ) : (
                   <span className="text-xs px-2 py-0.5 rounded-full bg-red-500/20 text-red-400">
-                    {t({ ko: "만료됨", en: "Expired", ja: "期限切れ", zh: "已过期" })}
+                    {t({ ko: "Expired", en: "Expired", ja: "期限切れ", zh: "已过期" })}
                   </span>
                 )}
 
@@ -111,8 +111,8 @@ export default function OAuthConnectedProvidersSection({
                     className="text-xs px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 transition-colors disabled:opacity-50"
                   >
                     {refreshing === provider
-                      ? t({ ko: "갱신 중...", en: "Refreshing...", ja: "更新中...", zh: "刷新中..." })
-                      : t({ ko: "갱신", en: "Refresh", ja: "更新", zh: "刷新" })}
+                      ? t({ ko: "Refreshing...", en: "Refreshing...", ja: "更新中...", zh: "刷新中..." })
+                      : t({ ko: "Refresh", en: "Refresh", ja: "更新", zh: "刷新" })}
                   </button>
                 )}
 
@@ -121,7 +121,7 @@ export default function OAuthConnectedProvidersSection({
                     onClick={() => onConnect(provider as OAuthConnectProvider)}
                     className="text-xs px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-colors"
                   >
-                    {t({ ko: "재연결", en: "Reconnect", ja: "再接続", zh: "重新连接" })}
+                    {t({ ko: "Reconnect", en: "Reconnect", ja: "再接続", zh: "重新连接" })}
                   </button>
                 )}
 
@@ -132,8 +132,8 @@ export default function OAuthConnectedProvidersSection({
                     className="text-xs px-2.5 py-1 rounded-lg bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 transition-colors disabled:opacity-50"
                   >
                     {disconnecting === provider
-                      ? t({ ko: "해제 중...", en: "Disconnecting...", ja: "切断中...", zh: "断开中..." })
-                      : t({ ko: "연결 해제", en: "Disconnect", ja: "接続解除", zh: "断开连接" })}
+                      ? t({ ko: "Disconnecting...", en: "Disconnecting...", ja: "切断中...", zh: "断开中..." })
+                      : t({ ko: "Disconnect", en: "Disconnect", ja: "接続解除", zh: "断开连接" })}
                   </button>
                 )}
               </div>
@@ -155,14 +155,14 @@ export default function OAuthConnectedProvidersSection({
                 {info.scope && (
                   <div className="col-span-2">
                     <span className="text-slate-500">
-                      {t({ ko: "스코프", en: "Scope", ja: "スコープ", zh: "范围" })}:{" "}
+                      {t({ ko: "Scope", en: "Scope", ja: "スコープ", zh: "范围" })}:{" "}
                     </span>
                     <span className="break-all font-mono text-[10px] leading-relaxed text-slate-300">{info.scope}</span>
                   </div>
                 )}
                 {expiresAt && (
                   <div>
-                    <span className="text-slate-500">{t({ ko: "만료", en: "Expires", ja: "期限", zh: "到期" })}: </span>
+                    <span className="text-slate-500">{t({ ko: "Expires", en: "Expires", ja: "期限", zh: "到期" })}: </span>
                     <span className={isExpired ? "text-red-400" : "text-slate-300"}>
                       {expiresAt.toLocaleString(localeTag)}
                     </span>
@@ -170,7 +170,7 @@ export default function OAuthConnectedProvidersSection({
                 )}
                 {info.created_at > 0 && (
                   <div>
-                    <span className="text-slate-500">{t({ ko: "등록", en: "Created", ja: "登録", zh: "创建" })}: </span>
+                    <span className="text-slate-500">{t({ ko: "Created", en: "Created", ja: "登録", zh: "创建" })}: </span>
                     <span className="text-slate-300">{new Date(info.created_at).toLocaleString(localeTag)}</span>
                   </div>
                 )}
@@ -187,11 +187,11 @@ export default function OAuthConnectedProvidersSection({
               return (
                 <div className="flex min-w-0 flex-col items-stretch gap-1.5 pt-1 sm:flex-row sm:items-center sm:gap-2">
                   <span className="w-auto shrink-0 text-xs text-slate-400">
-                    {t({ ko: "모델:", en: "Model:", ja: "モデル:", zh: "模型:" })}
+                    {t({ ko: "Model:", en: "Model:", ja: "モデル:", zh: "模型:" })}
                   </span>
                   {modelsLoading ? (
                     <span className="text-xs text-slate-500 animate-pulse">
-                      {t({ ko: "로딩 중...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
+                      {t({ ko: "Loading...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
                     </span>
                   ) : modelList && modelList.length > 0 ? (
                     <select
@@ -209,7 +209,7 @@ export default function OAuthConnectedProvidersSection({
                     >
                       {!currentModel && (
                         <option value="">
-                          {t({ ko: "선택하세요...", en: "Select...", ja: "選択してください...", zh: "请选择..." })}
+                          {t({ ko: "Select...", en: "Select...", ja: "選択してください...", zh: "请选择..." })}
                         </option>
                       )}
                       {modelList.map((model, idx) => (
@@ -221,7 +221,7 @@ export default function OAuthConnectedProvidersSection({
                   ) : (
                     <div className="flex flex-col gap-1">
                       <span className="text-xs text-slate-500">
-                        {t({ ko: "모델 목록 없음", en: "No models", ja: "モデル一覧なし", zh: "无模型列表" })}
+                        {t({ ko: "No models", en: "No models", ja: "モデル一覧なし", zh: "无模型列表" })}
                       </span>
                       {provider === "github-copilot" && (
                         <span className="text-[11px] text-amber-400/80">
@@ -243,7 +243,7 @@ export default function OAuthConnectedProvidersSection({
               <div className="space-y-2 rounded-lg border border-slate-600/40 bg-slate-800/40 p-2.5">
                 <div className="flex flex-wrap items-center justify-between gap-1.5">
                   <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-                    {t({ ko: "계정 풀", en: "Account Pool", ja: "アカウントプール", zh: "账号池" })}
+                    {t({ ko: "Account Pool", en: "Account Pool", ja: "アカウントプール", zh: "账号池" })}
                   </div>
                   <div className="text-[10px] text-slate-500 text-right">
                     {t({
@@ -278,8 +278,8 @@ export default function OAuthConnectedProvidersSection({
                           }`}
                         >
                           {account.active
-                            ? t({ ko: "활성", en: "Active", ja: "有効", zh: "活动" })
-                            : t({ ko: "대기", en: "Standby", ja: "待機", zh: "待命" })}
+                            ? t({ ko: "Active", en: "Active", ja: "有効", zh: "活动" })
+                            : t({ ko: "Standby", en: "Standby", ja: "待機", zh: "待命" })}
                         </span>
                         <span
                           className={`text-[10px] px-1.5 py-0.5 rounded ${
@@ -287,8 +287,8 @@ export default function OAuthConnectedProvidersSection({
                           }`}
                         >
                           {account.executionReady
-                            ? t({ ko: "실행 가능", en: "Runnable", ja: "実行可能", zh: "可执行" })
-                            : t({ ko: "실행 불가", en: "Not runnable", ja: "実行不可", zh: "不可执行" })}
+                            ? t({ ko: "Runnable", en: "Runnable", ja: "実行可能", zh: "可执行" })
+                            : t({ ko: "Not runnable", en: "Not runnable", ja: "実行不可", zh: "不可执行" })}
                         </span>
                         {account.email && <span className="text-[11px] text-slate-300 break-all">{account.email}</span>}
                       </div>
@@ -296,7 +296,7 @@ export default function OAuthConnectedProvidersSection({
                       <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                         <label className="space-y-1">
                           <span className="block text-[10px] uppercase tracking-wider text-slate-500">
-                            {t({ ko: "라벨", en: "Label", ja: "ラベル", zh: "标签" })}
+                            {t({ ko: "Label", en: "Label", ja: "ラベル", zh: "标签" })}
                           </span>
                           <input
                             value={draft.label}
@@ -313,7 +313,7 @@ export default function OAuthConnectedProvidersSection({
 
                         <label className="space-y-1">
                           <span className="block text-[10px] uppercase tracking-wider text-slate-500">
-                            {t({ ko: "모델 오버라이드", en: "Model Override", ja: "モデル上書き", zh: "模型覆盖" })}
+                            {t({ ko: "Model Override", en: "Model Override", ja: "モデル上書き", zh: "模型覆盖" })}
                           </span>
                           <select
                             value={draft.modelOverride}
@@ -339,7 +339,7 @@ export default function OAuthConnectedProvidersSection({
 
                         <label className="space-y-1">
                           <span className="block text-[10px] uppercase tracking-wider text-slate-500">
-                            {t({ ko: "우선순위", en: "Priority", ja: "優先度", zh: "优先级" })}
+                            {t({ ko: "Priority", en: "Priority", ja: "優先度", zh: "优先级" })}
                           </span>
                           <input
                             type="number"
@@ -366,8 +366,8 @@ export default function OAuthConnectedProvidersSection({
                           }`}
                         >
                           {account.active
-                            ? t({ ko: "풀 해제", en: "Pool Off", ja: "プール解除", zh: "移出池" })
-                            : t({ ko: "풀 추가", en: "Pool On", ja: "プール追加", zh: "加入池" })}
+                            ? t({ ko: "Pool Off", en: "Pool Off", ja: "プール解除", zh: "移出池" })
+                            : t({ ko: "Pool On", en: "Pool On", ja: "プール追加", zh: "加入池" })}
                         </button>
 
                         <button
@@ -375,7 +375,7 @@ export default function OAuthConnectedProvidersSection({
                           disabled={savingAccountId === account.id}
                           className="text-[11px] px-2 py-1 rounded bg-emerald-600/25 hover:bg-emerald-600/40 text-emerald-200 disabled:opacity-50"
                         >
-                          {t({ ko: "저장", en: "Save", ja: "保存", zh: "保存" })}
+                          {t({ ko: "Save", en: "Save", ja: "保存", zh: "保存" })}
                         </button>
 
                         <button
@@ -386,8 +386,8 @@ export default function OAuthConnectedProvidersSection({
                           className="text-[11px] px-2 py-1 rounded bg-amber-600/20 hover:bg-amber-600/35 text-amber-200 disabled:opacity-50"
                         >
                           {account.status === "active"
-                            ? t({ ko: "비활성", en: "Disable", ja: "無効化", zh: "禁用" })
-                            : t({ ko: "활성화", en: "Enable", ja: "有効化", zh: "启用" })}
+                            ? t({ ko: "Disable", en: "Disable", ja: "無効化", zh: "禁用" })
+                            : t({ ko: "Enable", en: "Enable", ja: "有効化", zh: "启用" })}
                         </button>
 
                         <button
@@ -395,7 +395,7 @@ export default function OAuthConnectedProvidersSection({
                           disabled={savingAccountId === account.id}
                           className="text-[11px] px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/35 text-red-300 disabled:opacity-50"
                         >
-                          {t({ ko: "삭제", en: "Delete", ja: "削除", zh: "删除" })}
+                          {t({ ko: "Delete", en: "Delete", ja: "削除", zh: "删除" })}
                         </button>
                       </div>
 

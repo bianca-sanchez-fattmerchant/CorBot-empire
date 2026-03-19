@@ -80,7 +80,7 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
     () => [
       {
         key: "playwright",
-        name: t({ ko: "브라우저 자동화", en: "Browser Automation", ja: "ブラウザ自動化", zh: "浏览器自动化" }),
+        name: t({ ko: "Browser Automation", en: "Browser Automation", ja: "ブラウザ自動化", zh: "浏览器自动化" }),
         summary: t({
           ko: "웹 페이지를 탐색하고 테스트하는 MCP 서버",
           en: "MCP server for browsing and testing web pages",
@@ -91,7 +91,7 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
       },
       {
         key: "filesystem",
-        name: t({ ko: "파일 시스템", en: "Filesystem", ja: "ファイルシステム", zh: "文件系统" }),
+        name: t({ ko: "Filesystem", en: "Filesystem", ja: "ファイルシステム", zh: "文件系统" }),
         summary: t({
           ko: "폴더와 파일을 읽고 정리하는 MCP 서버",
           en: "MCP server for reading and organizing files",
@@ -212,9 +212,9 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
       const result = await onSetupServer(id);
       const lines = [
         result.ok
-          ? t({ ko: "설정 완료", en: "Setup completed", ja: "セットアップ完了", zh: "设置完成" })
-          : t({ ko: "설정 실패", en: "Setup failed", ja: "セットアップ失敗", zh: "设置失败" }),
-        `${t({ ko: "종료 코드", en: "Exit code", ja: "終了コード", zh: "退出码" })}: ${result.code}`,
+          ? t({ ko: "Setup completed", en: "Setup completed", ja: "セットアップ完了", zh: "设置完成" })
+          : t({ ko: "Setup failed", en: "Setup failed", ja: "セットアップ失敗", zh: "设置失败" }),
+        `${t({ ko: "Exit code", en: "Exit code", ja: "終了コード", zh: "退出码" })}: ${result.code}`,
       ];
       if (result.stderr.trim()) {
         lines.push(result.stderr.trim());
@@ -234,7 +234,7 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
     <section className="space-y-4 rounded-xl border border-slate-700/50 bg-slate-800/60 p-4 sm:p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
-          {t({ ko: "MCP 서버", en: "MCP Servers", ja: "MCP サーバー", zh: "MCP 服务器" })}
+          {t({ ko: "MCP Servers", en: "MCP Servers", ja: "MCP サーバー", zh: "MCP 服务器" })}
         </h3>
       </div>
 
@@ -286,7 +286,7 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
         />
 
         <label className="text-xs text-slate-400">
-          {t({ ko: "설정 명령", en: "Setup command", ja: "セットアップコマンド", zh: "设置命令" })}
+          {t({ ko: "Setup command", en: "Setup command", ja: "セットアップコマンド", zh: "设置命令" })}
         </label>
         <textarea
           value={draft.setupCommand}
@@ -307,8 +307,8 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
           className="text-left text-xs text-blue-300 hover:text-blue-200"
         >
           {showAdvanced
-            ? t({ ko: "고급 옵션 숨기기", en: "Hide advanced options", ja: "詳細設定を隠す", zh: "隐藏高级选项" })
-            : t({ ko: "고급 옵션 보기", en: "Show advanced options", ja: "詳細設定を表示", zh: "显示高级选项" })}
+            ? t({ ko: "Hide advanced options", en: "Hide advanced options", ja: "詳細設定を隠す", zh: "隐藏高级选项" })
+            : t({ ko: "Show advanced options", en: "Show advanced options", ja: "詳細設定を表示", zh: "显示高级选项" })}
         </button>
 
         {showAdvanced && (
@@ -318,14 +318,14 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
                 type="text"
                 value={draft.command}
                 onChange={(event) => setDraft((prev) => ({ ...prev, command: event.target.value }))}
-                placeholder={t({ ko: "명령 (예: npx)", en: "Command (e.g. npx)", ja: "コマンド (例: npx)", zh: "命令 (例如 npx)" })}
+                placeholder={t({ ko: "Command (e.g. npx)", en: "Command (e.g. npx)", ja: "コマンド (例: npx)", zh: "命令 (例如 npx)" })}
                 className="rounded-lg border border-slate-600 bg-slate-700/50 px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
               />
               <input
                 type="text"
                 value={draft.args}
                 onChange={(event) => setDraft((prev) => ({ ...prev, args: event.target.value }))}
-                placeholder={t({ ko: "인자 (공백 구분)", en: "Args (space separated)", ja: "引数 (スペース区切り)", zh: "参数 (空格分隔)" })}
+                placeholder={t({ ko: "Args (space separated)", en: "Args (space separated)", ja: "引数 (スペース区切り)", zh: "参数 (空格分隔)" })}
                 className="rounded-lg border border-slate-600 bg-slate-700/50 px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
               />
             </div>
@@ -334,7 +334,7 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
               type="text"
               value={draft.cwd}
               onChange={(event) => setDraft((prev) => ({ ...prev, cwd: event.target.value }))}
-              placeholder={t({ ko: "작업 디렉토리 (선택)", en: "Working directory (optional)", ja: "作業ディレクトリ (任意)", zh: "工作目录 (可选)" })}
+              placeholder={t({ ko: "Working directory (optional)", en: "Working directory (optional)", ja: "作業ディレクトリ (任意)", zh: "工作目录 (可选)" })}
               className="w-full rounded-lg border border-slate-600 bg-slate-700/50 px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
             />
 
@@ -359,7 +359,7 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
             checked={draft.enabled !== false}
             onChange={(event) => setDraft((prev) => ({ ...prev, enabled: event.target.checked }))}
           />
-          {t({ ko: "활성화됨", en: "Enabled", ja: "有効", zh: "启用" })}
+          {t({ ko: "Enabled", en: "Enabled", ja: "有効", zh: "启用" })}
         </label>
 
         {errorMessage && <div className="text-xs text-rose-400">{errorMessage}</div>}
@@ -370,15 +370,15 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
             className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-blue-500"
           >
             {editingId
-              ? t({ ko: "서버 수정", en: "Update Server", ja: "サーバー更新", zh: "更新服务器" })
-              : t({ ko: "서버 추가", en: "Add Server", ja: "サーバー追加", zh: "添加服务器" })}
+              ? t({ ko: "Update Server", en: "Update Server", ja: "サーバー更新", zh: "更新服务器" })
+              : t({ ko: "Add Server", en: "Add Server", ja: "サーバー追加", zh: "添加服务器" })}
           </button>
           {editingId && (
             <button
               onClick={resetDraft}
               className="rounded-lg border border-slate-600 px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-700/40"
             >
-              {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+              {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
             </button>
           )}
         </div>
@@ -407,8 +407,8 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
                       }`}
                     >
                       {server.enabled === false
-                        ? t({ ko: "비활성", en: "Disabled", ja: "無効", zh: "禁用" })
-                        : t({ ko: "활성", en: "Enabled", ja: "有効", zh: "启用" })}
+                        ? t({ ko: "Disabled", en: "Disabled", ja: "無効", zh: "禁用" })
+                        : t({ ko: "Enabled", en: "Enabled", ja: "有効", zh: "启用" })}
                     </span>
                   </div>
                   <div className="mt-1 text-[11px] text-slate-400">
@@ -422,20 +422,20 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
                     className="rounded border border-slate-600 px-2 py-1 text-[11px] text-slate-300 hover:bg-slate-700/40"
                   >
                     {server.enabled === false
-                      ? t({ ko: "활성화", en: "Enable", ja: "有効化", zh: "启用" })
-                      : t({ ko: "비활성화", en: "Disable", ja: "無効化", zh: "禁用" })}
+                      ? t({ ko: "Enable", en: "Enable", ja: "有効化", zh: "启用" })
+                      : t({ ko: "Disable", en: "Disable", ja: "無効化", zh: "禁用" })}
                   </button>
                   <button
                     onClick={() => onEditServer(server)}
                     className="rounded border border-slate-600 px-2 py-1 text-[11px] text-slate-300 hover:bg-slate-700/40"
                   >
-                    {t({ ko: "수정", en: "Edit", ja: "編集", zh: "编辑" })}
+                    {t({ ko: "Edit", en: "Edit", ja: "編集", zh: "编辑" })}
                   </button>
                   <button
                     onClick={() => onDeleteServer(server.id)}
                     className="rounded border border-rose-600/50 px-2 py-1 text-[11px] text-rose-300 hover:bg-rose-600/10"
                   >
-                    {t({ ko: "삭제", en: "Delete", ja: "削除", zh: "删除" })}
+                    {t({ ko: "Delete", en: "Delete", ja: "削除", zh: "删除" })}
                   </button>
                   <button
                     onClick={() => void onRunSetup(server.id)}
@@ -443,8 +443,8 @@ export default function McpSettingsTab({ t, form, setForm, persistSettings, onSe
                     className="rounded bg-blue-600 px-2.5 py-1 text-[11px] font-medium text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {setupRunningId === server.id
-                      ? t({ ko: "연결 중...", en: "Connecting...", ja: "接続中...", zh: "连接中..." })
-                      : t({ ko: "자동 연결", en: "Auto Setup", ja: "自動セットアップ", zh: "自动设置" })}
+                      ? t({ ko: "Connecting...", en: "Connecting...", ja: "接続中...", zh: "连接中..." })
+                      : t({ ko: "Auto Setup", en: "Auto Setup", ja: "自動セットアップ", zh: "自动设置" })}
                   </button>
                 </div>
               </div>

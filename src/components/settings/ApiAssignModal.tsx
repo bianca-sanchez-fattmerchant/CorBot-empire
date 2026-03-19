@@ -23,10 +23,10 @@ export default function ApiAssignModal({ t, localeTag, apiState }: ApiAssignModa
       ? (value as WorkflowPackKey)
       : "development";
   const ROLE_LABELS: Record<string, Record<string, string>> = {
-    team_leader: { ko: "팀장", en: "Team Leader", ja: "チームリーダー", zh: "组长" },
-    senior: { ko: "시니어", en: "Senior", ja: "シニア", zh: "高级" },
-    junior: { ko: "주니어", en: "Junior", ja: "ジュニア", zh: "初级" },
-    intern: { ko: "인턴", en: "Intern", ja: "インターン", zh: "实习生" },
+    team_leader: { ko: "Team Leader", en: "Team Leader", ja: "チームリーダー", zh: "组长" },
+    senior: { ko: "Senior", en: "Senior", ja: "シニア", zh: "高级" },
+    junior: { ko: "Junior", en: "Junior", ja: "ジュニア", zh: "初级" },
+    intern: { ko: "Intern", en: "Intern", ja: "インターン", zh: "实习生" },
   };
 
   const roleBadge = (role: string) => {
@@ -163,7 +163,7 @@ export default function ApiAssignModal({ t, localeTag, apiState }: ApiAssignModa
                       <div className="flex items-center gap-1.5 px-2 py-1.5 border-b border-slate-700/40">
                         <span className="text-sm">📁</span>
                         <span className="text-[11px] font-semibold text-slate-500 tracking-wide">
-                          {t({ ko: "미배정", en: "Unassigned", ja: "未配属", zh: "未分配" })}
+                          {t({ ko: "Unassigned", en: "Unassigned", ja: "未配属", zh: "未分配" })}
                         </span>
                       </div>
                       {unassigned.map(renderAgentRow)}
@@ -180,7 +180,7 @@ export default function ApiAssignModal({ t, localeTag, apiState }: ApiAssignModa
             onClick={() => setApiAssignTarget(null)}
             className="text-xs px-3 py-1.5 bg-slate-600 hover:bg-slate-500 text-slate-300 rounded-lg transition-colors"
           >
-            {t({ ko: "닫기", en: "Close", ja: "閉じる", zh: "关闭" })}
+            {t({ ko: "Close", en: "Close", ja: "閉じる", zh: "关闭" })}
           </button>
         </div>
       </div>

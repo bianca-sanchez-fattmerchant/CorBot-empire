@@ -4,7 +4,7 @@ import { localeName } from "../../i18n";
 import AgentCard from "./AgentCard";
 import AgentTableView from "./AgentTableView";
 import { StackedSpriteIcon } from "./EmojiPicker";
-import type { Translator } from "./types";
+import type { AgentUpdatePayload, Translator } from "./types";
 
 interface AgentsTabProps {
   tr: Translator;
@@ -23,7 +23,7 @@ interface AgentsTabProps {
   onEditAgent: (agent: Agent) => void;
   onEditDepartment: (department: Department) => void;
   onDeleteAgent: (agentId: string) => void;
-  onUpdateAgent: (agentId: string, updates: Partial<Agent>) => Promise<void>;
+  onUpdateAgent: (agentId: string, updates: AgentUpdatePayload) => Promise<void>;
   saving: boolean;
   randomIconSprites: {
     total: [number, number];

@@ -7,12 +7,12 @@ interface SettingsTabNavProps {
 }
 
 const TAB_ITEMS: Array<{ key: SettingsTab; icon: string; label: (t: TFunction) => string }> = [
-  { key: "general", icon: "⚙️", label: (t) => t({ ko: "일반 설정", en: "General", ja: "一般設定", zh: "常规设置" }) },
-  { key: "cli", icon: "🔧", label: (t) => t({ ko: "CLI 도구", en: "CLI Tools", ja: "CLI ツール", zh: "CLI 工具" }) },
-  { key: "oauth", icon: "🔑", label: (t) => t({ ko: "OAuth 인증", en: "OAuth", ja: "OAuth 認証", zh: "OAuth 认证" }) },
-  { key: "api", icon: "🔌", label: (t) => t({ ko: "API 연동", en: "API", ja: "API 連携", zh: "API 集成" }) },
-  { key: "mcp", icon: "🧩", label: (t) => t({ ko: "MCP 서버", en: "MCP Servers", ja: "MCP サーバー", zh: "MCP 服务器" }) },
-  { key: "gateway", icon: "📡", label: (t) => t({ ko: "채널 메시지", en: "Channel", ja: "チャネル", zh: "频道" }) },
+  { key: "general", icon: "⚙️", label: (t) => t({ ko: "General", en: "General", ja: "一般設定", zh: "常规设置" }) },
+  { key: "cli", icon: "🔧", label: (t) => t({ ko: "CLI Tools", en: "CLI Tools", ja: "CLI ツール", zh: "CLI 工具" }) },
+  { key: "oauth", icon: "🔑", label: (t) => t({ ko: "OAuth", en: "OAuth", ja: "OAuth 認証", zh: "OAuth 认证" }) },
+  { key: "api", icon: "🔌", label: (t) => t({ ko: "API", en: "API", ja: "API 連携", zh: "API 集成" }) },
+  { key: "mcp", icon: "🧩", label: (t) => t({ ko: "MCP Servers", en: "MCP Servers", ja: "MCP サーバー", zh: "MCP 服务器" }) },
+  { key: "gateway", icon: "📡", label: (t) => t({ ko: "Channel", en: "Channel", ja: "チャネル", zh: "频道" }) },
 ];
 
 export default function SettingsTabNav({ tab, setTab, t }: SettingsTabNavProps) {

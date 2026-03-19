@@ -282,12 +282,12 @@ export default function ProjectManagerModal({
     }
   }, []);
 
-  const headerTitle = t({ ko: "프로젝트 관리", en: "Project Management", ja: "プロジェクト管理", zh: "项目管理" });
+  const headerTitle = t({ ko: "Project Management", en: "Project Management", ja: "プロジェクト管理", zh: "项目管理" });
   const formTitle = editingProjectId
-    ? t({ ko: "프로젝트 수정", en: "Edit Project", ja: "プロジェクト編集", zh: "编辑项目" })
+    ? t({ ko: "Edit Project", en: "Edit Project", ja: "プロジェクト編集", zh: "编辑项目" })
     : isCreating
-      ? t({ ko: "신규 프로젝트 등록", en: "Register New Project", ja: "新規プロジェクト登録", zh: "新建项目" })
-      : t({ ko: "프로젝트 정보", en: "Project Info", ja: "プロジェクト情報", zh: "项目信息" });
+      ? t({ ko: "Register New Project", en: "Register New Project", ja: "新規プロジェクト登録", zh: "新建项目" })
+      : t({ ko: "Project Info", en: "Project Info", ja: "プロジェクト情報", zh: "项目信息" });
 
   if (reportDetail) {
     return (
@@ -350,7 +350,7 @@ export default function ProjectManagerModal({
               }}
               className="rounded-md px-2 py-1 text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
             >
-              ← {t({ ko: "목록", en: "List", ja: "一覧", zh: "列表" })}
+              ← {t({ ko: "List", en: "List", ja: "一覧", zh: "列表" })}
             </button>
           </div>
 

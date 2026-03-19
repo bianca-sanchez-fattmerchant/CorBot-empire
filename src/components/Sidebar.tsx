@@ -2,8 +2,7 @@ import { useState } from "react";
 import type { Department, Agent, CompanySettings, WorkflowPackKey } from "../types";
 import { useI18n, localeName } from "../i18n";
 import { listOfficePackOptions, normalizeOfficeWorkflowPack } from "../app/office-workflow-pack";
-
-type View = "office" | "agents" | "dashboard" | "tasks" | "skills" | "settings";
+import type { View } from "../app/types";
 
 interface SidebarProps {
   currentView: View;
@@ -19,6 +18,7 @@ interface SidebarProps {
 
 const NAV_ITEMS: { view: View; icon: string; sprite?: string }[] = [
   { view: "office", icon: "🏢" },
+  { view: "packs", icon: "🗂️" },
   { view: "agents", icon: "👥", sprite: "/sprites/3-D-1.png" },
   { view: "skills", icon: "📚" },
   { view: "dashboard", icon: "📊" },
@@ -42,13 +42,14 @@ export default function Sidebar({
   const workingCount = agents.filter((a) => a.status === "working").length;
   const totalAgents = agents.length;
   const uiLanguage = locale === "ko" || locale === "ja" || locale === "zh" ? locale : "en";
-  const officePackOptions = listOfficePackOptions(uiLanguage);
+  const officePackOptions = listOfficePackOptions(uiLanguage, settings.officePackNames);
   const officePackValue = normalizeOfficeWorkflowPack(activeOfficeWorkflowPack ?? "development");
 
   const tr = (ko: string, en: string, ja = en, zh = en) => t({ ko, en, ja, zh });
 
   const navLabels: Record<View, string> = {
     office: tr("오피스", "Office", "オフィス", "办公室"),
+    packs: tr("오피스 팩", "Office Packs", "オフィスパック", "办公室包"),
     agents: tr("직원관리", "Agents", "社員管理", "员工管理"),
     skills: tr("문서고", "Library", "ライブラリ", "文档库"),
     dashboard: tr("대시보드", "Dashboard", "ダッシュボード", "仪表盘"),
@@ -147,7 +148,7 @@ export default function Sidebar({
             <div className="mt-2 flex items-center gap-1.5">
               <button
                 type="button"
-                onClick={() => onChangeView("agents")}
+                onClick={() => onChangeView("packs")}
                 className="w-full rounded-md px-2 py-1.5 text-[11px] font-medium transition hover:opacity-90"
                 style={{
                   border: "1px solid var(--th-border)",

@@ -121,17 +121,17 @@ export function createEditorState(channelsConfig: MessengerChannelsConfig): Chat
 export function defaultWorkflowPackLabel(t: ChannelSettingsTabProps["t"], key: WorkflowPackKey): string {
   switch (key) {
     case "development":
-      return t({ ko: "개발", en: "Development", ja: "開発", zh: "开发" });
+      return t({ ko: "Development", en: "Development", ja: "開発", zh: "开发" });
     case "novel":
-      return t({ ko: "소설", en: "Novel", ja: "小説", zh: "小说" });
+      return t({ ko: "Novel", en: "Novel", ja: "小説", zh: "小说" });
     case "report":
-      return t({ ko: "보고서", en: "Report", ja: "レポート", zh: "报告" });
+      return t({ ko: "Report", en: "Report", ja: "レポート", zh: "报告" });
     case "video_preprod":
-      return t({ ko: "영상기획", en: "Video Preprod", ja: "映像企画", zh: "视频策划" });
+      return t({ ko: "Video Preprod", en: "Video Preprod", ja: "映像企画", zh: "视频策划" });
     case "web_research_report":
-      return t({ ko: "웹서치+리포트", en: "Web Research", ja: "Web調査", zh: "网页调研" });
+      return t({ ko: "Web Research", en: "Web Research", ja: "Web調査", zh: "网页调研" });
     case "roleplay":
-      return t({ ko: "롤플레이", en: "Roleplay", ja: "ロールプレイ", zh: "角色扮演" });
+      return t({ ko: "Roleplay", en: "Roleplay", ja: "ロールプレイ", zh: "角色扮演" });
     default:
       return key;
   }

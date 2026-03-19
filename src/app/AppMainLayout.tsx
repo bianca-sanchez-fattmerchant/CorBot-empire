@@ -4,6 +4,7 @@ import OfficeView from "../components/OfficeView";
 import Dashboard from "../components/Dashboard";
 import TaskBoard from "../components/TaskBoard";
 import AgentManager from "../components/AgentManager";
+import OfficePackManager from "../components/OfficePackManager";
 import SkillsLibrary from "../components/SkillsLibrary";
 import SettingsPanel from "../components/SettingsPanel";
 import { I18nProvider } from "../i18n";
@@ -21,12 +22,14 @@ import type {
   Task,
   WorkflowPackKey,
 } from "../types";
+import * as api from "../api";
 import type { UpdateStatus } from "../api";
 import type { OAuthCallbackResult, RoomThemeMap, View } from "./types";
 import AppHeaderBar from "./AppHeaderBar";
 import {
   buildOfficePackStarterAgents,
   buildOfficePackPresentation,
+  getOfficePackSeedTargetCount,
   getOfficePackRoomThemes,
   listOfficePackOptions,
   normalizeOfficeWorkflowPack,
@@ -197,7 +200,10 @@ export default function AppMainLayout({
   const uiLanguage =
     labels.uiLanguage === "ko" || labels.uiLanguage === "ja" || labels.uiLanguage === "zh" ? labels.uiLanguage : "en";
   const officePackKey = normalizeOfficeWorkflowPack(activeOfficeWorkflowPack);
-  const officePackOptions = useMemo(() => listOfficePackOptions(uiLanguage), [uiLanguage]);
+  const officePackOptions = useMemo(
+    () => listOfficePackOptions(uiLanguage, settings.officePackNames),
+    [settings.officePackNames, uiLanguage],
+  );
   const officePackLabel =
     labels.uiLanguage === "ko"
       ? "오피스 팩"
@@ -217,7 +223,6 @@ export default function AppMainLayout({
     () =>
       buildOfficePackPresentation({
         packKey: officePackKey,
-      getOfficePackSeedTargetCount,
         locale: uiLanguage,
         departments,
         agents,
@@ -334,6 +339,73 @@ export default function AppMainLayout({
     [onCreateTask, officePackKey],
   );
 
+  const handleRenameOfficePack = useCallback(
+    async (packKey: WorkflowPackKey, nextName: string) => {
+      const trimmed = String(nextName ?? "").trim();
+      const nextOfficePackNames = {
+        ...(settings.officePackNames ?? {}),
+      } as Partial<Record<WorkflowPackKey, string>>;
+      if (trimmed.length > 0) {
+        nextOfficePackNames[packKey] = trimmed;
+      } else {
+        delete nextOfficePackNames[packKey];
+      }
+      await onSaveSettings({
+        ...settings,
+        officePackNames: nextOfficePackNames,
+      });
+    },
+    [onSaveSettings, settings],
+  );
+
+  const handleDeleteOfficePack = useCallback(
+    async (packKey: WorkflowPackKey) => {
+      if (packKey === "development") return;
+
+      const scopedAgents = agents.filter((agent) => {
+        const workflowPackKey = String(agent.workflow_pack_key ?? "").trim();
+        if (workflowPackKey === packKey) return true;
+        return String(agent.id ?? "").startsWith(`${packKey}-seed-`);
+      });
+
+      if (scopedAgents.length > 0) {
+        await Promise.allSettled(scopedAgents.map((agent) => api.deleteAgent(agent.id)));
+      }
+
+      const nextProfiles = {
+        ...(settings.officePackProfiles ?? {}),
+      };
+      delete nextProfiles[packKey];
+
+      const nextHydratedPacks = (settings.officePackHydratedPacks ?? []).filter(
+        (value) => String(value ?? "").trim() !== packKey,
+      );
+
+      const nextOfficePackNames = {
+        ...(settings.officePackNames ?? {}),
+      } as Partial<Record<WorkflowPackKey, string>>;
+      delete nextOfficePackNames[packKey];
+
+      const deletingActivePack = officePackKey === packKey;
+      const nextOfficeWorkflowPack: WorkflowPackKey = deletingActivePack ? "development" : officePackKey;
+
+      await onSaveSettings({
+        ...settings,
+        officeWorkflowPack: nextOfficeWorkflowPack,
+        officePackProfiles: nextProfiles,
+        officePackHydratedPacks: nextHydratedPacks,
+        officePackNames: nextOfficePackNames,
+      });
+
+      if (deletingActivePack) {
+        onChangeOfficeWorkflowPack("development");
+      } else {
+        onAgentsChange();
+      }
+    },
+    [agents, officePackKey, onAgentsChange, onChangeOfficeWorkflowPack, onSaveSettings, settings],
+  );
+
   return (
     <I18nProvider language={labels.uiLanguage}>
       <div className="app-shell flex h-[100dvh] min-h-[100dvh] overflow-hidden">
@@ -405,7 +477,7 @@ export default function AppMainLayout({
             onOpenAnnouncement={onOpenAnnouncement}
             onOpenRoomManager={onOpenRoomManager}
             officePackControl={
-              view === "office" || view === "agents" || view === "tasks"
+              view === "office" || view === "packs" || view === "agents" || view === "tasks"
                 ? {
                     label: officePackLabel,
                     value: officePackKey,
@@ -497,6 +569,20 @@ export default function AppMainLayout({
                 themeHighlightTargetId={activeRoomThemeTargetId}
                 onSelectAgent={onSelectAgent}
                 onSelectDepartment={onSelectDepartment}
+              />
+            )}
+
+            {view === "packs" && (
+              <OfficePackManager
+                settings={settings}
+                activeOfficeWorkflowPack={officePackKey}
+                onChangeOfficeWorkflowPack={onChangeOfficeWorkflowPack}
+                onRenameOfficePack={handleRenameOfficePack}
+                onDeleteOfficePack={handleDeleteOfficePack}
+                onOpenAgentsForPack={(packKey) => {
+                  onChangeOfficeWorkflowPack(packKey);
+                  setView("agents");
+                }}
               />
             )}
 

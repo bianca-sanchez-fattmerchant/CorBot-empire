@@ -113,7 +113,7 @@ export default function SkillsGrid({
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="text-xs text-slate-400">
                     <span className="text-empire-green font-medium">{skill.installsDisplay}</span>{" "}
-                    {t({ ko: "설치", en: "installs", ja: "インストール", zh: "安装" })}
+                    {t({ ko: "installs", en: "installs", ja: "インストール", zh: "安装" })}
                   </span>
                   <div className="flex flex-col gap-1">
                     <button
@@ -126,7 +126,7 @@ export default function SkillsGrid({
                         zh: "让所选 CLI 代表学习此技能",
                       })}
                     >
-                      {t({ ko: "학습", en: "Learn", ja: "学習", zh: "学习" })}
+                      {t({ ko: "Learn", en: "Learn", ja: "学習", zh: "学习" })}
                     </button>
                     <button
                       onClick={() => onCopy(skill)}
@@ -134,8 +134,8 @@ export default function SkillsGrid({
                       title={`npx skills add ${skill.repo}`}
                     >
                       {copiedSkill === skill.name
-                        ? t({ ko: "복사됨", en: "Copied", ja: "コピー済み", zh: "已复制" })
-                        : t({ ko: "복사", en: "Copy", ja: "コピー", zh: "复制" })}
+                        ? t({ ko: "Copied", en: "Copied", ja: "コピー済み", zh: "已复制" })
+                        : t({ ko: "Copy", en: "Copy", ja: "コピー", zh: "复制" })}
                     </button>
                   </div>
                 </div>
@@ -185,7 +185,7 @@ export default function SkillsGrid({
                       {detail.whenToUse.length > 0 && (
                         <div className="space-y-1.5">
                           <div className="text-[10px] text-slate-500 uppercase tracking-wider">
-                            {t({ ko: "사용 시점", en: "When to Use", ja: "使うタイミング", zh: "适用场景" })}
+                            {t({ ko: "When to Use", en: "When to Use", ja: "使うタイミング", zh: "适用场景" })}
                           </div>
                           <ul className="list-disc pl-4 space-y-1 text-[11px] text-slate-300">
                             {detail.whenToUse.slice(0, 6).map((item, idx) => (
@@ -199,12 +199,12 @@ export default function SkillsGrid({
                         {detail.weeklyInstalls && (
                           <span className="text-slate-400">
                             <span className="text-empire-green font-medium">{detail.weeklyInstalls}</span>{" "}
-                            {t({ ko: "주간 설치", en: "weekly", ja: "週間", zh: "周安装" })}
+                            {t({ ko: "weekly", en: "weekly", ja: "週間", zh: "周安装" })}
                           </span>
                         )}
                         {detail.firstSeen && (
                           <span className="text-slate-500">
-                            {t({ ko: "최초 등록", en: "First seen", ja: "初登録", zh: "首次发现" })}:{" "}
+                            {t({ ko: "First seen", en: "First seen", ja: "初登録", zh: "首次发现" })}:{" "}
                             {formatFirstSeen(detail.firstSeen, localeTag)}
                           </span>
                         )}
@@ -268,7 +268,7 @@ export default function SkillsGrid({
         <div className="text-center py-16">
           <div className="text-4xl mb-3">🔍</div>
           <div className="text-slate-400 text-sm">
-            {t({ ko: "검색 결과가 없습니다", en: "No search results", ja: "検索結果はありません", zh: "没有搜索结果" })}
+            {t({ ko: "No search results", en: "No search results", ja: "検索結果はありません", zh: "没有搜索结果" })}
           </div>
           <div className="text-slate-500 text-xs mt-1">
             {t({

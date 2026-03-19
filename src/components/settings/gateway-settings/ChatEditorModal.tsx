@@ -61,21 +61,21 @@ export default function ChatEditorModal({
         <div className="flex items-center justify-between">
           <h4 className="text-sm font-semibold text-slate-100">
             {editor.mode === "create"
-              ? t({ ko: "새 채팅 추가", en: "Add Chat", ja: "チャット追加", zh: "新增聊天" })
-              : t({ ko: "채팅 편집", en: "Edit Chat", ja: "チャット編集", zh: "编辑聊天" })}
+              ? t({ ko: "Add Chat", en: "Add Chat", ja: "チャット追加", zh: "新增聊天" })
+              : t({ ko: "Edit Chat", en: "Edit Chat", ja: "チャット編集", zh: "编辑聊天" })}
           </h4>
           <button
             onClick={closeEditorModal}
             className="px-2 py-1 text-xs rounded border border-slate-600 text-slate-300 hover:bg-slate-800"
           >
-            {t({ ko: "닫기", en: "Close", ja: "閉じる", zh: "关闭" })}
+            {t({ ko: "Close", en: "Close", ja: "閉じる", zh: "关闭" })}
           </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="block text-xs text-slate-400 mb-1">
-              {t({ ko: "메신저", en: "Messenger", ja: "メッセンジャー", zh: "消息渠道" })}
+              {t({ ko: "Messenger", en: "Messenger", ja: "メッセンジャー", zh: "消息渠道" })}
             </label>
             <select
               value={editor.channel}
@@ -100,7 +100,7 @@ export default function ChatEditorModal({
 
           <div>
             <label className="block text-xs text-slate-400 mb-1">
-              {t({ ko: "활성 여부", en: "Enabled", ja: "有効", zh: "启用" })}
+              {t({ ko: "Enabled", en: "Enabled", ja: "有効", zh: "启用" })}
             </label>
             <label className="inline-flex items-center gap-2 text-xs text-slate-300 h-[38px]">
               <input
@@ -110,15 +110,15 @@ export default function ChatEditorModal({
                 className="accent-blue-500"
               />
               {editor.enabled
-                ? t({ ko: "활성", en: "Enabled", ja: "有効", zh: "启用" })
-                : t({ ko: "비활성", en: "Disabled", ja: "無効", zh: "禁用" })}
+                ? t({ ko: "Enabled", en: "Enabled", ja: "有効", zh: "启用" })
+                : t({ ko: "Disabled", en: "Disabled", ja: "無効", zh: "禁用" })}
             </label>
           </div>
         </div>
 
         <div>
           <label className="block text-xs text-slate-400 mb-1">
-            {t({ ko: "토큰", en: "Token", ja: "トークン", zh: "令牌" })}
+            {t({ ko: "Token", en: "Token", ja: "トークン", zh: "令牌" })}
           </label>
           <input
             type="password"
@@ -137,7 +137,7 @@ export default function ChatEditorModal({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="block text-xs text-slate-400 mb-1">
-              {t({ ko: "채팅 이름", en: "Chat Name", ja: "チャット名", zh: "聊天名称" })}
+              {t({ ko: "Chat Name", en: "Chat Name", ja: "チャット名", zh: "聊天名称" })}
             </label>
             <input
               value={editor.name}
@@ -154,7 +154,7 @@ export default function ChatEditorModal({
 
           <div>
             <label className="block text-xs text-slate-400 mb-1">
-              {t({ ko: "채널/대상 ID", en: "Channel/Target ID", ja: "チャンネル/対象 ID", zh: "频道/目标 ID" })}
+              {t({ ko: "Channel/Target ID", en: "Channel/Target ID", ja: "チャンネル/対象 ID", zh: "频道/目标 ID" })}
             </label>
             {editor.channel === "discord" && discordChannels.length > 0 && (
               <select
@@ -243,7 +243,7 @@ export default function ChatEditorModal({
 
         <div>
           <label className="block text-xs text-slate-400 mb-1">
-            {t({ ko: "대화 Agent", en: "Conversation Agent", ja: "担当Agent", zh: "对话 Agent" })}
+            {t({ ko: "Conversation Agent", en: "Conversation Agent", ja: "担当Agent", zh: "对话 Agent" })}
           </label>
           <AgentSelect
             agents={agents}
@@ -261,7 +261,7 @@ export default function ChatEditorModal({
 
         <div>
           <label className="block text-xs text-slate-400 mb-1">
-            {t({ ko: "워크플로우 팩", en: "Workflow Pack", ja: "ワークフローパック", zh: "工作流包" })}
+            {t({ ko: "Workflow Pack", en: "Workflow Pack", ja: "ワークフローパック", zh: "工作流包" })}
           </label>
           <select
             value={editor.workflowPackKey}
@@ -276,7 +276,7 @@ export default function ChatEditorModal({
             {workflowPackOptions.map((pack) => (
               <option key={pack.key} value={pack.key} disabled={!pack.enabled && pack.key !== editor.workflowPackKey}>
                 {pack.name}
-                {!pack.enabled ? ` (${t({ ko: "비활성", en: "disabled", ja: "無効", zh: "禁用" })})` : ""}
+                {!pack.enabled ? ` (${t({ ko: "disabled", en: "disabled", ja: "無効", zh: "禁用" })})` : ""}
               </option>
             ))}
           </select>
@@ -316,13 +316,13 @@ export default function ChatEditorModal({
             onClick={closeEditorModal}
             className="px-3 py-1.5 text-xs rounded border border-slate-600 text-slate-300 hover:bg-slate-800"
           >
-            {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+            {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
           </button>
           <button
             onClick={handleSaveEditor}
             className="px-3 py-1.5 text-xs rounded bg-blue-600 text-white hover:bg-blue-500"
           >
-            {t({ ko: "확인", en: "Confirm", ja: "確認", zh: "确认" })}
+            {t({ ko: "Confirm", en: "Confirm", ja: "確認", zh: "确认" })}
           </button>
         </div>
       </div>

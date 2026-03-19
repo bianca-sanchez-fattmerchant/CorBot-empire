@@ -1,4 +1,18 @@
 import type { View } from "./types";
+import type { WorkflowPackKey } from "../types";
+
+interface OfficePackControl {
+  label: string;
+  value: WorkflowPackKey;
+  options: Array<{
+    key: WorkflowPackKey;
+    label: string;
+    summary: string;
+    slug: string;
+    accent: number;
+  }>;
+  onChange: (nextPackKey: WorkflowPackKey) => void;
+}
 
 interface AppHeaderBarProps {
   currentView: View;
@@ -21,6 +35,7 @@ interface AppHeaderBarProps {
   onOpenReportHistory: () => void;
   onOpenAnnouncement: () => void;
   onOpenRoomManager: () => void;
+  officePackControl?: OfficePackControl | null;
   onToggleTheme: () => void;
   onToggleMobileHeaderMenu: () => void;
   onCloseMobileHeaderMenu: () => void;
@@ -47,6 +62,7 @@ export default function AppHeaderBar({
   onOpenReportHistory,
   onOpenAnnouncement,
   onOpenRoomManager,
+  officePackControl,
   onToggleTheme,
   onToggleMobileHeaderMenu,
   onCloseMobileHeaderMenu,
@@ -128,6 +144,29 @@ export default function AppHeaderBar({
         <button onClick={onOpenRoomManager} className="header-action-btn header-action-btn-secondary mobile-hidden">
           {roomManagerLabel}
         </button>
+        {officePackControl ? (
+          <label className="hidden items-center gap-2 mobile-hidden xl:flex">
+            <span className="text-xs font-medium" style={{ color: "var(--th-text-muted)" }}>
+              {officePackControl.label}
+            </span>
+            <select
+              value={officePackControl.value}
+              onChange={(event) => officePackControl.onChange(event.target.value as WorkflowPackKey)}
+              className="rounded-lg px-2 py-1 text-xs"
+              style={{
+                background: "var(--th-bg-surface)",
+                border: "1px solid var(--th-border)",
+                color: "var(--th-text-secondary)",
+              }}
+            >
+              {officePackControl.options.map((option) => (
+                <option key={option.key} value={option.key}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
         <button
           onClick={onToggleTheme}
           className="theme-toggle-btn"

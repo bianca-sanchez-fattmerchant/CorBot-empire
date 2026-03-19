@@ -70,7 +70,7 @@ export default function BulkHideModal({ tasks, hiddenTaskIds, onClose, onApply }
           <button
             onClick={onClose}
             className="rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-800 hover:text-white"
-            title={t({ ko: "닫기", en: "Close", ja: "閉じる", zh: "关闭" })}
+            title={t({ ko: "Close", en: "Close", ja: "閉じる", zh: "关闭" })}
           >
             ✕
           </button>
@@ -117,14 +117,14 @@ export default function BulkHideModal({ tasks, hiddenTaskIds, onClose, onApply }
             onClick={onClose}
             className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs text-slate-300 transition hover:bg-slate-800 hover:text-white"
           >
-            {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+            {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
           </button>
           <button
             onClick={() => onApply(selectedStatuses)}
             disabled={hideTargetCount <= 0}
             className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
           >
-            {t({ ko: "숨김 적용", en: "Apply hide", ja: "非表示適用", zh: "应用隐藏" })} ({hideTargetCount})
+            {t({ ko: "Apply hide", en: "Apply hide", ja: "非表示適用", zh: "应用隐藏" })} ({hideTargetCount})
           </button>
         </div>
       </div>

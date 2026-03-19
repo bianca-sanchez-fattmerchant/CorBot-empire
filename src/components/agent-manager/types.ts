@@ -2,6 +2,33 @@ import type { Agent, Department, OfficePackProfile, WorkflowPackKey } from "../.
 
 export type Translator = (ko: string, en: string) => string;
 
+export type AgentUpdatePayload = Partial<
+  Pick<
+    Agent,
+    | "name"
+    | "name_ko"
+    | "name_ja"
+    | "name_zh"
+    | "status"
+    | "current_task_id"
+    | "department_id"
+    | "role"
+    | "acts_as_planning_leader"
+    | "cli_provider"
+    | "oauth_account_id"
+    | "api_provider_id"
+    | "api_model"
+    | "cli_model"
+    | "cli_reasoning_level"
+    | "avatar_emoji"
+    | "sprite_number"
+    | "personality"
+  >
+> & {
+  workflow_pack_key?: WorkflowPackKey;
+  force_planning_leader_override?: boolean;
+};
+
 export interface AgentManagerProps {
   agents: Agent[];
   departments: Department[];

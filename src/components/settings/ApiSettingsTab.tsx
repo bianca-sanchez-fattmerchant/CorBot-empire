@@ -62,7 +62,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
       <section className="space-y-4 rounded-xl border border-slate-700/50 bg-slate-800/60 p-4 sm:p-5">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
-            {t({ ko: "API 프로바이더", en: "API Providers", ja: "API プロバイダー", zh: "API 提供方" })}
+            {t({ ko: "API Providers", en: "API Providers", ja: "API プロバイダー", zh: "API 提供方" })}
           </h3>
           <div className="flex items-center gap-2">
             <button
@@ -72,14 +72,14 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
               disabled={apiProvidersLoading || apiPresetsLoading}
               className="text-xs text-blue-400 transition-colors hover:text-blue-300 disabled:opacity-50"
             >
-              {t({ ko: "새로고침", en: "Refresh", ja: "更新", zh: "刷新" })}
+              {t({ ko: "Refresh", en: "Refresh", ja: "更新", zh: "刷新" })}
             </button>
             {!apiAddMode && (
               <button
                 onClick={openAddMode}
                 className="rounded-lg bg-emerald-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-emerald-500"
               >
-                + {t({ ko: "추가", en: "Add", ja: "追加", zh: "添加" })}
+                + {t({ ko: "Add", en: "Add", ja: "追加", zh: "添加" })}
               </button>
             )}
           </div>
@@ -98,7 +98,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
           <div className="space-y-3 rounded-lg border border-blue-500/30 bg-slate-900/50 p-4">
             <h4 className="text-xs font-semibold uppercase text-blue-400">
               {apiEditingId
-                ? t({ ko: "프로바이더 수정", en: "Edit Provider", ja: "プロバイダー編集", zh: "编辑提供方" })
+                ? t({ ko: "Edit Provider", en: "Edit Provider", ja: "プロバイダー編集", zh: "编辑提供方" })
                 : t({
                     ko: "새 프로바이더 추가",
                     en: "Add New Provider",
@@ -109,7 +109,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
 
             <div>
               <label className="mb-1 block text-xs text-slate-400">
-                {t({ ko: "공식 프리셋", en: "Official Presets", ja: "公式プリセット", zh: "官方预设" })}
+                {t({ ko: "Official Presets", en: "Official Presets", ja: "公式プリセット", zh: "官方预设" })}
               </label>
               <p className="mb-2 text-[11px] text-slate-500">
                 {t({
@@ -183,7 +183,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
                     rel="noreferrer"
                     className="text-[11px] text-blue-400 hover:text-blue-300"
                   >
-                    {t({ ko: "문서 열기", en: "Open docs", ja: "ドキュメントを開く", zh: "打开文档" })}
+                    {t({ ko: "Open docs", en: "Open docs", ja: "ドキュメントを開く", zh: "打开文档" })}
                   </a>
                 </div>
                 <div className="mt-2 text-[11px] text-slate-300">{selectedOfficialPreset.api_key_hint}</div>
@@ -202,7 +202,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
 
             <div>
               <label className="mb-1 block text-xs text-slate-400">
-                {t({ ko: "일반 타입", en: "Generic Type", ja: "汎用タイプ", zh: "通用类型" })}
+                {t({ ko: "Generic Type", en: "Generic Type", ja: "汎用タイプ", zh: "通用类型" })}
               </label>
               <p className="mb-2 text-[11px] text-slate-500">
                 {isOfficialPresetSelected
@@ -251,7 +251,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
 
             <div>
               <label className="mb-1 block text-xs text-slate-400">
-                {t({ ko: "이름", en: "Name", ja: "名前", zh: "名称" })}
+                {t({ ko: "Name", en: "Name", ja: "名前", zh: "名称" })}
               </label>
               <input
                 type="text"
@@ -352,16 +352,16 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
                 className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {apiSaving
-                  ? t({ ko: "저장 중...", en: "Saving...", ja: "保存中...", zh: "保存中..." })
+                  ? t({ ko: "Saving...", en: "Saving...", ja: "保存中...", zh: "保存中..." })
                   : apiEditingId
-                    ? t({ ko: "수정", en: "Update", ja: "更新", zh: "更新" })
-                    : t({ ko: "추가", en: "Add", ja: "追加", zh: "添加" })}
+                    ? t({ ko: "Update", en: "Update", ja: "更新", zh: "更新" })
+                    : t({ ko: "Add", en: "Add", ja: "追加", zh: "添加" })}
               </button>
               <button
                 onClick={resetForm}
                 className="rounded-lg bg-slate-700 px-4 py-2 text-xs font-medium text-slate-300 transition-colors hover:bg-slate-600"
               >
-                {t({ ko: "취소", en: "Cancel", ja: "キャンセル", zh: "取消" })}
+                {t({ ko: "Cancel", en: "Cancel", ja: "キャンセル", zh: "取消" })}
               </button>
             </div>
           </div>
@@ -369,7 +369,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
 
         {apiProvidersLoading ? (
           <div className="animate-pulse py-4 text-center text-xs text-slate-500">
-            {t({ ko: "불러오는 중...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
+            {t({ ko: "Loading...", en: "Loading...", ja: "読み込み中...", zh: "加载中..." })}
           </div>
         ) : apiProviders.length === 0 && !apiAddMode ? (
           <div className="py-6 text-center text-xs text-slate-500">
@@ -426,15 +426,15 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
                         onClick={() => void handleApiProviderTest(provider.id)}
                         disabled={apiTesting === provider.id}
                         className="rounded border border-cyan-500/30 bg-cyan-600/20 px-2 py-1 text-[10px] text-cyan-400 transition-colors hover:bg-cyan-600/30 disabled:opacity-50"
-                        title={t({ ko: "연결 테스트", en: "Test Connection", ja: "接続テスト", zh: "连接测试" })}
+                        title={t({ ko: "Test Connection", en: "Test Connection", ja: "接続テスト", zh: "连接测试" })}
                       >
-                        {apiTesting === provider.id ? "..." : t({ ko: "테스트", en: "Test", ja: "テスト", zh: "测试" })}
+                        {apiTesting === provider.id ? "..." : t({ ko: "Test", en: "Test", ja: "テスト", zh: "测试" })}
                       </button>
                       <button
                         onClick={() => handleApiEditStart(provider)}
                         className="rounded border border-slate-500/30 bg-slate-600/30 px-2 py-1 text-[10px] text-slate-400 transition-colors hover:bg-slate-600/50 hover:text-slate-200"
                       >
-                        {t({ ko: "수정", en: "Edit", ja: "編集", zh: "编辑" })}
+                        {t({ ko: "Edit", en: "Edit", ja: "編集", zh: "编辑" })}
                       </button>
                       <button
                         onClick={() => void handleApiProviderToggle(provider.id, provider.enabled)}
@@ -445,14 +445,14 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
                         }`}
                       >
                         {provider.enabled
-                          ? t({ ko: "비활성화", en: "Disable", ja: "無効化", zh: "禁用" })
-                          : t({ ko: "활성화", en: "Enable", ja: "有効化", zh: "启用" })}
+                          ? t({ ko: "Disable", en: "Disable", ja: "無効化", zh: "禁用" })
+                          : t({ ko: "Enable", en: "Enable", ja: "有効化", zh: "启用" })}
                       </button>
                       <button
                         onClick={() => void handleApiProviderDelete(provider.id)}
                         className="rounded border border-red-500/30 bg-red-600/20 px-2 py-1 text-[10px] text-red-400 transition-colors hover:bg-red-600/30"
                       >
-                        {t({ ko: "삭제", en: "Delete", ja: "削除", zh: "删除" })}
+                        {t({ ko: "Delete", en: "Delete", ja: "削除", zh: "删除" })}
                       </button>
                     </div>
                   </div>
@@ -478,7 +478,7 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
                         className="text-[11px] text-slate-400 transition-colors hover:text-slate-200"
                       >
                         {isExpanded ? "-" : "+"}{" "}
-                        {t({ ko: "모델 목록", en: "Models", ja: "モデル一覧", zh: "模型列表" })} (
+                        {t({ ko: "Models", en: "Models", ja: "モデル一覧", zh: "模型列表" })} (
                         {provider.models_cache.length})
                         {provider.models_cached_at && (
                           <span className="ml-1 text-slate-600">
@@ -529,13 +529,13 @@ export default function ApiSettingsTab({ t, localeTag, apiState }: ApiSettingsTa
                                     zh: "分配给代理",
                                   })}
                                 >
-                                  {t({ ko: "배정", en: "Assign", ja: "割当", zh: "分配" })}
+                                  {t({ ko: "Assign", en: "Assign", ja: "割当", zh: "分配" })}
                                 </button>
                               </div>
                             ))}
                             {filteredModels.length === 0 && (
                               <div className="text-[11px] text-slate-500 text-center py-2">
-                                {t({ ko: "검색 결과 없음", en: "No results", ja: "結果なし", zh: "无结果" })}
+                                {t({ ko: "No results", en: "No results", ja: "結果なし", zh: "无结果" })}
                               </div>
                             )}
                           </div>

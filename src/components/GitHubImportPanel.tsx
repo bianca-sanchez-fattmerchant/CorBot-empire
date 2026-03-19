@@ -276,7 +276,7 @@ export default function GitHubImportPanel({ onComplete, onCancel }: GitHubImport
     return (
       <div className="flex items-center justify-center p-8">
         <p className="text-sm text-slate-400">
-          {t({ ko: "확인 중...", en: "Checking...", ja: "確認中...", zh: "检查中..." })}
+          {t({ ko: "Checking...", en: "Checking...", ja: "確認中...", zh: "检查中..." })}
         </p>
       </div>
     );

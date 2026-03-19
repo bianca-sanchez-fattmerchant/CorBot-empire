@@ -54,7 +54,7 @@ export default function SkillsLibrary({ agents }: SkillsLibraryProps) {
             onClick={vm.loadSkills}
             className="mt-4 px-4 py-2 text-sm bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-600/30 transition-all"
           >
-            {t({ ko: "다시 시도", en: "Retry", ja: "再試行", zh: "重试" })}
+            {t({ ko: "Retry", en: "Retry", ja: "再試行", zh: "重试" })}
           </button>
         </div>
       </div>

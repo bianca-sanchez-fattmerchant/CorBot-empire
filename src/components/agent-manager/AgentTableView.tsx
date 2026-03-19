@@ -2,7 +2,7 @@ import type { Agent, Department } from "../../types";
 import { localeName } from "../../i18n";
 import AgentAvatar from "../AgentAvatar";
 import { CLI_PROVIDERS, ROLES, ROLE_LABEL, STATUS_DOT } from "./constants";
-import type { Translator } from "./types";
+import type { AgentUpdatePayload, Translator } from "./types";
 
 interface AgentTableViewProps {
   tr: Translator;
@@ -16,7 +16,7 @@ interface AgentTableViewProps {
   setConfirmDeleteId: (id: string | null) => void;
   onEditAgent: (agent: Agent) => void;
   onDeleteAgent: (agentId: string) => void;
-  onUpdateAgent: (agentId: string, updates: Partial<Agent>) => Promise<void>;
+  onUpdateAgent: (agentId: string, updates: AgentUpdatePayload) => Promise<void>;
   saving: boolean;
 }
 
@@ -83,7 +83,7 @@ export default function AgentTableView({
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       <div className="relative shrink-0">
-                        <AgentAvatar agent={agent} spriteMap={spriteMap} size={36} rounded="lg" />
+                        <AgentAvatar agent={agent} spriteMap={spriteMap} size={36} rounded="xl" />
                         <div
                           className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 ${STATUS_DOT[agent.status] ?? STATUS_DOT.idle}`}
                           style={{ borderColor: "var(--th-card-bg)" }}

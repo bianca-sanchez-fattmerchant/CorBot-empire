@@ -396,6 +396,7 @@ export type OfficePackProfiles = Partial<Record<WorkflowPackKey, OfficePackProfi
 export interface CompanySettings {
   companyName: string;
   officePackName?: string;
+  officePackNames?: Partial<Record<WorkflowPackKey, string>>;
   ceoName: string;
   defaultProjectPath?: string;
   autoAssign: boolean;

@@ -232,7 +232,7 @@ export default function SettingsPanel({
               setDeviceStatus(result.status);
               setDeviceError(
                 result.status === "expired"
-                  ? t({ ko: "코드가 만료되었습니다", en: "Code expired", ja: "コードの期限切れ", zh: "代码已过期" })
+                  ? t({ ko: "Code expired", en: "Code expired", ja: "コードの期限切れ", zh: "代码已过期" })
                   : t({
                       ko: "인증이 거부되었습니다",
                       en: "Authentication denied",
@@ -248,7 +248,7 @@ export default function SettingsPanel({
               pollTimerRef.current = null;
               setDeviceStatus("error");
               setDeviceError(
-                result.error || t({ ko: "알 수 없는 오류", en: "Unknown error", ja: "不明なエラー", zh: "未知错误" }),
+                result.error || t({ ko: "Unknown error", en: "Unknown error", ja: "不明なエラー", zh: "未知错误" }),
               );
               return;
             }
@@ -396,7 +396,7 @@ export default function SettingsPanel({
   return (
     <div className="mx-auto max-w-2xl space-y-4 sm:space-y-6">
       <h2 className="text-xl font-bold flex items-center gap-2" style={{ color: "var(--th-text-heading)" }}>
-        ⚙️ {t({ ko: "설정", en: "Settings", ja: "設定", zh: "设置" })}
+        ⚙️ {t({ ko: "Settings", en: "Settings", ja: "設定", zh: "设置" })}
       </h2>
 
       <SettingsTabNav tab={tab} setTab={setTab} t={t} />

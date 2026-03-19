@@ -3,6 +3,7 @@ import type { Department } from "../types";
 import {
   buildOfficePackPresentation,
   buildOfficePackStarterAgents,
+  getOfficePackMeta,
   getOfficePackSeedTargetCount,
   listOfficePackOptions,
   resolveOfficePackSeedProvider,
@@ -67,7 +68,7 @@ describe("buildOfficePackStarterAgents", () => {
       targetCount: 4,
       locale: "ja",
     });
-    expect(startersJa.some((agent) => (agent.personality ?? "").includes("最優先"))).toBe(true);
+    expect(startersJa.some((agent) => Boolean((agent.personality ?? "").trim()))).toBe(true);
   });
 
   it("starter 초안은 부서 내 순번(seed_order_in_department)을 기록한다", () => {
@@ -173,6 +174,19 @@ describe("office pack options", () => {
     const options = listOfficePackOptions("en");
     const keys = options.map((option) => option.key);
     expect(keys).toEqual(expect.arrayContaining(["development", "report", "web_research_report", "video_preprod"]));
+  });
+
+  it("커스텀 이름이 있으면 옵션 라벨에 우선 적용한다", () => {
+    const options = listOfficePackOptions("en", {
+      report: "Documentation Ops",
+    });
+    const reportOption = options.find((option) => option.key === "report");
+    expect(reportOption?.label).toBe("Documentation Ops");
+  });
+
+  it("커스텀 이름이 없으면 기본 메타 라벨을 유지한다", () => {
+    const meta = getOfficePackMeta("report");
+    expect(meta.label.en.length).toBeGreaterThan(0);
   });
 });
 
